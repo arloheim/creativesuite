@@ -1,0 +1,75 @@
+name: GregoCommands
+description: Extended commands for working in creative worlds in Minecraft.
+version: 1.0.0
+author: danae
+website: https://github.com/danae/gregocommands
+main: dev.danae.gregocommands.plugin.GregoCommandsPlugin
+api-version: 1.20
+
+
+commands:
+  gregocommands:
+    description: Executes various administration commands.
+    permission: gregocommands.admin
+    usage: "Usage: /<command> reload | version"
+
+  hotbar:
+    description: Saves and loads shared hotbars.
+    usage: "Usage: /<command> list | load <name> | overwrite <name> | remove <name> | save <name>"
+    aliases: [hb]
+
+  charmap:
+    description: Displays shared Unicode characters for easy copying.
+    usage: "Usage: /<command> [add <characters> | remove <characters>]"
+    aliases: [cm]
+    
+    
+permissions:
+  gregocommands.admin:
+    description: Allows the player to use the /gregocommands command.
+    default: op
+
+  gregocommands.hotbar:
+    description: Allows the player to use the /hotbar command.
+    default: true
+    children:
+      gregocommands.hotbar.list: true
+      gregocommands.hotbar.load: true
+      gregocommands.hotbar.remove: true
+      gregocommands.hotbar.save: true
+
+  gregocommands.hotbar.list:
+    description: Allows the player to use the /hotbar list command.
+    default: true
+
+  gregocommands.hotbar.load:
+    description: Allows the player to use the /hotbar load command.
+    default: true
+
+  gregocommands.hotbar.remove:
+    description: Allows the player to use the /hotbar remove command.
+    default: true
+
+  gregocommands.hotbar.save:
+    description: Allows the player to use the /hotbar save command.
+    default: true
+
+  gregocommands.charmap:
+    description: Allows the player to use the /charmap command.
+    default: true
+    children:
+      gregocommands.charmap.list: true
+      gregocommands.charmap.add: true
+      gregocommands.charmap.remove: true
+
+  gregocommands.charmap.list:
+    description: Allows the player to use the /charmap command.
+    default: true
+
+  gregocommands.charmap.add:
+    description: Allows the player to use the /charmap add command.
+    default: true
+
+  gregocommands.charmap.remove:
+    description: Allows the player to use the /charmap remove command.
+    default: true
