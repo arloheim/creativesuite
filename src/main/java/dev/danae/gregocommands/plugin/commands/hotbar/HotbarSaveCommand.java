@@ -14,7 +14,7 @@ import org.bukkit.GameMode;
 
 public class HotbarSaveCommand extends PluginCommand
 {
-  // Boolean that indicates if hotsbars automatically get overwritten
+  // Boolean that indicates if hotbars automatically get overwritten
   private final boolean overwriteHotbars;
 
   // Constructor

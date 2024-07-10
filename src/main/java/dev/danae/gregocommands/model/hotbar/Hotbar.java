@@ -8,6 +8,7 @@ import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
+
 public class Hotbar implements ConfigurationSerializable
 {
   // Constants that defines the index and size of the quickbar

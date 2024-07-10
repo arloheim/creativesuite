@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 import org.bukkit.configuration.ConfigurationSection;
 
+
 public class Charmap extends Data
 {
   // The code points of the charmap
