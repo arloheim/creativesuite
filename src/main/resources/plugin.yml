@@ -1,6 +1,6 @@
 name: GregoCommands
 description: Extended commands for working in creative worlds in Minecraft.
-version: 1.0.0
+version: 1.1.0
 author: danae
 website: https://github.com/danae/gregocommands
 main: dev.danae.gregocommands.plugin.GregoCommandsPlugin
@@ -22,6 +22,16 @@ commands:
     description: Displays shared Unicode characters for easy copying.
     usage: "Usage: /<command> [add <characters> | remove <characters>]"
     aliases: [cm]
+
+  alias:
+    description: Defines shared aliases for long commands.
+    usage: "Usage: /<command> list | overwrite <name> <command> | remove <name> | run <name> | save <name> <command>"
+    aliases: [al]
+
+  run:
+    description: Runs shared aliases for long commands.
+    usage: "Usage: /<command> <name>"
+    aliases: [r]
     
     
 permissions:
@@ -72,4 +82,29 @@ permissions:
 
   gregocommands.charmap.remove:
     description: Allows the player to use the /charmap remove command.
+    default: true
+
+  gregocommands.alias:
+    description: Allows the player to use the /alias command.
+    default: true
+    children:
+      gregocommands.hotbar.list: true
+      gregocommands.hotbar.remove: true
+      gregocommands.hotbar.run: true
+      gregocommands.hotbar.save: true
+
+  gregocommands.alias.list:
+    description: Allows the player to use the /alias list command.
+    default: true
+
+  gregocommands.alias.remove:
+    description: Allows the player to use the /alias remove command.
+    default: true
+
+  gregocommands.alias.run:
+    description: Allows the player to use the /alias run and /run commands.
+    default: true
+
+  gregocommands.alias.save:
+    description: Allows the player to use the /alias save command.
     default: true

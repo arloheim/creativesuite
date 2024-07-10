@@ -1,9 +1,11 @@
 package dev.danae.gregocommands.plugin;
 
+import dev.danae.gregocommands.model.alias.Alias;
 import dev.danae.gregocommands.model.charmap.Charmap;
 import dev.danae.gregocommands.model.hotbar.Hotbar;
 import java.util.Map;
 import java.util.stream.Collectors;
+import javax.xml.stream.events.Namespace;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -126,6 +128,63 @@ public class Formatter
       .append("The characters ", ComponentBuilder.FormatRetention.NONE)
       .append(characters, ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN)
       .append(" have been removed from the charmap", ComponentBuilder.FormatRetention.NONE)
+      .create();
+  }
+
+  // Format an alias list message
+  public static BaseComponent[] formatAliasListMessage(Map<NamespacedKey, Alias> aliases)
+  {
+    var builder = new ComponentBuilder(String.format("%d aliases are defined", aliases.size()));    
+    for (var e : aliases.entrySet().stream().sorted((a, b) -> a.getKey().toString().compareToIgnoreCase(b.getKey().toString())).toList())
+    {      
+      var runCommand =  String.format("/alias run %s", e.getKey().toString());
+
+      builder
+        .append("\n- ", ComponentBuilder.FormatRetention.NONE)
+        .append(e.getKey().toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN).underlined(true)
+          .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, runCommand))
+        .append(": ", ComponentBuilder.FormatRetention.NONE)
+        .append(e.getValue().getCommand(), ComponentBuilder.FormatRetention.NONE);
+    }
+
+    return builder.create();
+  }
+
+  // Format an alias saved message
+  public static BaseComponent[] formatAliasSavedMessage(NamespacedKey key, String command, boolean existingKey)
+  {
+    return new ComponentBuilder()
+      .append("The alias ", ComponentBuilder.FormatRetention.NONE)
+      .append(key.toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN)
+      .append(" has been ", ComponentBuilder.FormatRetention.NONE)
+      .append(existingKey ? "overwritten" : "saved", ComponentBuilder.FormatRetention.NONE)
+      .append(" with command ", ComponentBuilder.FormatRetention.NONE)
+      .append(command, ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN)
+      .create();
+  }
+
+  // Format an alias overwrite message
+  public static BaseComponent[] formatAliasOverwriteMessage(NamespacedKey key, String command)
+  {
+    var overwriteCommand = String.format("/alias overwrite %s %s", key.toString(), command);
+
+    return new ComponentBuilder()
+      .append("The alias ", ComponentBuilder.FormatRetention.NONE)
+      .append(key.toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN)
+      .append(" already exists. Use ", ComponentBuilder.FormatRetention.NONE)
+      .append(overwriteCommand, ComponentBuilder.FormatRetention.NONE).underlined(true)
+        .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, overwriteCommand))
+      .append(" to overwrite the alias", ComponentBuilder.FormatRetention.NONE)
+      .create();
+  }
+  
+  // Format an alias removed message
+  public static BaseComponent[] formatAliasRemovedMessage(NamespacedKey key)
+  {
+    return new ComponentBuilder()
+      .append("The alias ", ComponentBuilder.FormatRetention.NONE)
+      .append(key.toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN)
+      .append(" has been removed", ComponentBuilder.FormatRetention.NONE)
       .create();
   }
 }

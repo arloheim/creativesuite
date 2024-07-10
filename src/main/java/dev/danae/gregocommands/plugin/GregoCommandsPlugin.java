@@ -1,10 +1,15 @@
 package dev.danae.gregocommands.plugin;
 
+import dev.danae.gregocommands.model.alias.Alias;
 import dev.danae.gregocommands.model.charmap.Charmap;
 import dev.danae.gregocommands.model.hotbar.Hotbar;
 import dev.danae.gregocommands.plugin.commands.CommandGroup;
 import dev.danae.gregocommands.plugin.commands.admin.AdminReloadCommand;
 import dev.danae.gregocommands.plugin.commands.admin.AdminVersionCommand;
+import dev.danae.gregocommands.plugin.commands.alias.AliasListCommand;
+import dev.danae.gregocommands.plugin.commands.alias.AliasRemoveCommand;
+import dev.danae.gregocommands.plugin.commands.alias.AliasRunCommand;
+import dev.danae.gregocommands.plugin.commands.alias.AliasSaveCommand;
 import dev.danae.gregocommands.plugin.commands.charmap.CharmapAddCommand;
 import dev.danae.gregocommands.plugin.commands.charmap.CharmapListCommand;
 import dev.danae.gregocommands.plugin.commands.charmap.CharmapRemoveCommand;
@@ -30,6 +35,9 @@ public class GregoCommandsPlugin extends JavaPlugin
   // The configuration map of the defined hotbars
   private DataMap<NamespacedKey, Hotbar> hotbars;
 
+  // The configuration map of the defined aliases
+  private DataMap<NamespacedKey, Alias> aliases;
+
 
   // Return the charmap
   public Charmap getCharmap()
@@ -41,6 +49,12 @@ public class GregoCommandsPlugin extends JavaPlugin
   public Map<NamespacedKey, Hotbar> getDefinedHotbars()
   {
     return this.hotbars;
+  }
+  
+  // Return the defined aliases
+  public Map<NamespacedKey, Alias> getDefinedAliases()
+  {
+    return this.aliases;
   }
   
 
@@ -62,6 +76,7 @@ public class GregoCommandsPlugin extends JavaPlugin
     // Create the components
     this.charmap = new Charmap(this, new File(this.getDataFolder(), "charmap.yml"));
     this.hotbars = new DataMap<>(this, new File(this.getDataFolder(), "hotbars.yml"), Hotbar.class, DataMapKeyType.NAMESPACED_KEY);
+    this.aliases = new DataMap<>(this, new File(this.getDataFolder(), "aliases.yml"), Alias.class, DataMapKeyType.NAMESPACED_KEY);
 
     // Set the command handlers    
     new CommandGroup()
@@ -82,6 +97,17 @@ public class GregoCommandsPlugin extends JavaPlugin
       .registerSubcommand("remove", new CharmapRemoveCommand(this))
       .registerEmptySubcommand(new CharmapListCommand(this))
       .publishCommandHandler(this, this.getCommand("charmap"));
+
+    new CommandGroup()
+      .registerSubcommand("list", new AliasListCommand(this))
+      .registerSubcommand("overwrite", new AliasSaveCommand(this, true))
+      .registerSubcommand("remove", new AliasRemoveCommand(this))
+      .registerSubcommand("save", new AliasSaveCommand(this, false))
+      .registerSubcommand("run", new AliasRunCommand(this))
+      .publishCommandHandler(this, this.getCommand("alias"));
+
+    new AliasRunCommand(this)
+      .publishCommandHandler(this, this.getCommand("run"));
   }
 
 

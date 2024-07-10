@@ -40,4 +40,13 @@ public abstract class PluginCommand extends Command
       .map(key -> key.toString())
       .toList();
   }
+
+  // Handle tab completion of an alias argument
+  protected List<String> handleAliasTabCompletion(String arg)
+  {
+    return this.plugin.getDefinedAliases().keySet().stream()
+      .sorted((a, b) -> a.toString().compareToIgnoreCase(b.toString()))
+      .map(key -> key.toString())
+      .toList();
+  }
 }
