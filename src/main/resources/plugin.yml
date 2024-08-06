@@ -25,7 +25,7 @@ commands:
 
   alias:
     description: Defines shared aliases for long commands.
-    usage: "Usage: /<command> list | overwrite <name> <command> | remove <name> | run <name> | save <name> <command>"
+    usage: "Usage: /<command> list | overwrite <name> <cmd> | remove <name> | run <name> | save <name> <cmd>"
     aliases: [al]
 
   run:
