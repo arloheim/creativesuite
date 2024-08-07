@@ -3,8 +3,11 @@ package dev.danae.gregocommands.plugin;
 import dev.danae.gregocommands.model.alias.Alias;
 import dev.danae.gregocommands.model.charmap.Charmap;
 import dev.danae.gregocommands.model.hotbar.Hotbar;
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -16,6 +19,19 @@ import org.bukkit.NamespacedKey;
 
 public class Formatter
 {  
+  // Return a sorted stream of the specified namespaced keys 
+  private static Stream<NamespacedKey> sortKeys(Collection<NamespacedKey> keys)
+  {
+    return keys.stream().sorted((a, b) -> a.toString().compareToIgnoreCase(b.toString()));
+  }
+
+  // Return a sorted and grouped stream of the specified namespaced keys 
+  private static Map<String, List<NamespacedKey>> groupKeys(Collection<NamespacedKey> keys)
+  {
+    return sortKeys(keys).collect(Collectors.groupingBy(key -> key.getNamespace()));
+  }
+
+
   // Truncate a string to the specified length and append the specified ellipsis string
   public static String truncate(String string, int length, String ellipsisString)
   {
@@ -35,15 +51,23 @@ public class Formatter
   // Format a hotbar list message
   public static BaseComponent[] formatHotbarListMessage(Map<NamespacedKey, Hotbar> hotbars)
   {
-    var builder = new ComponentBuilder(String.format("%d hotbars are defined", hotbars.size()));    
-    for (var key : hotbars.keySet().stream().sorted((a, b) -> a.toString().compareToIgnoreCase(b.toString())).toList())
-    {      
-      var loadCommand =  String.format("/hotbar load %s", key.toString());
-
+    var builder = new ComponentBuilder(String.format("%d hotbars are defined", hotbars.size()));
+    for (var e : groupKeys(hotbars.keySet()).entrySet())
+    {
       builder
-        .append("\n- ", ComponentBuilder.FormatRetention.NONE)
-        .append(key.toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN).underlined(true)
-          .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, loadCommand));
+        .append("\n", ComponentBuilder.FormatRetention.NONE)
+        .append(e.getKey().toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.BLUE)
+        .append(":", ComponentBuilder.FormatRetention.NONE);
+
+      for (var key : e.getValue())
+      {
+        var loadCommand =  String.format("/hotbar load %s", key.toString());
+
+        builder
+          .append(" ", ComponentBuilder.FormatRetention.NONE)
+          .append(key.getKey(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN).underlined(true)
+            .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, loadCommand));
+      }
     }
 
     return builder.create();
@@ -150,16 +174,22 @@ public class Formatter
   public static BaseComponent[] formatAliasListMessage(Map<NamespacedKey, Alias> aliases)
   {
     var builder = new ComponentBuilder(String.format("%d aliases are defined", aliases.size()));    
-    for (var e : aliases.entrySet().stream().sorted((a, b) -> a.getKey().toString().compareToIgnoreCase(b.getKey().toString())).toList())
-    {      
-      var runCommand =  String.format("/alias run %s", e.getKey().toString());
-
+    for (var e : groupKeys(aliases.keySet()).entrySet())
+    {
       builder
-        .append("\n- ", ComponentBuilder.FormatRetention.NONE)
-        .append(e.getKey().toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN).underlined(true)
-          .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, runCommand))
-        .append(": ", ComponentBuilder.FormatRetention.NONE)
-        .append(truncate(e.getValue().getCommand(), 40), ComponentBuilder.FormatRetention.NONE);
+        .append("\n", ComponentBuilder.FormatRetention.NONE)
+        .append(e.getKey().toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.BLUE)
+        .append(":", ComponentBuilder.FormatRetention.NONE);
+
+      for (var key : e.getValue())
+      {
+        var runCommand =  String.format("/alias run %s", e.getKey().toString());
+
+        builder
+          .append(" ", ComponentBuilder.FormatRetention.NONE)
+          .append(key.getKey(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN).underlined(true)
+            .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, runCommand));
+      }
     }
 
     return builder.create();
