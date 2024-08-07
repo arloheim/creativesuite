@@ -22,13 +22,16 @@ public class Formatter
   // Return a sorted stream of the specified namespaced keys 
   private static Stream<NamespacedKey> sortKeys(Collection<NamespacedKey> keys)
   {
-    return keys.stream().sorted((a, b) -> a.toString().compareToIgnoreCase(b.toString()));
+    return keys.stream()
+      .sorted((a, b) -> a.toString().compareToIgnoreCase(b.toString()));
   }
 
   // Return a sorted and grouped stream of the specified namespaced keys 
-  private static Map<String, List<NamespacedKey>> groupKeys(Collection<NamespacedKey> keys)
+  private static Stream<Map.Entry<String, List<NamespacedKey>>> groupKeys(Collection<NamespacedKey> keys)
   {
-    return sortKeys(keys).collect(Collectors.groupingBy(key -> key.getNamespace()));
+    return sortKeys(keys)
+      .collect(Collectors.groupingBy(key -> key.getNamespace())).entrySet().stream()
+      .sorted((a, b) -> a.getKey().compareToIgnoreCase(b.getKey()));
   }
 
 
@@ -52,19 +55,24 @@ public class Formatter
   public static BaseComponent[] formatHotbarListMessage(Map<NamespacedKey, Hotbar> hotbars)
   {
     var builder = new ComponentBuilder(String.format("%d hotbars are defined", hotbars.size()));
-    for (var e : groupKeys(hotbars.keySet()).entrySet())
+    for (var e : groupKeys(hotbars.keySet()).toList())
     {
       builder
         .append("\n", ComponentBuilder.FormatRetention.NONE)
         .append(e.getKey().toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.BLUE)
-        .append(":", ComponentBuilder.FormatRetention.NONE);
+        .append(": ", ComponentBuilder.FormatRetention.NONE);
 
+      var first = true;
       for (var key : e.getValue())
       {
         var loadCommand =  String.format("/hotbar load %s", key.toString());
 
+        if (first)
+          first = false;
+        else
+          builder.append(", ", ComponentBuilder.FormatRetention.NONE);
+
         builder
-          .append(" ", ComponentBuilder.FormatRetention.NONE)
           .append(key.getKey(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN).underlined(true)
             .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, loadCommand));
       }
@@ -174,19 +182,24 @@ public class Formatter
   public static BaseComponent[] formatAliasListMessage(Map<NamespacedKey, Alias> aliases)
   {
     var builder = new ComponentBuilder(String.format("%d aliases are defined", aliases.size()));    
-    for (var e : groupKeys(aliases.keySet()).entrySet())
+    for (var e : groupKeys(aliases.keySet()).toList())
     {
       builder
         .append("\n", ComponentBuilder.FormatRetention.NONE)
         .append(e.getKey().toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.BLUE)
-        .append(":", ComponentBuilder.FormatRetention.NONE);
+        .append(": ", ComponentBuilder.FormatRetention.NONE);
 
+      var first = true;
       for (var key : e.getValue())
       {
         var runCommand =  String.format("/alias run %s", e.getKey().toString());
 
+        if (first)
+          first = false;
+        else
+          builder.append(", ", ComponentBuilder.FormatRetention.NONE);
+
         builder
-          .append(" ", ComponentBuilder.FormatRetention.NONE)
           .append(key.getKey(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN).underlined(true)
             .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, runCommand));
       }
