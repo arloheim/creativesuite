@@ -5,7 +5,6 @@ import dev.danae.gregocommands.model.charmap.Charmap;
 import dev.danae.gregocommands.model.hotbar.Hotbar;
 import java.util.Map;
 import java.util.stream.Collectors;
-import javax.xml.stream.events.Namespace;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -17,6 +16,22 @@ import org.bukkit.NamespacedKey;
 
 public class Formatter
 {  
+  // Truncate a string to the specified length and append the specified ellipsis string
+  public static String truncate(String string, int length, String ellipsisString)
+  {
+    if (string.length() > length)
+      return string.substring(0, length - ellipsisString.length());
+    else
+      return string;
+  }
+
+  // Truncate a string to the specified length
+  public static String truncate(String string, int length)
+  {
+    return truncate(string, length, "...");
+  }
+
+
   // Format a hotbar list message
   public static BaseComponent[] formatHotbarListMessage(Map<NamespacedKey, Hotbar> hotbars)
   {
@@ -144,7 +159,7 @@ public class Formatter
         .append(e.getKey().toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN).underlined(true)
           .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, runCommand))
         .append(": ", ComponentBuilder.FormatRetention.NONE)
-        .append(e.getValue().getCommand(), ComponentBuilder.FormatRetention.NONE);
+        .append(truncate(e.getValue().getCommand(), 40), ComponentBuilder.FormatRetention.NONE);
     }
 
     return builder.create();
