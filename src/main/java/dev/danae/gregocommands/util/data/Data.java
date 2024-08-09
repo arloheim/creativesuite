@@ -1,27 +1,34 @@
-package dev.danae.gregocommands.plugin.data;
+package dev.danae.gregocommands.util.data;
 
-import dev.danae.gregocommands.plugin.GregoCommandsPlugin;
-import dev.danae.gregocommands.plugin.GregoCommandsPluginComponent;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
 
 
-public abstract class Data extends GregoCommandsPluginComponent
+public abstract class Data
 {
+  // The plugin of the data
+  private final Plugin plugin;
+
   // The file where the data is stored
   private final File file;
   
   
   // Constructor
-  public Data(GregoCommandsPlugin plugin, File file)
+  public Data(Plugin plugin, File file)
   {
-    super(plugin);
-    
+    this.plugin = plugin;
     this.file = file;
+  }
+
+  // Constructor for a file in the data folder of the plugin
+  public Data(Plugin plugin, String fileName)
+  {
+    this(plugin, new File(plugin.getDataFolder(), fileName));
   }
 
 
@@ -33,7 +40,7 @@ public abstract class Data extends GregoCommandsPluginComponent
   
   
   // Load the map from the file
-  protected void load()
+  public void load()
   {
     try
     {
@@ -47,12 +54,12 @@ public abstract class Data extends GregoCommandsPluginComponent
     }
     catch (IOException | InvalidConfigurationException ex)
     {
-      this.getPlugin().getLogger().log(Level.WARNING, "Could not load the configuration", ex);
+      this.plugin.getLogger().log(Level.WARNING, "Could not load the configuration", ex);
     }
   }
   
   // Save the map to the file
-  protected void save()
+  public void save()
   {
     try
     {
@@ -63,7 +70,7 @@ public abstract class Data extends GregoCommandsPluginComponent
     }
     catch (IOException ex)
     {
-      this.getPlugin().getLogger().log(Level.WARNING, "Could not save the configuration", ex);
+      this.plugin.getLogger().log(Level.WARNING, "Could not save the configuration", ex);
     }
   }
 }

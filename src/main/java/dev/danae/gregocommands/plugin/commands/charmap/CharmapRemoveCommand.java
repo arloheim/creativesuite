@@ -1,21 +1,20 @@
 package dev.danae.gregocommands.plugin.commands.charmap;
 
-import dev.danae.gregocommands.plugin.Formatter;
-import dev.danae.gregocommands.plugin.GregoCommandsPlugin;
-import dev.danae.gregocommands.plugin.commands.CommandContext;
-import dev.danae.gregocommands.plugin.commands.CommandException;
-import dev.danae.gregocommands.plugin.commands.CommandUsageException;
-import dev.danae.gregocommands.plugin.commands.PluginCommand;
+import dev.danae.gregocommands.plugin.commands.PluginComponentCommand;
+import dev.danae.gregocommands.plugin.components.charmap.CharmapComponent;
 import dev.danae.gregocommands.util.parser.ParserException;
+import dev.danae.gregocommands.util.commands.CommandContext;
+import dev.danae.gregocommands.util.commands.CommandException;
+import dev.danae.gregocommands.util.commands.CommandUsageException;
 import java.util.List;
 
 
-public class CharmapRemoveCommand extends PluginCommand
+public class CharmapRemoveCommand extends PluginComponentCommand<CharmapComponent>
 {
   // Constructor
-  public CharmapRemoveCommand(GregoCommandsPlugin plugin)
+  public CharmapRemoveCommand(CharmapComponent component)
   {
-    super(plugin, "gregocommands.charmap.remove");
+    super(component, "gregocommands.charmap.remove");
   }
     
   
@@ -23,8 +22,6 @@ public class CharmapRemoveCommand extends PluginCommand
   @Override
   public void handle(CommandContext context) throws CommandException, CommandUsageException
   {
-    var charmap = this.getPlugin().getCharmap();
-
     try
     {
       // Validate the number of arguments
@@ -38,10 +35,10 @@ public class CharmapRemoveCommand extends PluginCommand
       var codePoints = scanner.next();
 
       // Remove the code points from the charmap
-      charmap.removeCodePoints(codePoints);
+      this.getComponent().getCharmap().removeCodePoints(codePoints);
 
       // Send a message about the added code points
-      context.sendMessage(Formatter.formatCharmapRemovedMessage(codePoints));
+      context.sendMessage(this.getComponent().formatCharmapRemovedMessage(codePoints));
     }
     catch (ParserException ex)
     {

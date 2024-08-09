@@ -1,6 +1,5 @@
-package dev.danae.gregocommands.plugin.data;
+package dev.danae.gregocommands.util.data;
 
-import dev.danae.gregocommands.plugin.GregoCommandsPlugin;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.plugin.Plugin;
 
 
 public class DataMap<K, V extends ConfigurationSerializable> extends Data implements Map<K, V>
@@ -23,14 +23,21 @@ public class DataMap<K, V extends ConfigurationSerializable> extends Data implem
   
   
   // Constructor
-  public DataMap(GregoCommandsPlugin plugin, File file, Class<V> clazz, DataMapKeyType<K> keyType)
+  public DataMap(Plugin plugin, File file, Class<V> clazz, DataMapKeyType<K> keyType)
   {
     super(plugin, file);
 
     this.clazz = clazz;
     this.keyType = keyType;
+  }
 
-    this.load();
+  // Constructor for a file in the data folder of the plugin
+  public DataMap(Plugin plugin, String fileName, Class<V> clazz, DataMapKeyType<K> keyType)
+  {
+    super(plugin, fileName);
+
+    this.clazz = clazz;
+    this.keyType = keyType;
   }
   
   

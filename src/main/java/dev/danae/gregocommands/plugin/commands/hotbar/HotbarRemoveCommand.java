@@ -1,30 +1,27 @@
 package dev.danae.gregocommands.plugin.commands.hotbar;
 
-import dev.danae.gregocommands.plugin.Formatter;
-import dev.danae.gregocommands.plugin.GregoCommandsPlugin;
-import dev.danae.gregocommands.plugin.commands.CommandContext;
-import dev.danae.gregocommands.plugin.commands.CommandException;
-import dev.danae.gregocommands.plugin.commands.CommandUsageException;
-import dev.danae.gregocommands.plugin.commands.PluginCommand;
+import dev.danae.gregocommands.plugin.commands.PluginComponentCommand;
+import dev.danae.gregocommands.plugin.components.hotbar.HotbarComponent;
 import dev.danae.gregocommands.util.parser.ParserException;
+import dev.danae.gregocommands.util.commands.CommandContext;
+import dev.danae.gregocommands.util.commands.CommandException;
+import dev.danae.gregocommands.util.commands.CommandUsageException;
 import java.util.List;
 
 
-public class HotbarRemoveCommand extends PluginCommand
+public class HotbarRemoveCommand extends PluginComponentCommand<HotbarComponent>
 {
   // Constructor
-  public HotbarRemoveCommand(GregoCommandsPlugin plugin)
+  public HotbarRemoveCommand(HotbarComponent component)
   {
-    super(plugin, "gregocommands.hotbar.remove");
+    super(component, "gregocommands.hotbar.remove");
   }
     
   
   // Handle the command
   @Override
   public void handle(CommandContext context) throws CommandException, CommandUsageException
-  {     
-    var hotbars = this.getPlugin().getDefinedHotbars();
-
+  {
     try
     {
       // Validate the number of arguments
@@ -36,15 +33,15 @@ public class HotbarRemoveCommand extends PluginCommand
       
       // Parse the arguments
       var key = scanner.nextKey();
-      var existingKey = hotbars.containsKey(key);
+      var existingKey = this.getComponent().getHotbars().containsKey(key);
       if (!existingKey)
         throw new CommandException(String.format("Hotbar %s does not exist", key.toString()));
 
       // Remove the hotbar
-      hotbars.remove(key);
+      this.getComponent().getHotbars().remove(key);
 
       // Send a message about the removed hotbar
-      context.sendMessage(Formatter.formatHotbarRemovedMessage(key));
+      context.sendMessage(this.getComponent().formatHotbarRemovedMessage(key));
     }
     catch (ParserException ex)
     {
@@ -57,7 +54,7 @@ public class HotbarRemoveCommand extends PluginCommand
   public List<String> handleTabCompletion(CommandContext context)
   {
     if (context.hasArgumentsCount(1))
-      return this.handleHotbarTabCompletion(context.getArgument(0));
+      return this.getComponent().handleHotbarTabCompletion(context.getArgument(0));
     else
       return List.of();
   }

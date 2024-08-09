@@ -1,7 +1,7 @@
-package dev.danae.gregocommands.model.charmap;
+package dev.danae.gregocommands.plugin.components.charmap;
 
 import dev.danae.gregocommands.plugin.GregoCommandsPlugin;
-import dev.danae.gregocommands.plugin.data.Data;
+import dev.danae.gregocommands.util.data.Data;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;

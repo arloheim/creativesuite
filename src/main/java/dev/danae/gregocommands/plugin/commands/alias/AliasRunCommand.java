@@ -1,29 +1,27 @@
 package dev.danae.gregocommands.plugin.commands.alias;
 
-import dev.danae.gregocommands.plugin.GregoCommandsPlugin;
-import dev.danae.gregocommands.plugin.commands.CommandContext;
-import dev.danae.gregocommands.plugin.commands.CommandException;
-import dev.danae.gregocommands.plugin.commands.CommandUsageException;
-import dev.danae.gregocommands.plugin.commands.PluginCommand;
+import dev.danae.gregocommands.plugin.commands.PluginComponentCommand;
+import dev.danae.gregocommands.plugin.components.alias.AliasComponent;
 import dev.danae.gregocommands.util.parser.ParserException;
+import dev.danae.gregocommands.util.commands.CommandContext;
+import dev.danae.gregocommands.util.commands.CommandException;
+import dev.danae.gregocommands.util.commands.CommandUsageException;
 import java.util.List;
 
 
-public class AliasRunCommand extends PluginCommand
+public class AliasRunCommand extends PluginComponentCommand<AliasComponent>
 {
   // Constructor
-  public AliasRunCommand(GregoCommandsPlugin plugin)
+  public AliasRunCommand(AliasComponent component)
   {
-    super(plugin, "gregocommands.alias.run");
+    super(component, "gregocommands.alias.run");
   }
     
   
   // Handle the command
   @Override
   public void handle(CommandContext context) throws CommandException, CommandUsageException
-  {    
-    var aliases = this.getPlugin().getDefinedAliases();
-
+  {
     try
     {
       // Validate the number of arguments
@@ -35,12 +33,12 @@ public class AliasRunCommand extends PluginCommand
       
       // Parse the arguments
       var key = scanner.nextKey();
-      var existingKey = aliases.containsKey(key);
+      var existingKey = this.getComponent().getAliases().containsKey(key);
       if (!existingKey)
         throw new CommandException(String.format("Alias %s does not exist", key.toString()));
 
       // Dispatch the command of the alias
-      var alias = aliases.get(key);
+      var alias = this.getComponent().getAliases().get(key);
       alias.dispatchCommand(context.getSender());
     }
     catch (ParserException ex)
@@ -54,7 +52,7 @@ public class AliasRunCommand extends PluginCommand
   public List<String> handleTabCompletion(CommandContext context)
   {
     if (context.hasArgumentsCount(1))
-      return this.handleAliasTabCompletion(context.getArgument(0));
+      return this.getComponent().handleAliasTabCompletion(context.getArgument(0));
     else
       return List.of();
   }

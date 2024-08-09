@@ -1,30 +1,27 @@
 package dev.danae.gregocommands.plugin.commands.alias;
 
-import dev.danae.gregocommands.plugin.Formatter;
-import dev.danae.gregocommands.plugin.GregoCommandsPlugin;
-import dev.danae.gregocommands.plugin.commands.CommandContext;
-import dev.danae.gregocommands.plugin.commands.CommandException;
-import dev.danae.gregocommands.plugin.commands.CommandUsageException;
-import dev.danae.gregocommands.plugin.commands.PluginCommand;
+import dev.danae.gregocommands.plugin.commands.PluginComponentCommand;
+import dev.danae.gregocommands.plugin.components.alias.AliasComponent;
 import dev.danae.gregocommands.util.parser.ParserException;
+import dev.danae.gregocommands.util.commands.CommandContext;
+import dev.danae.gregocommands.util.commands.CommandException;
+import dev.danae.gregocommands.util.commands.CommandUsageException;
 import java.util.List;
 
 
-public class AliasRemoveCommand extends PluginCommand
+public class AliasRemoveCommand extends PluginComponentCommand<AliasComponent>
 {
   // Constructor
-  public AliasRemoveCommand(GregoCommandsPlugin plugin)
+  public AliasRemoveCommand(AliasComponent component)
   {
-    super(plugin, "gregocommands.alias.remove");
+    super(component, "gregocommands.alias.remove");
   }
     
   
   // Handle the command
   @Override
   public void handle(CommandContext context) throws CommandException, CommandUsageException
-  {     
-    var aliases = this.getPlugin().getDefinedAliases();
-
+  {
     try
     {
       // Validate the number of arguments
@@ -36,15 +33,15 @@ public class AliasRemoveCommand extends PluginCommand
       
       // Parse the arguments
       var key = scanner.nextKey();
-      var existingKey = aliases.containsKey(key);
+      var existingKey = this.getComponent().getAliases().containsKey(key);
       if (!existingKey)
         throw new CommandException(String.format("Alias %s does not exist", key.toString()));
 
       // Remove the alias
-      aliases.remove(key);
+      this.getComponent().getAliases().remove(key);
 
       // Send a message about the removed alias
-      context.sendMessage(Formatter.formatAliasRemovedMessage(key));
+      context.sendMessage(this.getComponent().formatAliasRemovedMessage(key));
     }
     catch (ParserException ex)
     {
@@ -57,7 +54,7 @@ public class AliasRemoveCommand extends PluginCommand
   public List<String> handleTabCompletion(CommandContext context)
   {
     if (context.hasArgumentsCount(1))
-      return this.handleAliasTabCompletion(context.getArgument(0));
+      return this.getComponent().handleAliasTabCompletion(context.getArgument(0));
     else
       return List.of();
   }

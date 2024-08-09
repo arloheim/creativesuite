@@ -1,4 +1,4 @@
-package dev.danae.gregocommands.model.hotbar;
+package dev.danae.gregocommands.plugin.components.hotbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;

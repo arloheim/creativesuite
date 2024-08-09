@@ -1,6 +1,7 @@
-package dev.danae.gregocommands.plugin.data;
+package dev.danae.gregocommands.util.data;
 
 import org.bukkit.NamespacedKey;
+
 
 public interface DataMapKeyType<K>
 {

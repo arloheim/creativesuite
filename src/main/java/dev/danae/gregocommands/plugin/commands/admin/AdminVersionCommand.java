@@ -1,10 +1,10 @@
 package dev.danae.gregocommands.plugin.commands.admin;
 
 import dev.danae.gregocommands.plugin.GregoCommandsPlugin;
-import dev.danae.gregocommands.plugin.commands.CommandContext;
-import dev.danae.gregocommands.plugin.commands.CommandException;
-import dev.danae.gregocommands.plugin.commands.CommandUsageException;
 import dev.danae.gregocommands.plugin.commands.PluginCommand;
+import dev.danae.gregocommands.util.commands.CommandContext;
+import dev.danae.gregocommands.util.commands.CommandException;
+import dev.danae.gregocommands.util.commands.CommandUsageException;
 import java.util.List;
 
 

@@ -1,4 +1,4 @@
-package dev.danae.gregocommands.plugin.commands;
+package dev.danae.gregocommands.util.commands;
 
 
 public class CommandException extends Exception

@@ -1,31 +1,28 @@
 package dev.danae.gregocommands.plugin.commands.hotbar;
 
-import dev.danae.gregocommands.plugin.Formatter;
-import dev.danae.gregocommands.plugin.GregoCommandsPlugin;
-import dev.danae.gregocommands.plugin.commands.CommandContext;
-import dev.danae.gregocommands.plugin.commands.CommandException;
-import dev.danae.gregocommands.plugin.commands.CommandUsageException;
-import dev.danae.gregocommands.plugin.commands.PluginCommand;
+import dev.danae.gregocommands.plugin.commands.PluginComponentCommand;
+import dev.danae.gregocommands.plugin.components.hotbar.HotbarComponent;
 import dev.danae.gregocommands.util.parser.ParserException;
+import dev.danae.gregocommands.util.commands.CommandContext;
+import dev.danae.gregocommands.util.commands.CommandException;
+import dev.danae.gregocommands.util.commands.CommandUsageException;
 import java.util.List;
 import org.bukkit.GameMode;
 
 
-public class HotbarLoadCommand extends PluginCommand
+public class HotbarLoadCommand extends PluginComponentCommand<HotbarComponent>
 {
   // Constructor
-  public HotbarLoadCommand(GregoCommandsPlugin plugin)
+  public HotbarLoadCommand(HotbarComponent component)
   {
-    super(plugin, "gregocommands.hotbar.load");
+    super(component, "gregocommands.hotbar.load");
   }
     
   
   // Handle the command
   @Override
   public void handle(CommandContext context) throws CommandException, CommandUsageException
-  {    
-    var hotbars = this.getPlugin().getDefinedHotbars();
-
+  {
     try
     {
       // Assert that the command sender is a player and in creative mode
@@ -42,16 +39,16 @@ public class HotbarLoadCommand extends PluginCommand
       
       // Parse the arguments
       var key = scanner.nextKey();
-      var existingKey = hotbars.containsKey(key);
+      var existingKey = this.getComponent().getHotbars().containsKey(key);
       if (!existingKey)
         throw new CommandException(String.format("Hotbar %s does not exist", key.toString()));
 
       // Load the hotbar
-      var hotbar = hotbars.get(key);
+      var hotbar = this.getComponent().getHotbars().get(key);
       hotbar.applyTo(player.getInventory());
 
       // Send a message about the loaded hotbar
-      context.sendMessage(Formatter.formatHotbarLoadedMessage(key));
+      context.sendMessage(this.getComponent().formatHotbarLoadedMessage(key));
     }
     catch (ParserException ex)
     {
@@ -64,7 +61,7 @@ public class HotbarLoadCommand extends PluginCommand
   public List<String> handleTabCompletion(CommandContext context)
   {
     if (context.hasArgumentsCount(1))
-      return this.handleHotbarTabCompletion(context.getArgument(0));
+      return this.getComponent().handleHotbarTabCompletion(context.getArgument(0));
     else
       return List.of();
   }

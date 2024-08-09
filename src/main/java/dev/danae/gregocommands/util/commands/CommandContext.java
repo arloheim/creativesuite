@@ -1,4 +1,4 @@
-package dev.danae.gregocommands.plugin.commands;
+package dev.danae.gregocommands.util.commands;
 
 import dev.danae.gregocommands.util.parser.Scanner;
 import java.util.Arrays;

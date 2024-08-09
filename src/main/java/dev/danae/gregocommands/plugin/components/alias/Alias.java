@@ -1,4 +1,4 @@
-package dev.danae.gregocommands.model.alias;
+package dev.danae.gregocommands.plugin.components.alias;
 
 import java.util.HashMap;
 import java.util.Map;

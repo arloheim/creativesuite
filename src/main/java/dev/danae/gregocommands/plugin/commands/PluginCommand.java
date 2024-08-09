@@ -1,7 +1,7 @@
 package dev.danae.gregocommands.plugin.commands;
 
 import dev.danae.gregocommands.plugin.GregoCommandsPlugin;
-import java.util.List;
+import dev.danae.gregocommands.util.commands.Command;
 
 
 public abstract class PluginCommand extends Command
@@ -29,24 +29,5 @@ public abstract class PluginCommand extends Command
   protected GregoCommandsPlugin getPlugin()
   {
     return this.plugin;
-  }
-
-
-  // Handle tab completion of a hotbar argument
-  protected List<String> handleHotbarTabCompletion(String arg)
-  {
-    return this.plugin.getDefinedHotbars().keySet().stream()
-      .sorted((a, b) -> a.toString().compareToIgnoreCase(b.toString()))
-      .map(key -> key.toString())
-      .toList();
-  }
-
-  // Handle tab completion of an alias argument
-  protected List<String> handleAliasTabCompletion(String arg)
-  {
-    return this.plugin.getDefinedAliases().keySet().stream()
-      .sorted((a, b) -> a.toString().compareToIgnoreCase(b.toString()))
-      .map(key -> key.toString())
-      .toList();
   }
 }

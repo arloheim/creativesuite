@@ -1,27 +1,24 @@
 package dev.danae.gregocommands.plugin.commands.alias;
 
-import dev.danae.gregocommands.model.alias.Alias;
-import dev.danae.gregocommands.model.hotbar.Hotbar;
-import dev.danae.gregocommands.plugin.Formatter;
-import dev.danae.gregocommands.plugin.GregoCommandsPlugin;
-import dev.danae.gregocommands.plugin.commands.CommandContext;
-import dev.danae.gregocommands.plugin.commands.CommandException;
-import dev.danae.gregocommands.plugin.commands.CommandUsageException;
-import dev.danae.gregocommands.plugin.commands.PluginCommand;
+import dev.danae.gregocommands.plugin.commands.PluginComponentCommand;
+import dev.danae.gregocommands.plugin.components.alias.Alias;
+import dev.danae.gregocommands.plugin.components.alias.AliasComponent;
 import dev.danae.gregocommands.util.parser.ParserException;
+import dev.danae.gregocommands.util.commands.CommandContext;
+import dev.danae.gregocommands.util.commands.CommandException;
+import dev.danae.gregocommands.util.commands.CommandUsageException;
 import java.util.List;
-import org.bukkit.GameMode;
 
 
-public class AliasSaveCommand extends PluginCommand
+public class AliasSaveCommand extends PluginComponentCommand<AliasComponent>
 {
   // Boolean that indicates if aliases automatically get overwritten
   private final boolean overwriteAliases;
 
   // Constructor
-  public AliasSaveCommand(GregoCommandsPlugin plugin, boolean overwriteAliases)
+  public AliasSaveCommand(AliasComponent component, boolean overwriteAliases)
   {
-    super(plugin, "gregocommands.alias.save");
+    super(component, "gregocommands.alias.save");
 
     this.overwriteAliases = overwriteAliases;
   }
@@ -30,9 +27,7 @@ public class AliasSaveCommand extends PluginCommand
   // Handle the command
   @Override
   public void handle(CommandContext context) throws CommandException, CommandUsageException
-  {     
-    var aliases = this.getPlugin().getDefinedAliases();
-
+  {
     try
     {
       // Validate the number of arguments
@@ -45,21 +40,21 @@ public class AliasSaveCommand extends PluginCommand
       // Parse the arguments
       var key = scanner.nextKey();
       var command = scanner.rest("command");
-      var existingKey = aliases.containsKey(key);
+      var existingKey = this.getComponent().getAliases().containsKey(key);
 
       // Check if we can overwrite and existing hotbar
       if (!this.overwriteAliases && existingKey)
       {
         // Send a message about the otherwise overwritten alias
-        context.sendMessage(Formatter.formatAliasOverwriteMessage(key, command));
+        context.sendMessage(this.getComponent().formatAliasOverwriteMessage(key, command));
       }
       else
       {
         // Save the alias
-        aliases.put(key, new Alias(command));
+        this.getComponent().getAliases().put(key, new Alias(command));
 
         // Send a message about the saved alias
-        context.sendMessage(Formatter.formatAliasSavedMessage(key, command, existingKey));
+        context.sendMessage(this.getComponent().formatAliasSavedMessage(key, command, existingKey));
       }
     }
     catch (ParserException ex)
@@ -73,7 +68,7 @@ public class AliasSaveCommand extends PluginCommand
   public List<String> handleTabCompletion(CommandContext context)
   {
     if (context.hasArgumentsCount(1))
-      return this.handleAliasTabCompletion(context.getArgument(0));
+      return this.getComponent().handleAliasTabCompletion(context.getArgument(0));
     else
       return List.of();
   }
