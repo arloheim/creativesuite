@@ -1,16 +1,15 @@
 package dev.danae.gregocommands.plugin;
 
-import dev.danae.gregocommands.model.Alias;
-import dev.danae.gregocommands.model.Hotbar;
 import dev.danae.gregocommands.plugin.commands.admin.AdminReloadCommand;
 import dev.danae.gregocommands.plugin.commands.admin.AdminVersionCommand;
-import dev.danae.gregocommands.plugin.components.AliasComponent;
-import dev.danae.gregocommands.plugin.components.CharmapComponent;
-import dev.danae.gregocommands.plugin.components.HotbarComponent;
-import dev.danae.gregocommands.util.commands.Command;
+import dev.danae.gregocommands.plugin.components.alias.Alias;
+import dev.danae.gregocommands.plugin.components.alias.AliasComponent;
+import dev.danae.gregocommands.plugin.components.charmap.CharmapComponent;
+import dev.danae.gregocommands.plugin.components.hotbar.Hotbar;
+import dev.danae.gregocommands.plugin.components.hotbar.HotbarComponent;
+import dev.danae.gregocommands.plugin.components.signmaterial.SignMaterialComponent;
 import dev.danae.gregocommands.util.commands.CommandGroup;
 import java.util.List;
-import java.util.logging.Level;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -21,7 +20,8 @@ public class GregoCommandsPlugin extends JavaPlugin
   private List<GregoCommandsPluginComponent> components = List.of(
     new AliasComponent(this),
     new CharmapComponent(this),
-    new HotbarComponent(this)
+    new HotbarComponent(this),
+    new SignMaterialComponent(this)
   );
   
 
@@ -45,7 +45,7 @@ public class GregoCommandsPlugin extends JavaPlugin
   @Override
   public void onEnable()
   {    
-    // Register the command handlers    
+    // Register the commands    
     new CommandGroup()
       .registerSubcommand("reload", new AdminReloadCommand(this))
       .registerSubcommand("version", new AdminVersionCommand(this))
