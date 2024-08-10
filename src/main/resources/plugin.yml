@@ -1,27 +1,17 @@
-name: GregoCommands
-description: Extended commands for working in creative worlds in Minecraft.
+name: CreativeSuite
+description: Extended tools and commands for working in creative worlds in Minecraft.
 version: 2.0.0
 author: danae
-website: https://github.com/danae/gregocommands
-main: dev.danae.gregocommands.plugin.GregoCommandsPlugin
+website: https://github.com/danae/creativesuite
+main: dev.danae.creativesuite.plugin.CreativeSuitePlugin
 api-version: 1.20
 
 
 commands:
-  gregocommands:
+  creativesuite:
     description: Executes various administration commands.
-    permission: gregocommands.admin
     usage: "Usage: /<command> reload | version"
-
-  hotbar:
-    description: Saves and loads shared hotbars.
-    usage: "Usage: /<command> list | load <name> | overwrite <name> | remove <name> | save <name>"
-    aliases: [hb]
-
-  charmap:
-    description: Displays shared Unicode characters for easy copying.
-    usage: "Usage: /<command> [add <characters> | remove <characters>]"
-    aliases: [cm]
+    aliases: [cs]
 
   alias:
     description: Defines shared aliases for long commands.
@@ -32,14 +22,24 @@ commands:
     description: Runs shared aliases for long commands.
     usage: "Usage: /<command> <name>"
     aliases: [r]
+
+  hotbar:
+    description: Defines shared hotbars.
+    usage: "Usage: /<command> list | load <name> | overwrite <name> | remove <name> | save <name>"
+    aliases: [hb]
+
+  charmap:
+    description: Defines shared Unicode characters for easy copying and pasting.
+    usage: "Usage: /<command> [add <characters> | remove <characters>]"
+    aliases: [cm]
     
     
 permissions:
-  gregocommands.admin:
-    description: Allows the player to use the /gregocommands command.
+  creativesuite.admin:
+    description: Allows the player to use the /creativesuite command.
     default: op
 
-  gregocommands.hotbar:
+  creativesuite.hotbar:
     description: Allows the player to use the /hotbar command.
     default: true
     children:
@@ -48,23 +48,23 @@ permissions:
       gregocommands.hotbar.remove: true
       gregocommands.hotbar.save: true
 
-  gregocommands.hotbar.list:
+  creativesuite.hotbar.list:
     description: Allows the player to use the /hotbar list command.
     default: true
 
-  gregocommands.hotbar.load:
+  creativesuite.hotbar.load:
     description: Allows the player to use the /hotbar load command.
     default: true
 
-  gregocommands.hotbar.remove:
+  creativesuite.hotbar.remove:
     description: Allows the player to use the /hotbar remove command.
     default: true
 
-  gregocommands.hotbar.save:
+  creativesuite.hotbar.save:
     description: Allows the player to use the /hotbar save command.
     default: true
 
-  gregocommands.charmap:
+  creativesuite.charmap:
     description: Allows the player to use the /charmap command.
     default: true
     children:
@@ -72,19 +72,19 @@ permissions:
       gregocommands.charmap.add: true
       gregocommands.charmap.remove: true
 
-  gregocommands.charmap.list:
+  creativesuite.charmap.list:
     description: Allows the player to use the /charmap command.
     default: true
 
-  gregocommands.charmap.add:
+  creativesuite.charmap.add:
     description: Allows the player to use the /charmap add command.
     default: true
 
-  gregocommands.charmap.remove:
+  creativesuite.charmap.remove:
     description: Allows the player to use the /charmap remove command.
     default: true
 
-  gregocommands.alias:
+  creativesuite.alias:
     description: Allows the player to use the /alias command.
     default: true
     children:
@@ -93,18 +93,18 @@ permissions:
       gregocommands.hotbar.run: true
       gregocommands.hotbar.save: true
 
-  gregocommands.alias.list:
+  creativesuite.alias.list:
     description: Allows the player to use the /alias list command.
     default: true
 
-  gregocommands.alias.remove:
+  creativesuite.alias.remove:
     description: Allows the player to use the /alias remove command.
     default: true
 
-  gregocommands.alias.run:
+  creativesuite.alias.run:
     description: Allows the player to use the /alias run and /run commands.
     default: true
 
-  gregocommands.alias.save:
+  creativesuite.alias.save:
     description: Allows the player to use the /alias save command.
     default: true
