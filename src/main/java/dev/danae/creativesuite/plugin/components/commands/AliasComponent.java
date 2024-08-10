@@ -82,7 +82,7 @@ public class AliasComponent extends CreativeSuitePluginComponent
   {
     return new ComponentBuilder(String.format("%d aliases are defined", this.aliases.size()))
       .append(NamespacedKeys.createGroupedKeysMessage(this.aliases.keySet(), 
-        key -> new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("/alias run %s", key.toString()))))
+        key -> new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("/alias run %s", key.toString()))), ComponentBuilder.FormatRetention.NONE)
       .create();
   }
 

@@ -81,7 +81,7 @@ public class HotbarComponent extends CreativeSuitePluginComponent
   {
     return new ComponentBuilder(String.format("%d hotbars are defined", this.hotbars.size()))
       .append(NamespacedKeys.createGroupedKeysMessage(this.hotbars.keySet(), 
-        key -> new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("/hotbar load %s", key.toString()))))
+        key -> new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format("/hotbar load %s", key.toString()))), ComponentBuilder.FormatRetention.NONE)
       .create();
   }
 

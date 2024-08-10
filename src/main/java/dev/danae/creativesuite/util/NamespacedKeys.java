@@ -46,27 +46,6 @@ public class NamespacedKeys
   }
 
 
-  // Create a text message listing all sorted namespaced keys
-  public static <T> BaseComponent[] createSortedKeysMessage(Collection<NamespacedKey> keys, Function<NamespacedKey, ClickEvent> clickEventFunction)
-  {
-    var builder = new ComponentBuilder();
-
-    var first = true;
-    for (var key : sortKeys(keys).toList())
-    {
-      if (first)
-        first = false;
-      else
-        builder.append(", ", ComponentBuilder.FormatRetention.NONE);
-
-      builder
-        .append(key.getKey(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN).underlined(true)
-        .event(clickEventFunction.apply(key));
-    }
-
-    return builder.create();
-  }
-
   // Create a text message listing all grouped namespaced keys
   public static <T> BaseComponent[] createGroupedKeysMessage(Collection<NamespacedKey> keys, Function<NamespacedKey, ClickEvent> clickEventFunction)
   {
@@ -77,8 +56,20 @@ public class NamespacedKeys
       builder
         .append("\n", ComponentBuilder.FormatRetention.NONE)
         .append(e.getKey().toString(), ComponentBuilder.FormatRetention.NONE).bold(true)
-        .append(": ", ComponentBuilder.FormatRetention.NONE)
-        .append(createSortedKeysMessage(e.getValue(), clickEventFunction));
+        .append(": ", ComponentBuilder.FormatRetention.NONE);
+      
+      var first = true;
+      for (var key : sortKeys(e.getValue()).toList())
+      {
+        if (first)
+          first = false;
+        else
+          builder.append(", ", ComponentBuilder.FormatRetention.NONE);
+
+        builder
+          .append(key.getKey(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN).underlined(true)
+            .event(clickEventFunction.apply(key));
+      }
     }
 
     return builder.create();
