@@ -11,7 +11,6 @@ commands:
   creativesuite:
     description: Executes various administration commands.
     usage: "Usage: /<command> reload | version"
-    aliases: [cs]
 
   alias:
     description: Defines shared aliases for long commands.
