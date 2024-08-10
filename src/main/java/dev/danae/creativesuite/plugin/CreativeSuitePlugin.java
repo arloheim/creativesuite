@@ -53,7 +53,7 @@ public class CreativeSuitePlugin extends JavaPlugin
     new CommandGroup()
       .registerSubcommand("reload", new AdminReloadCommand(this))
       .registerSubcommand("version", new AdminVersionCommand(this))
-      .publishCommandHandler(this, this.getCommand("gregocommands"));
+      .publishCommandHandler(this, this.getCommand("creativesuite"));
 
     // Enable the components
     for (var component : components)
