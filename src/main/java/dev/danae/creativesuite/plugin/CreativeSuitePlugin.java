@@ -33,6 +33,10 @@ public class CreativeSuitePlugin extends JavaPlugin
     ConfigurationSerialization.registerClass(Alias.class);
     ConfigurationSerialization.registerClass(Hotbar.class);
 
+    // Register aliases for serializable classes for the configuration API for backwards compatibility
+    ConfigurationSerialization.registerClass(Alias.class, "dev.danae.gregocommands.model.alias.Alias");
+    ConfigurationSerialization.registerClass(Hotbar.class, "dev.danae.gregocommands.model.hotbar.Hotbar");
+
     // Load the plugin
     this.loadPlugin();
 

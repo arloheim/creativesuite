@@ -5,8 +5,10 @@ import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.configuration.serialization.SerializableAs;
 
 
+@SerializableAs("Alias")
 public class Alias implements ConfigurationSerializable
 {
   // The command of the alias
