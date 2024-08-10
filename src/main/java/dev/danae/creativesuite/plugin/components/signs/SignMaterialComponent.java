@@ -1,4 +1,4 @@
-package dev.danae.creativesuite.plugin.components.signmaterial;
+package dev.danae.creativesuite.plugin.components.signs;
 
 import dev.danae.creativesuite.plugin.CreativeSuitePlugin;
 import dev.danae.creativesuite.plugin.CreativeSuitePluginComponent;
@@ -145,7 +145,7 @@ public class SignMaterialComponent extends CreativeSuitePluginComponent
         }
         else if (blockData instanceof org.bukkit.block.data.type.WallHangingSign wallHangingSignData)
         {
-          var newWallHangingSignData = (org.bukkit.block.data.type.WallSign)Bukkit.createBlockData(newMaterial);
+          var newWallHangingSignData = (org.bukkit.block.data.type.WallHangingSign)Bukkit.createBlockData(newMaterial);
           newWallHangingSignData.setFacing(wallHangingSignData.getFacing());
           newWallHangingSignData.setWaterlogged(wallHangingSignData.isWaterlogged());
 

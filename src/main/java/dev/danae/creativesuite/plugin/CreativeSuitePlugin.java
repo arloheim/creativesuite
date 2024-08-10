@@ -7,7 +7,7 @@ import dev.danae.creativesuite.plugin.components.alias.AliasComponent;
 import dev.danae.creativesuite.plugin.components.charmap.CharmapComponent;
 import dev.danae.creativesuite.plugin.components.hotbar.Hotbar;
 import dev.danae.creativesuite.plugin.components.hotbar.HotbarComponent;
-import dev.danae.creativesuite.plugin.components.signmaterial.SignMaterialComponent;
+import dev.danae.creativesuite.plugin.components.signs.SignMaterialComponent;
 import dev.danae.creativesuite.util.commands.CommandGroup;
 import java.util.List;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
