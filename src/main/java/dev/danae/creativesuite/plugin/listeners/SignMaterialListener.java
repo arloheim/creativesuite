@@ -1,4 +1,4 @@
-package dev.danae.creativesuite.plugin.components.signs;
+package dev.danae.creativesuite.plugin.listeners;
 
 import dev.danae.creativesuite.plugin.CreativeSuitePlugin;
 import dev.danae.creativesuite.plugin.CreativeSuitePluginComponent;
@@ -8,6 +8,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.Sound;
@@ -16,7 +17,7 @@ import org.bukkit.block.sign.Side;
 import org.bukkit.block.sign.SignSide;
 
 
-public class SignMaterialComponent extends CreativeSuitePluginComponent
+public class SignMaterialListener extends CreativeSuitePluginComponent implements Listener
 {
   // List containing all sign materials
   private static final List<Material> SIGN_MATERIALS = List.of(
@@ -80,7 +81,7 @@ public class SignMaterialComponent extends CreativeSuitePluginComponent
  
   
   // Constructor
-  public SignMaterialComponent(CreativeSuitePlugin plugin)
+  public SignMaterialListener(CreativeSuitePlugin plugin)
   {
     super(plugin);
   }
@@ -154,7 +155,7 @@ public class SignMaterialComponent extends CreativeSuitePluginComponent
 
         // Set the block state
         var newSign = (Sign)block.getState();
-        SignMaterialComponent.copySign(sign, newSign);
+        SignMaterialListener.copySign(sign, newSign);
         newSign.update();
         
         // Play a sound to indicate the change

@@ -1,7 +1,7 @@
 package dev.danae.creativesuite.plugin.commands.alias;
 
-import dev.danae.creativesuite.plugin.commands.PluginComponentCommand;
-import dev.danae.creativesuite.plugin.components.commands.AliasComponent;
+import dev.danae.creativesuite.model.Manager;
+import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import dev.danae.creativesuite.util.parser.ParserException;
 import dev.danae.creativesuite.util.commands.CommandContext;
 import dev.danae.creativesuite.util.commands.CommandException;
@@ -9,12 +9,12 @@ import dev.danae.creativesuite.util.commands.CommandUsageException;
 import java.util.List;
 
 
-public class AliasRunCommand extends PluginComponentCommand<AliasComponent>
+public class AliasRunCommand extends ManagerCommand
 {
   // Constructor
-  public AliasRunCommand(AliasComponent component)
+  public AliasRunCommand(Manager manager)
   {
-    super(component, "creativesuite.alias.run");
+    super(manager, "creativesuite.alias.run");
   }
     
   
@@ -33,12 +33,11 @@ public class AliasRunCommand extends PluginComponentCommand<AliasComponent>
       
       // Parse the arguments
       var key = scanner.nextNamespacedKey();
-      var existingKey = this.getComponent().getAliases().containsKey(key);
-      if (!existingKey)
+      var alias = this.getManager().getAlias(key);
+      if (alias == null)
         throw new CommandException(String.format("Alias %s does not exist", key.toString()));
 
       // Dispatch the command of the alias
-      var alias = this.getComponent().getAliases().get(key);
       alias.dispatchCommand(context.getSender());
     }
     catch (ParserException ex)
@@ -52,7 +51,7 @@ public class AliasRunCommand extends PluginComponentCommand<AliasComponent>
   public List<String> handleTabCompletion(CommandContext context)
   {
     if (context.hasArgumentsCount(1))
-      return this.getComponent().handleAliasTabCompletion(context.getArgument(0));
+      return this.handleAliasTabCompletion(context.getArgument(0));
     else
       return List.of();
   }

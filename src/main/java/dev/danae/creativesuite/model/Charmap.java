@@ -16,9 +16,9 @@ public class Charmap extends Data
 
 
   // Constructor for a list of code points
-  public Charmap(CreativeSuitePlugin plugin, File file)
+  public Charmap(CreativeSuitePlugin plugin, String fileName)
   {
-    super(plugin, file);
+    super(plugin, fileName);
 
     this.codePoints = new ArrayList<Integer>();
     this.load();

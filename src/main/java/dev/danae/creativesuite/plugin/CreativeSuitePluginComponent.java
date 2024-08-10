@@ -1,10 +1,9 @@
 package dev.danae.creativesuite.plugin;
 
-import dev.danae.creativesuite.util.commands.Command;
-import org.bukkit.event.Listener;
+import dev.danae.creativesuite.model.ManagerComponent;
 
 
-public abstract class CreativeSuitePluginComponent implements Listener
+public abstract class CreativeSuitePluginComponent extends ManagerComponent
 {
   // The plugin of the component
   private final CreativeSuitePlugin plugin;
@@ -12,7 +11,9 @@ public abstract class CreativeSuitePluginComponent implements Listener
   
   // Constructor
   public CreativeSuitePluginComponent(CreativeSuitePlugin plugin)
-  {    
+  {
+    super(plugin.getManager());
+
     this.plugin = plugin;
   }
   
@@ -21,25 +22,5 @@ public abstract class CreativeSuitePluginComponent implements Listener
   public CreativeSuitePlugin getPlugin()
   {
     return this.plugin;
-  }
-
-
-  // Load the component
-  public void loadComponent()
-  {
-  }
-
-  // Enable the component
-  public void enableComponent()
-  {
-    // Register the listener
-    this.plugin.getServer().getPluginManager().registerEvents(this, this.plugin);
-  }
-
-
-  // Register the specified command handler
-  protected void registerCommandHandler(String name, Command command)
-  {
-    command.publishCommandHandler(this.getPlugin(), this.getPlugin().getCommand(name));
   }
 }

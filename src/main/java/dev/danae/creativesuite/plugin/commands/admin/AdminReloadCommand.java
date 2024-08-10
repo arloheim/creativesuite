@@ -1,19 +1,26 @@
 package dev.danae.creativesuite.plugin.commands.admin;
 
+import dev.danae.creativesuite.model.Manager;
 import dev.danae.creativesuite.plugin.CreativeSuitePlugin;
-import dev.danae.creativesuite.plugin.commands.PluginCommand;
+import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import dev.danae.creativesuite.util.commands.CommandContext;
 import dev.danae.creativesuite.util.commands.CommandException;
 import dev.danae.creativesuite.util.commands.CommandUsageException;
 import java.util.List;
 
 
-public class AdminReloadCommand extends PluginCommand
+public class AdminReloadCommand extends ManagerCommand
 {  
+  // The plugin of the command
+  private final CreativeSuitePlugin plugin;
+
+
   // Constructor
-  public AdminReloadCommand(CreativeSuitePlugin plugin)
+  public AdminReloadCommand(Manager manager, CreativeSuitePlugin plugin)
   {
-    super(plugin, "creativesuite.admin");
+    super(manager, "creativesuite.admin");
+
+    this.plugin = plugin;
   }
     
   
@@ -22,10 +29,10 @@ public class AdminReloadCommand extends PluginCommand
   public void handle(CommandContext context) throws CommandException, CommandUsageException
   {     
     // Reload the plugin
-    this.getPlugin().loadPlugin();
+    this.plugin.loadPlugin();
     
     // Send information about the reload
-    context.sendMessage(String.format("Reloaded %s", this.getPlugin().getDescription().getName()));
+    context.sendMessage(String.format("Reloaded %s", this.plugin.getDescription().getName()));
   }
 
   // Handle tab completion of the command

@@ -1,13 +1,6 @@
-package dev.danae.creativesuite.plugin.components.commands;
+package dev.danae.creativesuite.plugin.commands.charmap;
 
-import dev.danae.creativesuite.plugin.CreativeSuitePluginComponent;
 import dev.danae.creativesuite.model.Charmap;
-import dev.danae.creativesuite.plugin.CreativeSuitePlugin;
-import dev.danae.creativesuite.plugin.commands.charmap.CharmapAddCommand;
-import dev.danae.creativesuite.plugin.commands.charmap.CharmapListCommand;
-import dev.danae.creativesuite.plugin.commands.charmap.CharmapRemoveCommand;
-import dev.danae.creativesuite.util.commands.CommandGroup;
-import java.io.File;
 import java.util.stream.Collectors;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -17,57 +10,14 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.hover.content.Text;
 
 
-public class CharmapComponent extends CreativeSuitePluginComponent
+public class CharmapFormatter
 {
-  // The charmap
-  private Charmap charmap;
-
-
-  // Constructor
-  public CharmapComponent(CreativeSuitePlugin plugin) 
-  {
-    super(plugin);
-
-    this.charmap = new Charmap(this.getPlugin(), new File(this.getPlugin().getDataFolder(), "charmap.yml"));
-  }  
-  
-
-  // Load the component
-  @Override
-  public void loadComponent()
-  {
-    super.loadComponent();
-
-    // Load the data
-    this.charmap.load();
-  }
-
-  // Enable the component
-  @Override
-  public void enableComponent()
-  {
-    super.enableComponent();
-
-    // Register the commands
-    this.registerCommandHandler("charmap", new CommandGroup()
-      .registerSubcommand("add", new CharmapAddCommand(this))
-      .registerSubcommand("remove", new CharmapRemoveCommand(this))
-      .registerEmptySubcommand(new CharmapListCommand(this)));
-  }
-
-  
-  // Return the charmap
-  public Charmap getCharmap()
-  {
-    return charmap;
-  }
-
   // Format a charmap list message
-  public BaseComponent[] formatCharmapListMessage(int columns)
+  public static BaseComponent[] formatCharmapListMessage(Charmap charmap, int columns)
   {
-    var builder = new ComponentBuilder(String.format("%d characters are defined", this.charmap.getCodePoints().size()));
+    var builder = new ComponentBuilder(String.format("%d characters are defined", charmap.getCodePoints().size()));
     var currentColumn = 0;
-    for (var codePoint : this.charmap.getCodePointsAsStrings())
+    for (var codePoint : charmap.getCodePointsAsStrings())
     {
       if (currentColumn == 0)
         builder.append("\n  ");
@@ -84,7 +34,7 @@ public class CharmapComponent extends CreativeSuitePluginComponent
   }
 
   // Format a charmap added message
-  public BaseComponent[] formatCharmapAddedMessage(String codePoints)
+  public static BaseComponent[] formatCharmapAddedMessage(String codePoints)
   {
     var characters = codePoints.codePoints().boxed()
       .sorted()
@@ -99,7 +49,7 @@ public class CharmapComponent extends CreativeSuitePluginComponent
   }
 
   // Format a charmap removed message
-  public BaseComponent[] formatCharmapRemovedMessage(String codePoints)
+  public static BaseComponent[] formatCharmapRemovedMessage(String codePoints)
   {
     var characters = codePoints.codePoints().boxed()
       .sorted()

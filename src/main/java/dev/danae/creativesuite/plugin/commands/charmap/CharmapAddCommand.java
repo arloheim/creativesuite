@@ -1,7 +1,7 @@
 package dev.danae.creativesuite.plugin.commands.charmap;
 
-import dev.danae.creativesuite.plugin.commands.PluginComponentCommand;
-import dev.danae.creativesuite.plugin.components.commands.CharmapComponent;
+import dev.danae.creativesuite.model.Manager;
+import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import dev.danae.creativesuite.util.parser.ParserException;
 import dev.danae.creativesuite.util.commands.CommandContext;
 import dev.danae.creativesuite.util.commands.CommandException;
@@ -9,12 +9,12 @@ import dev.danae.creativesuite.util.commands.CommandUsageException;
 import java.util.List;
 
 
-public class CharmapAddCommand extends PluginComponentCommand<CharmapComponent>
+public class CharmapAddCommand extends ManagerCommand
 {
   // Constructor
-  public CharmapAddCommand(CharmapComponent component)
+  public CharmapAddCommand(Manager manager)
   {
-    super(component, "creativesuite.charmap.add");
+    super(manager, "creativesuite.charmap.add");
   }
     
   
@@ -35,10 +35,10 @@ public class CharmapAddCommand extends PluginComponentCommand<CharmapComponent>
       var codePoints = scanner.next();
 
       // Add the code points to the charmap
-      this.getComponent().getCharmap().addCodePoints(codePoints);
+      this.getManager().addToCharmap(codePoints);
 
       // Send a message about the added code points
-      context.sendMessage(this.getComponent().formatCharmapAddedMessage(codePoints));
+      context.sendMessage(CharmapFormatter.formatCharmapAddedMessage(codePoints));
     }
     catch (ParserException ex)
     {

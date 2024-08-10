@@ -1,7 +1,7 @@
 package dev.danae.creativesuite.plugin.commands.alias;
 
-import dev.danae.creativesuite.plugin.commands.PluginComponentCommand;
-import dev.danae.creativesuite.plugin.components.commands.AliasComponent;
+import dev.danae.creativesuite.model.Manager;
+import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import dev.danae.creativesuite.util.parser.ParserException;
 import dev.danae.creativesuite.util.commands.CommandContext;
 import dev.danae.creativesuite.util.commands.CommandException;
@@ -9,12 +9,12 @@ import dev.danae.creativesuite.util.commands.CommandUsageException;
 import java.util.List;
 
 
-public class AliasRemoveCommand extends PluginComponentCommand<AliasComponent>
+public class AliasRemoveCommand extends ManagerCommand
 {
   // Constructor
-  public AliasRemoveCommand(AliasComponent component)
+  public AliasRemoveCommand(Manager manager)
   {
-    super(component, "creativesuite.alias.remove");
+    super(manager, "creativesuite.alias.remove");
   }
     
   
@@ -33,15 +33,15 @@ public class AliasRemoveCommand extends PluginComponentCommand<AliasComponent>
       
       // Parse the arguments
       var key = scanner.nextNamespacedKey();
-      var existingKey = this.getComponent().getAliases().containsKey(key);
-      if (!existingKey)
+      var alias = this.getManager().getAlias(key);
+      if (alias == null)
         throw new CommandException(String.format("Alias %s does not exist", key.toString()));
 
       // Remove the alias
-      this.getComponent().getAliases().remove(key);
+      this.getManager().removeAlias(key);
 
       // Send a message about the removed alias
-      context.sendMessage(this.getComponent().formatAliasRemovedMessage(key));
+      context.sendMessage(AliasFormatter.formatAliasRemovedMessage(key));
     }
     catch (ParserException ex)
     {
@@ -54,7 +54,7 @@ public class AliasRemoveCommand extends PluginComponentCommand<AliasComponent>
   public List<String> handleTabCompletion(CommandContext context)
   {
     if (context.hasArgumentsCount(1))
-      return this.getComponent().handleAliasTabCompletion(context.getArgument(0));
+      return this.handleAliasTabCompletion(context.getArgument(0));
     else
       return List.of();
   }

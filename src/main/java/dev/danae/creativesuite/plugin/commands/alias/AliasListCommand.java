@@ -1,23 +1,23 @@
 package dev.danae.creativesuite.plugin.commands.alias;
 
-import dev.danae.creativesuite.plugin.commands.PluginComponentCommand;
-import dev.danae.creativesuite.plugin.components.commands.AliasComponent;
+import dev.danae.creativesuite.model.Manager;
+import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import dev.danae.creativesuite.util.commands.CommandContext;
 import dev.danae.creativesuite.util.commands.CommandException;
 import dev.danae.creativesuite.util.commands.CommandUsageException;
 import java.util.List;
 
 
-public class AliasListCommand extends PluginComponentCommand<AliasComponent>
+public class AliasListCommand extends ManagerCommand
 {
   // Constant for the page size
   public static int PAGE_SIZE = 20;
 
 
   // Constructor
-  public AliasListCommand(AliasComponent component)
+  public AliasListCommand(Manager manager)
   {
-    super(component, "creativesuite.alias.list");
+    super(manager, "creativesuite.alias.list");
   }
     
   
@@ -30,7 +30,7 @@ public class AliasListCommand extends PluginComponentCommand<AliasComponent>
       throw new CommandUsageException();
     
     // Send a message listing the hotbars
-    context.sendMessage(this.getComponent().formatAliasListMessage());
+    context.sendMessage(AliasFormatter.formatAliasListMessage(this.getManager().getDefinedAliases()));
   }
 
   // Handle tab completion of the command

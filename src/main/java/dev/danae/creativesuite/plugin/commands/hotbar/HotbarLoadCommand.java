@@ -1,7 +1,7 @@
 package dev.danae.creativesuite.plugin.commands.hotbar;
 
-import dev.danae.creativesuite.plugin.commands.PluginComponentCommand;
-import dev.danae.creativesuite.plugin.components.commands.HotbarComponent;
+import dev.danae.creativesuite.model.Manager;
+import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import dev.danae.creativesuite.util.parser.ParserException;
 import dev.danae.creativesuite.util.commands.CommandContext;
 import dev.danae.creativesuite.util.commands.CommandException;
@@ -10,12 +10,12 @@ import java.util.List;
 import org.bukkit.GameMode;
 
 
-public class HotbarLoadCommand extends PluginComponentCommand<HotbarComponent>
+public class HotbarLoadCommand extends ManagerCommand
 {
   // Constructor
-  public HotbarLoadCommand(HotbarComponent component)
+  public HotbarLoadCommand(Manager manager)
   {
-    super(component, "creativesuite.hotbar.load");
+    super(manager, "creativesuite.hotbar.load");
   }
     
   
@@ -39,16 +39,15 @@ public class HotbarLoadCommand extends PluginComponentCommand<HotbarComponent>
       
       // Parse the arguments
       var key = scanner.nextNamespacedKey();
-      var existingKey = this.getComponent().getHotbars().containsKey(key);
-      if (!existingKey)
+      var hotbar = this.getManager().getHotbar(key);
+      if (hotbar == null)
         throw new CommandException(String.format("Hotbar %s does not exist", key.toString()));
 
       // Load the hotbar
-      var hotbar = this.getComponent().getHotbars().get(key);
       hotbar.applyTo(player.getInventory());
 
       // Send a message about the loaded hotbar
-      context.sendMessage(this.getComponent().formatHotbarLoadedMessage(key));
+      context.sendMessage(HotbarFormatter.formatHotbarLoadedMessage(key));
     }
     catch (ParserException ex)
     {
@@ -61,7 +60,7 @@ public class HotbarLoadCommand extends PluginComponentCommand<HotbarComponent>
   public List<String> handleTabCompletion(CommandContext context)
   {
     if (context.hasArgumentsCount(1))
-      return this.getComponent().handleHotbarTabCompletion(context.getArgument(0));
+      return this.handleHotbarTabCompletion(context.getArgument(0));
     else
       return List.of();
   }

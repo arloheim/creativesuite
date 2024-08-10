@@ -1,8 +1,8 @@
-package dev.danae.creativesuite.util;
+package dev.danae.creativesuite.util.commands;
 
 import java.util.List;
 
-public class TabCompleters 
+public class CommandUtils 
 {
   // Class that defines a search result for tab completion
   public static class SearchResult implements Comparable<SearchResult>
@@ -42,6 +42,26 @@ public class TabCompleters
       return new SearchResult(string, string.indexOf(query));
     }
   }
+
+
+  // Clamp an integer value
+  public static int clamp(int value, int min, int max) 
+  {
+    return Math.max(min, Math.min(max, value));
+  }
+  
+  // Clamp a float value
+  public static float clamp(float value, float min, float max) 
+  {
+    return Math.max(min, Math.min(max, value));
+  }
+  
+  // Clamp a double value
+  public static double clamp(double value, double min, double max) 
+  {
+    return Math.max(min, Math.min(max, value));
+  }
+
 
   // Handle tab completion for a list while performing a search for the argument
   public static List<String> handleSearchTabCompletion(String arg, List<String> list)

@@ -1,23 +1,23 @@
 package dev.danae.creativesuite.plugin.commands.charmap;
 
-import dev.danae.creativesuite.plugin.commands.PluginComponentCommand;
-import dev.danae.creativesuite.plugin.components.commands.CharmapComponent;
+import dev.danae.creativesuite.model.Manager;
+import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import dev.danae.creativesuite.util.commands.CommandContext;
 import dev.danae.creativesuite.util.commands.CommandException;
 import dev.danae.creativesuite.util.commands.CommandUsageException;
 import java.util.List;
 
 
-public class CharmapListCommand extends PluginComponentCommand<CharmapComponent>
+public class CharmapListCommand extends ManagerCommand
 {
   // Constants for the page size and columns
   public static int COLUMNS = 16;
 
 
   // Constructor
-  public CharmapListCommand(CharmapComponent component)
+  public CharmapListCommand(Manager manager)
   {
-    super(component, "creativesuite.charmap.list");
+    super(manager, "creativesuite.charmap.list");
   }
     
   
@@ -30,7 +30,7 @@ public class CharmapListCommand extends PluginComponentCommand<CharmapComponent>
       throw new CommandUsageException();
     
     // Send a message listing the hotbars
-    context.sendMessage(this.getComponent().formatCharmapListMessage(COLUMNS));
+    context.sendMessage(CharmapFormatter.formatCharmapListMessage(this.getManager().getCharmap(), COLUMNS));
   }
 
   // Handle tab completion of the command

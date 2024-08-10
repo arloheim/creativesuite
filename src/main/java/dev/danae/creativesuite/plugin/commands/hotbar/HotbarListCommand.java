@@ -1,19 +1,19 @@
 package dev.danae.creativesuite.plugin.commands.hotbar;
 
-import dev.danae.creativesuite.plugin.commands.PluginComponentCommand;
-import dev.danae.creativesuite.plugin.components.commands.HotbarComponent;
+import dev.danae.creativesuite.model.Manager;
+import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import dev.danae.creativesuite.util.commands.CommandContext;
 import dev.danae.creativesuite.util.commands.CommandException;
 import dev.danae.creativesuite.util.commands.CommandUsageException;
 import java.util.List;
 
 
-public class HotbarListCommand extends PluginComponentCommand<HotbarComponent>
+public class HotbarListCommand extends ManagerCommand
 {
   // Constructor
-  public HotbarListCommand(HotbarComponent component)
+  public HotbarListCommand(Manager manager)
   {
-    super(component, "creativesuite.hotbar.list");
+    super(manager, "creativesuite.hotbar.list");
   }
     
   
@@ -26,7 +26,7 @@ public class HotbarListCommand extends PluginComponentCommand<HotbarComponent>
       throw new CommandUsageException();
     
     // Send a message listing the hotbars
-    context.sendMessage(this.getComponent().formatHotbarListMessage());
+    context.sendMessage(HotbarFormatter.formatHotbarListMessage(this.getManager().getDefinedHotbars()));
   }
 
   // Handle tab completion of the command

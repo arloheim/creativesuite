@@ -1,8 +1,8 @@
 package dev.danae.creativesuite.plugin.commands.alias;
 
 import dev.danae.creativesuite.model.Alias;
-import dev.danae.creativesuite.plugin.commands.PluginComponentCommand;
-import dev.danae.creativesuite.plugin.components.commands.AliasComponent;
+import dev.danae.creativesuite.model.Manager;
+import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import dev.danae.creativesuite.util.parser.ParserException;
 import dev.danae.creativesuite.util.commands.CommandContext;
 import dev.danae.creativesuite.util.commands.CommandException;
@@ -10,15 +10,15 @@ import dev.danae.creativesuite.util.commands.CommandUsageException;
 import java.util.List;
 
 
-public class AliasSaveCommand extends PluginComponentCommand<AliasComponent>
+public class AliasSaveCommand extends ManagerCommand
 {
   // Boolean that indicates if aliases automatically get overwritten
   private final boolean overwriteAliases;
 
   // Constructor
-  public AliasSaveCommand(AliasComponent component, boolean overwriteAliases)
+  public AliasSaveCommand(Manager manager, boolean overwriteAliases)
   {
-    super(component, "creativesuite.alias.save");
+    super(manager, "creativesuite.alias.save");
 
     this.overwriteAliases = overwriteAliases;
   }
@@ -40,21 +40,21 @@ public class AliasSaveCommand extends PluginComponentCommand<AliasComponent>
       // Parse the arguments
       var key = scanner.nextNamespacedKey();
       var command = scanner.rest("command");
-      var existingKey = this.getComponent().getAliases().containsKey(key);
+      var alias = this.getManager().getAlias(key);
 
       // Check if we can overwrite and existing hotbar
-      if (!this.overwriteAliases && existingKey)
+      if (!this.overwriteAliases && alias != null)
       {
         // Send a message about the otherwise overwritten alias
-        context.sendMessage(this.getComponent().formatAliasOverwriteMessage(key, command));
+        context.sendMessage(AliasFormatter.formatAliasOverwriteMessage(key, command));
       }
       else
       {
         // Save the alias
-        this.getComponent().getAliases().put(key, new Alias(command));
+        this.getManager().setAlias(key, new Alias(command));
 
         // Send a message about the saved alias
-        context.sendMessage(this.getComponent().formatAliasSavedMessage(key, command, existingKey));
+        context.sendMessage(AliasFormatter.formatAliasSavedMessage(key, command, alias != null));
       }
     }
     catch (ParserException ex)
@@ -68,7 +68,7 @@ public class AliasSaveCommand extends PluginComponentCommand<AliasComponent>
   public List<String> handleTabCompletion(CommandContext context)
   {
     if (context.hasArgumentsCount(1))
-      return this.getComponent().handleAliasTabCompletion(context.getArgument(0));
+      return this.handleAliasTabCompletion(context.getArgument(0));
     else
       return List.of();
   }

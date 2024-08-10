@@ -1,8 +1,8 @@
 package dev.danae.creativesuite.plugin.commands.hotbar;
 
 import dev.danae.creativesuite.model.Hotbar;
-import dev.danae.creativesuite.plugin.commands.PluginComponentCommand;
-import dev.danae.creativesuite.plugin.components.commands.HotbarComponent;
+import dev.danae.creativesuite.model.Manager;
+import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import dev.danae.creativesuite.util.parser.ParserException;
 import dev.danae.creativesuite.util.commands.CommandContext;
 import dev.danae.creativesuite.util.commands.CommandException;
@@ -11,15 +11,15 @@ import java.util.List;
 import org.bukkit.GameMode;
 
 
-public class HotbarSaveCommand extends PluginComponentCommand<HotbarComponent>
+public class HotbarSaveCommand extends ManagerCommand
 {
   // Boolean that indicates if hotbars automatically get overwritten
   private final boolean overwriteHotbars;
 
   // Constructor
-  public HotbarSaveCommand(HotbarComponent component, boolean overwriteHotbars)
+  public HotbarSaveCommand(Manager manager, boolean overwriteHotbars)
   {
-    super(component, "creativesuite.hotbar.save");
+    super(manager, "creativesuite.hotbar.save");
 
     this.overwriteHotbars = overwriteHotbars;
   }
@@ -45,21 +45,21 @@ public class HotbarSaveCommand extends PluginComponentCommand<HotbarComponent>
       
       // Parse the arguments
       var key = scanner.nextNamespacedKey();
-      var existingKey = this.getComponent().getHotbars().containsKey(key);
+      var hotbar = this.getManager().getHotbar(key);
 
       // Check if we can overwrite and existing hotbar
-      if (!this.overwriteHotbars && existingKey)
+      if (!this.overwriteHotbars && hotbar != null)
       {
         // Send a message about the otherwise overwritten hotbar
-        context.sendMessage(this.getComponent().formatHotbarOverwriteMessage(key));
+        context.sendMessage(HotbarFormatter.formatHotbarOverwriteMessage(key));
       }
       else
       {
         // Save the hotbar
-        this.getComponent().getHotbars().put(key, new Hotbar(player.getInventory()));
+        this.getManager().setHotbar(key, new Hotbar(player.getInventory()));
 
         // Send a message about the saved hotbar
-        context.sendMessage(this.getComponent().formatHotbarSavedMessage(key, existingKey));
+        context.sendMessage(HotbarFormatter.formatHotbarSavedMessage(key, hotbar != null));
       }
     }
     catch (ParserException ex)
@@ -73,7 +73,7 @@ public class HotbarSaveCommand extends PluginComponentCommand<HotbarComponent>
   public List<String> handleTabCompletion(CommandContext context)
   {
     if (context.hasArgumentsCount(1))
-      return this.getComponent().handleHotbarTabCompletion(context.getArgument(0));
+      return this.handleHotbarTabCompletion(context.getArgument(0));
     else
       return List.of();
   }

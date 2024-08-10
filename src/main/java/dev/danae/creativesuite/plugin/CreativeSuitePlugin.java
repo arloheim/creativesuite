@@ -2,27 +2,42 @@ package dev.danae.creativesuite.plugin;
 
 import dev.danae.creativesuite.model.Alias;
 import dev.danae.creativesuite.model.Hotbar;
+import dev.danae.creativesuite.model.Manager;
 import dev.danae.creativesuite.plugin.commands.admin.AdminReloadCommand;
 import dev.danae.creativesuite.plugin.commands.admin.AdminVersionCommand;
-import dev.danae.creativesuite.plugin.components.commands.AliasComponent;
-import dev.danae.creativesuite.plugin.components.commands.CharmapComponent;
-import dev.danae.creativesuite.plugin.components.commands.HotbarComponent;
-import dev.danae.creativesuite.plugin.components.signs.SignMaterialComponent;
+import dev.danae.creativesuite.plugin.commands.alias.AliasListCommand;
+import dev.danae.creativesuite.plugin.commands.alias.AliasRemoveCommand;
+import dev.danae.creativesuite.plugin.commands.alias.AliasRunCommand;
+import dev.danae.creativesuite.plugin.commands.alias.AliasSaveCommand;
+import dev.danae.creativesuite.plugin.commands.charmap.CharmapAddCommand;
+import dev.danae.creativesuite.plugin.commands.charmap.CharmapListCommand;
+import dev.danae.creativesuite.plugin.commands.charmap.CharmapRemoveCommand;
+import dev.danae.creativesuite.plugin.commands.hotbar.HotbarListCommand;
+import dev.danae.creativesuite.plugin.commands.hotbar.HotbarLoadCommand;
+import dev.danae.creativesuite.plugin.commands.hotbar.HotbarRemoveCommand;
+import dev.danae.creativesuite.plugin.commands.hotbar.HotbarSaveCommand;
+import dev.danae.creativesuite.plugin.listeners.SignMaterialListener;
 import dev.danae.creativesuite.util.commands.CommandGroup;
-import java.util.List;
+import java.util.logging.Level;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
 public class CreativeSuitePlugin extends JavaPlugin
 {
-  // List of the components of the plugin
-  private List<CreativeSuitePluginComponent> components = List.of(
-    new AliasComponent(this),
-    new CharmapComponent(this),
-    new HotbarComponent(this),
-    new SignMaterialComponent(this)
-  );
+  // The manager of the plugin
+  private CreativeSuiteManager manager;
+
+  // The sign material listener of the plugin
+  private SignMaterialListener signMaterialListener;
+  
+  
+  // Return the manager of the plugin
+  public Manager getManager()
+  {
+    return this.manager;
+  }
   
 
   // Load the plugin
@@ -33,38 +48,66 @@ public class CreativeSuitePlugin extends JavaPlugin
     ConfigurationSerialization.registerClass(Alias.class);
     ConfigurationSerialization.registerClass(Hotbar.class);
 
-    // Register aliases for serializable classes for the configuration API for backwards compatibility
-    ConfigurationSerialization.registerClass(Alias.class, "dev.danae.gregocommands.model.alias.Alias");
-    ConfigurationSerialization.registerClass(Hotbar.class, "dev.danae.gregocommands.model.hotbar.Hotbar");
-
     // Load the plugin
     this.loadPlugin();
-
-    // Load the components
-    for (var component : components)
-      component.loadComponent();
   }
   
   // Enable the plugin
   @Override
   public void onEnable()
   {    
-    // Register the commands    
+    // Create the components
+    this.manager = new CreativeSuiteManager(this);
+    this.signMaterialListener = new SignMaterialListener(this);
+
+    // Set the listeners
+    Bukkit.getPluginManager().registerEvents(this.signMaterialListener, this);
+
+    // Set the command handlers  
     new CommandGroup()
-      .registerSubcommand("reload", new AdminReloadCommand(this))
-      .registerSubcommand("version", new AdminVersionCommand(this))
+      .registerSubcommand("reload", new AdminReloadCommand(this.manager, this))
+      .registerSubcommand("version", new AdminVersionCommand(this.manager, this))
       .publishCommandHandler(this, this.getCommand("creativesuite"));
 
-    // Enable the components
-    for (var component : components)
-      component.enableComponent();
+    new CommandGroup()
+      .registerSubcommand("list", new AliasListCommand(this.manager))
+      .registerSubcommand("overwrite", new AliasSaveCommand(this.manager, true))
+      .registerSubcommand("remove", new AliasRemoveCommand(this.manager))
+      .registerSubcommand("save", new AliasSaveCommand(this.manager, false))
+      .registerSubcommand("run", new AliasRunCommand(this.manager))
+      .publishCommandHandler(this, this.getCommand("alias"));
+      
+    new AliasRunCommand(this.manager)
+      .publishCommandHandler(this, this.getCommand("run"));
+    
+    new CommandGroup()
+      .registerSubcommand("list", new HotbarListCommand(this.manager))
+      .registerSubcommand("load", new HotbarLoadCommand(this.manager))
+      .registerSubcommand("overwrite", new HotbarSaveCommand(this.manager, true))
+      .registerSubcommand("remove", new HotbarRemoveCommand(this.manager))
+      .registerSubcommand("save", new HotbarSaveCommand(this.manager, false))
+      .publishCommandHandler(this, this.getCommand("hotbar"));
+
+    new CommandGroup()
+      .registerSubcommand("add", new CharmapAddCommand(this.manager))
+      .registerSubcommand("remove", new CharmapRemoveCommand(this.manager))
+      .registerEmptySubcommand(new CharmapListCommand(this.manager))
+      .publishCommandHandler(this, this.getCommand("charmap"));
   }
 
 
   // Load the plugin
   public void loadPlugin()
   {
-    // Save the default configuration and reload
+
+    // Load the configuration
+    this.loadConfiguration();
+  }
+
+  // Load the configuration
+  public void loadConfiguration()
+  {
+    // Save the default configuration
     this.saveDefaultConfig();
     this.reloadConfig();
   }
