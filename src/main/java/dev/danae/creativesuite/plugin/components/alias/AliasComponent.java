@@ -1,14 +1,14 @@
-package dev.danae.gregocommands.plugin.components.alias;
+package dev.danae.creativesuite.plugin.components.alias;
 
-import dev.danae.gregocommands.plugin.CreativeSuitePluginComponent;
-import dev.danae.gregocommands.plugin.CreativeSuitePlugin;
-import dev.danae.gregocommands.plugin.commands.alias.AliasListCommand;
-import dev.danae.gregocommands.plugin.commands.alias.AliasRemoveCommand;
-import dev.danae.gregocommands.plugin.commands.alias.AliasRunCommand;
-import dev.danae.gregocommands.plugin.commands.alias.AliasSaveCommand;
-import dev.danae.gregocommands.util.NamespacedKeys;
-import dev.danae.gregocommands.util.TabCompleters;
-import dev.danae.gregocommands.util.commands.CommandGroup;
+import dev.danae.creativesuite.plugin.CreativeSuitePluginComponent;
+import dev.danae.creativesuite.plugin.CreativeSuitePlugin;
+import dev.danae.creativesuite.plugin.commands.alias.AliasListCommand;
+import dev.danae.creativesuite.plugin.commands.alias.AliasRemoveCommand;
+import dev.danae.creativesuite.plugin.commands.alias.AliasRunCommand;
+import dev.danae.creativesuite.plugin.commands.alias.AliasSaveCommand;
+import dev.danae.creativesuite.util.NamespacedKeys;
+import dev.danae.creativesuite.util.TabCompleters;
+import dev.danae.creativesuite.util.commands.CommandGroup;
 import java.util.List;
 import java.util.Map;
 import net.md_5.bungee.api.ChatColor;

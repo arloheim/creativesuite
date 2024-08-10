@@ -1,12 +1,12 @@
-package dev.danae.gregocommands.plugin.commands.alias;
+package dev.danae.creativesuite.plugin.commands.alias;
 
-import dev.danae.gregocommands.plugin.commands.PluginComponentCommand;
-import dev.danae.gregocommands.plugin.components.alias.Alias;
-import dev.danae.gregocommands.plugin.components.alias.AliasComponent;
-import dev.danae.gregocommands.util.parser.ParserException;
-import dev.danae.gregocommands.util.commands.CommandContext;
-import dev.danae.gregocommands.util.commands.CommandException;
-import dev.danae.gregocommands.util.commands.CommandUsageException;
+import dev.danae.creativesuite.plugin.commands.PluginComponentCommand;
+import dev.danae.creativesuite.plugin.components.alias.Alias;
+import dev.danae.creativesuite.plugin.components.alias.AliasComponent;
+import dev.danae.creativesuite.util.parser.ParserException;
+import dev.danae.creativesuite.util.commands.CommandContext;
+import dev.danae.creativesuite.util.commands.CommandException;
+import dev.danae.creativesuite.util.commands.CommandUsageException;
 import java.util.List;
 
 

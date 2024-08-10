@@ -1,4 +1,4 @@
-package dev.danae.gregocommands.util.data;
+package dev.danae.creativesuite.util.data;
 
 import org.bukkit.NamespacedKey;
 

@@ -1,6 +1,6 @@
-package dev.danae.gregocommands.plugin;
+package dev.danae.creativesuite.plugin;
 
-import dev.danae.gregocommands.util.commands.Command;
+import dev.danae.creativesuite.util.commands.Command;
 import org.bukkit.event.Listener;
 
 

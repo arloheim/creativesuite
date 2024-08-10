@@ -1,10 +1,10 @@
-package dev.danae.gregocommands.plugin.commands.admin;
+package dev.danae.creativesuite.plugin.commands.admin;
 
-import dev.danae.gregocommands.plugin.CreativeSuitePlugin;
-import dev.danae.gregocommands.plugin.commands.PluginCommand;
-import dev.danae.gregocommands.util.commands.CommandContext;
-import dev.danae.gregocommands.util.commands.CommandException;
-import dev.danae.gregocommands.util.commands.CommandUsageException;
+import dev.danae.creativesuite.plugin.CreativeSuitePlugin;
+import dev.danae.creativesuite.plugin.commands.PluginCommand;
+import dev.danae.creativesuite.util.commands.CommandContext;
+import dev.danae.creativesuite.util.commands.CommandException;
+import dev.danae.creativesuite.util.commands.CommandUsageException;
 import java.util.List;
 
 

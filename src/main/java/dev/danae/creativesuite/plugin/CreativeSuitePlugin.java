@@ -1,14 +1,14 @@
-package dev.danae.gregocommands.plugin;
+package dev.danae.creativesuite.plugin;
 
-import dev.danae.gregocommands.plugin.commands.admin.AdminReloadCommand;
-import dev.danae.gregocommands.plugin.commands.admin.AdminVersionCommand;
-import dev.danae.gregocommands.plugin.components.alias.Alias;
-import dev.danae.gregocommands.plugin.components.alias.AliasComponent;
-import dev.danae.gregocommands.plugin.components.charmap.CharmapComponent;
-import dev.danae.gregocommands.plugin.components.hotbar.Hotbar;
-import dev.danae.gregocommands.plugin.components.hotbar.HotbarComponent;
-import dev.danae.gregocommands.plugin.components.signmaterial.SignMaterialComponent;
-import dev.danae.gregocommands.util.commands.CommandGroup;
+import dev.danae.creativesuite.plugin.commands.admin.AdminReloadCommand;
+import dev.danae.creativesuite.plugin.commands.admin.AdminVersionCommand;
+import dev.danae.creativesuite.plugin.components.alias.Alias;
+import dev.danae.creativesuite.plugin.components.alias.AliasComponent;
+import dev.danae.creativesuite.plugin.components.charmap.CharmapComponent;
+import dev.danae.creativesuite.plugin.components.hotbar.Hotbar;
+import dev.danae.creativesuite.plugin.components.hotbar.HotbarComponent;
+import dev.danae.creativesuite.plugin.components.signmaterial.SignMaterialComponent;
+import dev.danae.creativesuite.util.commands.CommandGroup;
 import java.util.List;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;

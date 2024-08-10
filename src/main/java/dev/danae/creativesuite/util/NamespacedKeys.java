@@ -1,4 +1,4 @@
-package dev.danae.gregocommands.util;
+package dev.danae.creativesuite.util;
 
 import java.util.Collection;
 import java.util.Comparator;

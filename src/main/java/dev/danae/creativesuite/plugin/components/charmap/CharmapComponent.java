@@ -1,11 +1,11 @@
-package dev.danae.gregocommands.plugin.components.charmap;
+package dev.danae.creativesuite.plugin.components.charmap;
 
-import dev.danae.gregocommands.plugin.CreativeSuitePluginComponent;
-import dev.danae.gregocommands.plugin.CreativeSuitePlugin;
-import dev.danae.gregocommands.plugin.commands.charmap.CharmapAddCommand;
-import dev.danae.gregocommands.plugin.commands.charmap.CharmapListCommand;
-import dev.danae.gregocommands.plugin.commands.charmap.CharmapRemoveCommand;
-import dev.danae.gregocommands.util.commands.CommandGroup;
+import dev.danae.creativesuite.plugin.CreativeSuitePluginComponent;
+import dev.danae.creativesuite.plugin.CreativeSuitePlugin;
+import dev.danae.creativesuite.plugin.commands.charmap.CharmapAddCommand;
+import dev.danae.creativesuite.plugin.commands.charmap.CharmapListCommand;
+import dev.danae.creativesuite.plugin.commands.charmap.CharmapRemoveCommand;
+import dev.danae.creativesuite.util.commands.CommandGroup;
 import java.io.File;
 import java.util.stream.Collectors;
 import net.md_5.bungee.api.ChatColor;

@@ -1,10 +1,10 @@
-package dev.danae.gregocommands.plugin.commands.hotbar;
+package dev.danae.creativesuite.plugin.commands.hotbar;
 
-import dev.danae.gregocommands.plugin.commands.PluginComponentCommand;
-import dev.danae.gregocommands.plugin.components.hotbar.HotbarComponent;
-import dev.danae.gregocommands.util.commands.CommandContext;
-import dev.danae.gregocommands.util.commands.CommandException;
-import dev.danae.gregocommands.util.commands.CommandUsageException;
+import dev.danae.creativesuite.plugin.commands.PluginComponentCommand;
+import dev.danae.creativesuite.plugin.components.hotbar.HotbarComponent;
+import dev.danae.creativesuite.util.commands.CommandContext;
+import dev.danae.creativesuite.util.commands.CommandException;
+import dev.danae.creativesuite.util.commands.CommandUsageException;
 import java.util.List;
 
 

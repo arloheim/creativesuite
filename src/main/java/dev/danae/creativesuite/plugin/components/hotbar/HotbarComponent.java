@@ -1,14 +1,14 @@
-package dev.danae.gregocommands.plugin.components.hotbar;
+package dev.danae.creativesuite.plugin.components.hotbar;
 
-import dev.danae.gregocommands.plugin.CreativeSuitePluginComponent;
-import dev.danae.gregocommands.plugin.CreativeSuitePlugin;
-import dev.danae.gregocommands.plugin.commands.hotbar.HotbarListCommand;
-import dev.danae.gregocommands.plugin.commands.hotbar.HotbarLoadCommand;
-import dev.danae.gregocommands.plugin.commands.hotbar.HotbarRemoveCommand;
-import dev.danae.gregocommands.plugin.commands.hotbar.HotbarSaveCommand;
-import dev.danae.gregocommands.util.NamespacedKeys;
-import dev.danae.gregocommands.util.TabCompleters;
-import dev.danae.gregocommands.util.commands.CommandGroup;
+import dev.danae.creativesuite.plugin.CreativeSuitePluginComponent;
+import dev.danae.creativesuite.plugin.CreativeSuitePlugin;
+import dev.danae.creativesuite.plugin.commands.hotbar.HotbarListCommand;
+import dev.danae.creativesuite.plugin.commands.hotbar.HotbarLoadCommand;
+import dev.danae.creativesuite.plugin.commands.hotbar.HotbarRemoveCommand;
+import dev.danae.creativesuite.plugin.commands.hotbar.HotbarSaveCommand;
+import dev.danae.creativesuite.util.NamespacedKeys;
+import dev.danae.creativesuite.util.TabCompleters;
+import dev.danae.creativesuite.util.commands.CommandGroup;
 import java.util.List;
 import java.util.Map;
 import net.md_5.bungee.api.ChatColor;

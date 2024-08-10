@@ -1,6 +1,6 @@
-package dev.danae.gregocommands.plugin.commands;
+package dev.danae.creativesuite.plugin.commands;
 
-import dev.danae.gregocommands.plugin.CreativeSuitePluginComponent;
+import dev.danae.creativesuite.plugin.CreativeSuitePluginComponent;
 
 
 public abstract class PluginComponentCommand<C extends CreativeSuitePluginComponent> extends PluginCommand

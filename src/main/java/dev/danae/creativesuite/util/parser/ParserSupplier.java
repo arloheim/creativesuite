@@ -1,4 +1,4 @@
-package dev.danae.gregocommands.util.parser;
+package dev.danae.creativesuite.util.parser;
 
 
 @FunctionalInterface

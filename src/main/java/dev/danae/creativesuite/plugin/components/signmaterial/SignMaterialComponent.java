@@ -1,7 +1,7 @@
-package dev.danae.gregocommands.plugin.components.signmaterial;
+package dev.danae.creativesuite.plugin.components.signmaterial;
 
-import dev.danae.gregocommands.plugin.CreativeSuitePlugin;
-import dev.danae.gregocommands.plugin.CreativeSuitePluginComponent;
+import dev.danae.creativesuite.plugin.CreativeSuitePlugin;
+import dev.danae.creativesuite.plugin.CreativeSuitePluginComponent;
 import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;

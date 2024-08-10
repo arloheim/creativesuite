@@ -1,4 +1,4 @@
-package dev.danae.gregocommands.util.commands;
+package dev.danae.creativesuite.util.commands;
 
 import java.util.Arrays;
 import java.util.Collections;

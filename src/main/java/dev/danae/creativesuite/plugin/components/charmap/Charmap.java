@@ -1,7 +1,7 @@
-package dev.danae.gregocommands.plugin.components.charmap;
+package dev.danae.creativesuite.plugin.components.charmap;
 
-import dev.danae.gregocommands.plugin.CreativeSuitePlugin;
-import dev.danae.gregocommands.util.data.Data;
+import dev.danae.creativesuite.plugin.CreativeSuitePlugin;
+import dev.danae.creativesuite.util.data.Data;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;

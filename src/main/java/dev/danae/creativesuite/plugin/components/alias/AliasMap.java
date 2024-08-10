@@ -1,8 +1,8 @@
-package dev.danae.gregocommands.plugin.components.alias;
+package dev.danae.creativesuite.plugin.components.alias;
 
-import dev.danae.gregocommands.plugin.CreativeSuitePlugin;
-import dev.danae.gregocommands.util.data.DataMap;
-import dev.danae.gregocommands.util.data.DataMapKeyType;
+import dev.danae.creativesuite.plugin.CreativeSuitePlugin;
+import dev.danae.creativesuite.util.data.DataMap;
+import dev.danae.creativesuite.util.data.DataMapKeyType;
 import org.bukkit.NamespacedKey;
 
 

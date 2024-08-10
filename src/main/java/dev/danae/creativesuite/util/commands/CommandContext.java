@@ -1,6 +1,6 @@
-package dev.danae.gregocommands.util.commands;
+package dev.danae.creativesuite.util.commands;
 
-import dev.danae.gregocommands.util.parser.Scanner;
+import dev.danae.creativesuite.util.parser.Scanner;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
