@@ -17,6 +17,7 @@ import dev.danae.creativesuite.plugin.commands.hotbar.HotbarLoadCommand;
 import dev.danae.creativesuite.plugin.commands.hotbar.HotbarRemoveCommand;
 import dev.danae.creativesuite.plugin.commands.hotbar.HotbarSaveCommand;
 import dev.danae.creativesuite.plugin.listeners.SignMaterialListener;
+import dev.danae.creativesuite.plugin.migrations.v1_1_1.ConfigurationSerializableMigration;
 import dev.danae.creativesuite.util.commands.CommandGroup;
 import java.util.logging.Level;
 import org.bukkit.Bukkit;
@@ -99,9 +100,21 @@ public class CreativeSuitePlugin extends JavaPlugin
   // Load the plugin
   public void loadPlugin()
   {
+    // Execute migrations
+    this.executeMigrations();
 
     // Load the configuration
     this.loadConfiguration();
+      
+  }
+
+  // Execute migrations
+  public void executeMigrations()
+  {
+    this.getLogger().log(Level.INFO, "Checking for migrations to execute...");
+
+    // Execute v1.1.1 migrations
+    new ConfigurationSerializableMigration(this).migrate();
   }
 
   // Load the configuration
