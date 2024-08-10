@@ -1,6 +1,7 @@
-package dev.danae.creativesuite.plugin.components.charmap;
+package dev.danae.creativesuite.plugin.components.commands;
 
 import dev.danae.creativesuite.plugin.CreativeSuitePluginComponent;
+import dev.danae.creativesuite.model.Charmap;
 import dev.danae.creativesuite.plugin.CreativeSuitePlugin;
 import dev.danae.creativesuite.plugin.commands.charmap.CharmapAddCommand;
 import dev.danae.creativesuite.plugin.commands.charmap.CharmapListCommand;

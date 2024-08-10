@@ -1,4 +1,4 @@
-package dev.danae.creativesuite.plugin.components.charmap;
+package dev.danae.creativesuite.model;
 
 import dev.danae.creativesuite.plugin.CreativeSuitePlugin;
 import dev.danae.creativesuite.util.data.Data;

@@ -1,12 +1,12 @@
 package dev.danae.creativesuite.plugin;
 
+import dev.danae.creativesuite.model.Alias;
+import dev.danae.creativesuite.model.Hotbar;
 import dev.danae.creativesuite.plugin.commands.admin.AdminReloadCommand;
 import dev.danae.creativesuite.plugin.commands.admin.AdminVersionCommand;
-import dev.danae.creativesuite.plugin.components.alias.Alias;
-import dev.danae.creativesuite.plugin.components.alias.AliasComponent;
-import dev.danae.creativesuite.plugin.components.charmap.CharmapComponent;
-import dev.danae.creativesuite.plugin.components.hotbar.Hotbar;
-import dev.danae.creativesuite.plugin.components.hotbar.HotbarComponent;
+import dev.danae.creativesuite.plugin.components.commands.AliasComponent;
+import dev.danae.creativesuite.plugin.components.commands.CharmapComponent;
+import dev.danae.creativesuite.plugin.components.commands.HotbarComponent;
 import dev.danae.creativesuite.plugin.components.signs.SignMaterialComponent;
 import dev.danae.creativesuite.util.commands.CommandGroup;
 import java.util.List;

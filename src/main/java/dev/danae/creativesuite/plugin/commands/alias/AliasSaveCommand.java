@@ -1,8 +1,8 @@
 package dev.danae.creativesuite.plugin.commands.alias;
 
+import dev.danae.creativesuite.model.Alias;
 import dev.danae.creativesuite.plugin.commands.PluginComponentCommand;
-import dev.danae.creativesuite.plugin.components.alias.Alias;
-import dev.danae.creativesuite.plugin.components.alias.AliasComponent;
+import dev.danae.creativesuite.plugin.components.commands.AliasComponent;
 import dev.danae.creativesuite.util.parser.ParserException;
 import dev.danae.creativesuite.util.commands.CommandContext;
 import dev.danae.creativesuite.util.commands.CommandException;

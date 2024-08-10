@@ -1,4 +1,4 @@
-package dev.danae.creativesuite.plugin.components.alias;
+package dev.danae.creativesuite.model;
 
 import java.util.HashMap;
 import java.util.Map;
