@@ -38,7 +38,7 @@ public class AliasSaveCommand extends PluginComponentCommand<AliasComponent>
       var scanner = context.getArgumentsScanner();
       
       // Parse the arguments
-      var key = scanner.nextKey();
+      var key = scanner.nextNamespacedKey();
       var command = scanner.rest("command");
       var existingKey = this.getComponent().getAliases().containsKey(key);
 

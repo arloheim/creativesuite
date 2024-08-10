@@ -38,7 +38,7 @@ public class HotbarLoadCommand extends PluginComponentCommand<HotbarComponent>
       var scanner = context.getArgumentsScanner();
       
       // Parse the arguments
-      var key = scanner.nextKey();
+      var key = scanner.nextNamespacedKey();
       var existingKey = this.getComponent().getHotbars().containsKey(key);
       if (!existingKey)
         throw new CommandException(String.format("Hotbar %s does not exist", key.toString()));

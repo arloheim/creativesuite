@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.regex.Pattern;
+import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 
 
@@ -15,6 +16,7 @@ public class Parser
   private static final Pattern FLOAT_PATTERN = Pattern.compile("-?[0-9]+(\\.[0-9]+)?");
   private static final Pattern IDENTIFIER_PATTERN = Pattern.compile("[a-zA-Z_][a-zA-Z0-9_]*");
   private static final Pattern NAMESPACED_KEY_PATTERN = Pattern.compile("[a-zA-Z0-9_\\-\\/]+:[a-zA-Z0-9_\\-\\/]+(?:\\\\.[a-zA-Z0-9_\\-\\/]+)*");
+  private static final Pattern LOCATION_PATTERN = Pattern.compile("(?<cur>~)|(?<xyz>(?:(?<x>0|-?[1-9][0-9]*)|(?<rx>~(?<dx>-?[1-9][0-9]*)?))\\s+(?:(?<y>0|-?[1-9][0-9]*)|(?<ry>~(?<dy>-?[1-9][0-9]*)?))\\s+(?:(?<z>0|-?[1-9][0-9]*)|(?<rz>~(?<dz>-?[1-9][0-9]*)?))))");
   
   
   // Parse an integer value from a string
@@ -145,7 +147,7 @@ public class Parser
   }
   
   // Parse a namespaced key from a string
-  public static NamespacedKey parseKey(String string) throws ParserException
+  public static NamespacedKey parseNamespacedKey(String string) throws ParserException
   {
     // Match the string against the pattern
     var m = NAMESPACED_KEY_PATTERN.matcher(string);
@@ -192,5 +194,31 @@ public class Parser
   {
     var strings = Arrays.asList(string.split(splitRegex));
     return parseEnumSet(strings, cls);
+  }
+
+  // Parse a location from a string
+  public static Location parseLocation(String string, Location origin, int radius) throws ParserException
+  {
+    // Match the string against the pattern
+    var m = LOCATION_PATTERN.matcher(string);
+    if (!m.matches())
+      throw new ParserException(String.format("\"%s\" is an invalid location value", string));
+    
+    // Check for a current location
+    if (m.group("cur") != null)
+      return origin;
+    
+    // Check for a numeric location
+    if (m.group("xyz") != null)
+    {
+      var x = m.group("rx") != null ? origin.getBlockX() + (m.group("dx") != null ? parseInt(m.group("dx")) : 0) : parseInt(m.group("x"));
+      var y = m.group("ry") != null ? origin.getBlockY() + (m.group("dy") != null ? parseInt(m.group("dy")) : 0) : parseInt(m.group("y"));
+      var z = m.group("rz") != null ? origin.getBlockZ() + (m.group("dz") != null ? parseInt(m.group("dz")) : 0) : parseInt(m.group("z"));
+      
+      return new Location(origin.getWorld(), x, y, z);
+    }
+    
+    // Invalid location format
+    throw new ParserException(String.format("\"%s\" is an invalid location value", string));
   }
 }

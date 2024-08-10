@@ -44,7 +44,7 @@ public class HotbarSaveCommand extends PluginComponentCommand<HotbarComponent>
       var scanner = context.getArgumentsScanner();
       
       // Parse the arguments
-      var key = scanner.nextKey();
+      var key = scanner.nextNamespacedKey();
       var existingKey = this.getComponent().getHotbars().containsKey(key);
 
       // Check if we can overwrite and existing hotbar

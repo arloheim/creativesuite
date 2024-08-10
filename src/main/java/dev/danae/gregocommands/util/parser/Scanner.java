@@ -1,6 +1,7 @@
 package dev.danae.gregocommands.util.parser;
 
 import java.util.EnumSet;
+import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 
 
@@ -47,7 +48,16 @@ public class Scanner
     
     this.index ++;
     return this.current();
-  }  
+  }
+  
+  // Advance the index the specified amount of positions
+  private String advanceMany(int amount, String expected) throws ParserException
+  {
+    var string = "";
+    for (var i = 0; i < amount; i ++)      
+      string += (!string.isBlank() ? " " : "") + this.advance(expected);
+    return string;
+  }
   
   // Take the next token and parse it
   private <T> T take(ParserFunction<String, T> parser, String expected) throws ParserException
@@ -56,6 +66,21 @@ public class Scanner
     try
     {
       return parser.apply(this.advance(expected));
+    }
+    catch (ParserException ex)
+    {
+      this.index = previousIndex;
+      throw ex;
+    }
+  }
+
+  // Take an amount of tokens and parse them
+  private <T> T takeMany(ParserFunction<String, T> parser, int amount, String expected) throws ParserException
+  {    
+    var previousIndex = this.index;
+    try
+    {
+      return parser.apply(this.advanceMany(amount, expected));
     }
     catch (ParserException ex)
     {
@@ -176,17 +201,16 @@ public class Scanner
     return ParserSupplier.getOrElse(() -> this.nextIdentifier(), defaultValue);
   }
   
-  
   // Return the next element in the scanner as a namespaced key
-  public NamespacedKey nextKey() throws ParserException
+  public NamespacedKey nextNamespacedKey() throws ParserException
   {
-    return this.take(Parser::parseKey, "namespaced key");
+    return this.take(Parser::parseNamespacedKey, "namespaced key");
   }
   
   // Return the next element in the scanner as a namespaced key, or the default value if no such element exists
-  public NamespacedKey nextKey(NamespacedKey defaultValue)
+  public NamespacedKey nextNamespacedKey(NamespacedKey defaultValue)
   {
-    return ParserSupplier.getOrElse(() -> this.nextKey(), defaultValue);
+    return ParserSupplier.getOrElse(() -> this.nextNamespacedKey(), defaultValue);
   }
   
   // Return the next element in the scanner as an enum of the specified class
@@ -211,5 +235,24 @@ public class Scanner
   public <T extends Enum<T>> EnumSet<T> nextEnumSet(Class<T> cls, String expected, EnumSet<T> defaultValue)
   {
     return ParserSupplier.getOrElse(() -> this.nextEnumSet(cls, expected), defaultValue);
+  }
+  
+  // Return the next element in the scanner as a location
+  public Location nextLocation(Location origin, int radius) throws ParserException
+  {
+    try
+    {
+      return this.takeMany(s -> Parser.parseLocation(s, origin, radius), 3, "location");
+    }
+    catch (ParserException ex)
+    {
+      return this.take(s -> Parser.parseLocation(s, origin, radius), "location");
+    }
+  }
+  
+  // Return the next element in the scanner as a location, or the default value if no such element exists
+  public Location nextLocation(Location origin, int radius, Location defaultValue)
+  {
+    return ParserSupplier.getOrElse(() -> this.nextLocation(origin, radius), defaultValue);
   }
 }

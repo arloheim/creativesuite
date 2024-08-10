@@ -32,7 +32,7 @@ public class AliasRemoveCommand extends PluginComponentCommand<AliasComponent>
       var scanner = context.getArgumentsScanner();
       
       // Parse the arguments
-      var key = scanner.nextKey();
+      var key = scanner.nextNamespacedKey();
       var existingKey = this.getComponent().getAliases().containsKey(key);
       if (!existingKey)
         throw new CommandException(String.format("Alias %s does not exist", key.toString()));
