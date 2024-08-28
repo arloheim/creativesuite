@@ -52,14 +52,21 @@ public class HotbarListCommand extends ManagerCommand
   {
     return (String content) -> {
       return NamespacedKeyFormatter.formatGroupedKeys(this.getManager().getDefinedHotbars().keySet(), 
-        group -> new ComponentBuilder(group).bold(true).create(), 
-        key -> {
-          var loadCommand = String.format("/%s load %s", context.getCommand().getName(), key.toString());
-          return new ComponentBuilder(key).underlined(true)
+      group -> {
+        return new ComponentBuilder()
+          .append(group).bold(true)
+          .append("").bold(false)
+          .create();
+      }, 
+      (key, name) -> {
+        var loadCommand = String.format("/%s load %s", context.getCommand().getName(), key.toString());
+        return new ComponentBuilder()
+          .append(name).underlined(true)
             .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(loadCommand)))
             .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, loadCommand))
-            .create();
-        });
+          .append("").underlined(false)
+          .create();
+      });
     };
   }
 }

@@ -53,12 +53,19 @@ public class AliasListCommand extends ManagerCommand
   {
     return (String content) -> {
       return NamespacedKeyFormatter.formatGroupedKeys(this.getManager().getDefinedAliases().keySet(), 
-        group -> new ComponentBuilder(group).bold(true).create(), 
-        key -> {
+        group -> {
+          return new ComponentBuilder()
+            .append(group).bold(true)
+            .append("").bold(false)
+            .create();
+        }, 
+        (key, name) -> {
           var runCommand = String.format("/%s run %s", context.getCommand().getName(), key.toString());
-          return new ComponentBuilder(key).underlined(true)
-            .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(runCommand)))
-            .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, runCommand))
+          return new ComponentBuilder()
+            .append(name).underlined(true)
+              .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(runCommand)))
+              .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, runCommand))
+            .append("").underlined(false)
             .create();
         });
     };

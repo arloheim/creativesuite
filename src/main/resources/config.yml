@@ -6,9 +6,9 @@ messages:
   alias-overwritten: "The alias §l{{name}}§r has been overwritten"
   alias-renamed: "The alias §l{{name}}§r has been renamed to §l{{destination}}§r"
   alias-removed: "The alias §l{{name}}§r has been removed"
-  alias-not-found: "§cThe alias §l{{name}}§r does not exist§r"
-  alias-cannot-save: "§cThe alias §l{{name}}§r already exists, click {{overwrite: here}} to overwrite the alias§r"
-  alias-cannot-rename: "§cThe alias §l{{name}}§r cannot be renamed, because the alias §l{{destination}}§r already exists§r"
+  alias-not-found: "§cThe alias §l{{name}}§r§c does not exist§r"
+  alias-cannot-save: "§cThe alias §l{{name}}§r§c already exists, click {{overwrite: here}} to overwrite the alias§r"
+  alias-cannot-rename: "§cThe alias §l{{name}}§r§c cannot be renamed, because the alias §l{{destination}}§r already exists§r"
 
   # Messages for the /hotbar command
   hotbar-list: "{{count}} hotbars are defined: {{hotbars}}"
@@ -17,9 +17,9 @@ messages:
   hotbar-overwritten: "The hotbar §l{{name}}§r has been overwritten"
   hotbar-renamed: "The hotbar §l{{name}}§r has been renamed to §l{{destination}}§r"
   hotbar-removed: "The hotbar §l{{name}}§r has been removed"
-  hotbar-not-found: "§cThe hotbar §l{{name}}§r does not exist§r"
-  hotbar-cannot-save: "§cThe hotbar §l{{name}}§r already exists, click {{overwrite: here}} to overwrite the hotbar§r"
-  hotbar-cannot-rename: "§cThe hotbar §l{{name}}§r cannot be renamed, because the hotbar §l{{destination}}§r already exists§r"
+  hotbar-not-found: "§cThe hotbar §l{{name}}§r§c does not exist§r"
+  hotbar-cannot-save: "§cThe hotbar §l{{name}}§r§c already exists, click {{overwrite: here}} to overwrite the hotbar§r"
+  hotbar-cannot-rename: "§cThe hotbar §l{{name}}§r§c cannot be renamed, because the hotbar §l{{destination}}§r already exists§r"
 
   # Messages for the /charmap command
   charmap-list: "{{count}} characters are defined: §a{{charmap}}§r"

@@ -110,6 +110,9 @@ public class CreativeSuitePlugin extends JavaPlugin implements MessageManager
       .registerSubcommand("remove", new CharmapRemoveCommand(this.manager))
       .registerEmptySubcommand(new CharmapListCommand(this.manager))
       .publishCommandHandler(this, this.getCommand("charmap"));
+
+    new AliasRunCommand(this.manager)
+      .publishCommandHandler(this, this.getCommand("run"));
   }
 
 

@@ -44,7 +44,7 @@ public class NamespacedKeyFormatter
 
 
   // Format a collection of sorted namespaced keys to an array of chat components
-  public static <T> BaseComponent[] formatSortedKeys(Collection<NamespacedKey> keys, MessageFunction keyFunc)
+  public static <T> BaseComponent[] formatSortedKeys(Collection<NamespacedKey> keys, NamespacedKeyFunction keyFunc)
   {
     // Create a new chat component builder
     var builder = new ComponentBuilder();
@@ -56,7 +56,7 @@ public class NamespacedKeyFormatter
       builder.append("\n", ComponentBuilder.FormatRetention.NONE);
 
       // Append the key processed through the message function
-      builder.append(keyFunc.apply(key.toString()), ComponentBuilder.FormatRetention.NONE);
+      builder.append(keyFunc.apply(key, key.toString()), ComponentBuilder.FormatRetention.NONE);
     }
 
     // Return the built chat components
@@ -64,7 +64,7 @@ public class NamespacedKeyFormatter
   }
 
   // Format a collection of grouped namespaced keys to an array of chat components
-  public static <T> BaseComponent[] formatGroupedKeys(Collection<NamespacedKey> keys, MessageFunction groupFunc, MessageFunction keyFunc)
+  public static <T> BaseComponent[] formatGroupedKeys(Collection<NamespacedKey> keys, MessageFunction groupFunc, NamespacedKeyFunction keyFunc)
   {
     // Create a new chat component builder
     var builder = new ComponentBuilder();
@@ -92,7 +92,7 @@ public class NamespacedKeyFormatter
           builder.append(", ", ComponentBuilder.FormatRetention.NONE);
 
         // Append the key name
-        builder.append(keyFunc.apply(key.getKey()), ComponentBuilder.FormatRetention.NONE);
+        builder.append(keyFunc.apply(key, key.getKey()), ComponentBuilder.FormatRetention.NONE);
       }
     }
 
