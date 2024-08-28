@@ -13,9 +13,9 @@ commands:
     usage: "Usage: /<command> reload | version"
 
   alias:
-    description: Defines shared aliases for long commands.
-    usage: "Usage: /<command> list | overwrite <name> <cmd> | remove <name> | run <name> | save <name> <cmd>"
     aliases: [al]
+    description: Defines shared aliases.
+    usage: "Usage: /<command> list | overwrite <name> <cmd> | remove <name> | rename <name> <destination> | [run] <name> | save <name> <cmd>"
 
   run:
     description: Runs shared aliases for long commands.
@@ -24,7 +24,7 @@ commands:
 
   hotbar:
     description: Defines shared hotbars.
-    usage: "Usage: /<command> list | load <name> | overwrite <name> | remove <name> | save <name>"
+    usage: "Usage: /<command> list | [load] <name> | overwrite <name> | remove <name> | rename <name> <destination> | save <name>"
     aliases: [hb]
 
   charmap:
@@ -38,6 +38,36 @@ permissions:
     description: Allows the player to use the /creativesuite command.
     default: op
 
+  creativesuite.alias:
+    description: Allows the player to use the /alias command.
+    default: true
+    children:
+      gregocommands.hotbar.list: true
+      gregocommands.hotbar.remove: true
+      gregocommands.hotbar.rename: true
+      gregocommands.hotbar.run: true
+      gregocommands.hotbar.save: true
+
+  creativesuite.alias.list:
+    description: Allows the player to use the /alias list command.
+    default: true
+
+  creativesuite.alias.remove:
+    description: Allows the player to use the /alias remove command.
+    default: true
+
+  creativesuite.alias.rename:
+    description: Allows the player to use the /alias rename command.
+    default: true
+
+  creativesuite.alias.run:
+    description: Allows the player to use the /alias run and /run commands.
+    default: true
+
+  creativesuite.alias.save:
+    description: Allows the player to use the /alias save command.
+    default: true
+
   creativesuite.hotbar:
     description: Allows the player to use the /hotbar command.
     default: true
@@ -45,6 +75,7 @@ permissions:
       gregocommands.hotbar.list: true
       gregocommands.hotbar.load: true
       gregocommands.hotbar.remove: true
+      gregocommands.hotbar.rename: true
       gregocommands.hotbar.save: true
 
   creativesuite.hotbar.list:
@@ -53,6 +84,10 @@ permissions:
 
   creativesuite.hotbar.load:
     description: Allows the player to use the /hotbar load command.
+    default: true
+
+  creativesuite.hotbar.rename:
+    description: Allows the player to use the /hotbar remove command.
     default: true
 
   creativesuite.hotbar.remove:
@@ -81,29 +116,4 @@ permissions:
 
   creativesuite.charmap.remove:
     description: Allows the player to use the /charmap remove command.
-    default: true
-
-  creativesuite.alias:
-    description: Allows the player to use the /alias command.
-    default: true
-    children:
-      gregocommands.hotbar.list: true
-      gregocommands.hotbar.remove: true
-      gregocommands.hotbar.run: true
-      gregocommands.hotbar.save: true
-
-  creativesuite.alias.list:
-    description: Allows the player to use the /alias list command.
-    default: true
-
-  creativesuite.alias.remove:
-    description: Allows the player to use the /alias remove command.
-    default: true
-
-  creativesuite.alias.run:
-    description: Allows the player to use the /alias run and /run commands.
-    default: true
-
-  creativesuite.alias.save:
-    description: Allows the player to use the /alias save command.
     default: true

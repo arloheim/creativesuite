@@ -1,6 +1,5 @@
 package dev.danae.creativesuite.plugin.commands.alias;
 
-import dev.danae.creativesuite.model.Alias;
 import dev.danae.creativesuite.model.Manager;
 import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import dev.danae.creativesuite.util.parser.ParserException;
@@ -10,17 +9,12 @@ import dev.danae.creativesuite.util.commands.CommandUsageException;
 import java.util.List;
 
 
-public class AliasSaveCommand extends ManagerCommand
+public class AliasRenameCommand extends ManagerCommand
 {
-  // Boolean that indicates if aliases automatically get overwritten
-  private final boolean overwriteAliases;
-
   // Constructor
-  public AliasSaveCommand(Manager manager, boolean overwriteAliases)
+  public AliasRenameCommand(Manager manager)
   {
-    super(manager, "creativesuite.alias.save");
-
-    this.overwriteAliases = overwriteAliases;
+    super(manager, "creativesuite.alias.rename");
   }
     
   
@@ -39,22 +33,23 @@ public class AliasSaveCommand extends ManagerCommand
       
       // Parse the arguments
       var key = scanner.nextNamespacedKey();
-      var command = scanner.rest("command");
+      var newKey = scanner.nextNamespacedKey();
       var alias = this.getManager().getAlias(key);
 
-      // Check if we can overwrite and existing alias
-      if (!this.overwriteAliases && alias != null)
+      // Check if the alias exists
+      if (alias != null)
       {
         // Send a message about the otherwise overwritten alias
-        context.sendMessage(AliasFormatter.formatAliasOverwriteMessage(key, command));
+        context.sendMessage(AliasFormatter.formatAliasRenameOverwriteMessage(key, newKey));
       }
       else
       {
-        // Save the alias
-        this.getManager().setAlias(key, new Alias(command));
+        // Save the new alias and remove the old alias
+        this.getManager().setAlias(newKey, alias);
+        this.getManager().removeAlias(key);
 
-        // Send a message about the saved alias
-        context.sendMessage(AliasFormatter.formatAliasSavedMessage(key, command, alias != null));
+        // Send a message about the renamed alias
+        context.sendMessage(AliasFormatter.formatAliasRenamedMessage(key, newKey));
       }
     }
     catch (ParserException ex)

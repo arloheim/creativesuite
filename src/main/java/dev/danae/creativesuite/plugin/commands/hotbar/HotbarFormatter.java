@@ -55,6 +55,29 @@ public class HotbarFormatter
       .create();
   }
   
+  // Format a hotbar renamed message
+  public static BaseComponent[] formatHotbarRenamedMessage(NamespacedKey key, NamespacedKey newKey)
+  {
+    return new ComponentBuilder()
+      .append("The hotbar ", ComponentBuilder.FormatRetention.NONE)
+      .append(key.toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN)
+      .append(" has been renamed to ", ComponentBuilder.FormatRetention.NONE)
+      .append(newKey.toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN)
+      .create();
+  }
+
+  // Format a hotbar rename overwrite message
+  public static BaseComponent[] formatHotbarRenameOverwriteMessage(NamespacedKey key, NamespacedKey newKey)
+  {
+    return new ComponentBuilder()
+      .append("The hotbar ", ComponentBuilder.FormatRetention.NONE)
+      .append(key.toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN)
+      .append(" cannot be renamed, because the hotbar ", ComponentBuilder.FormatRetention.NONE)
+      .append(newKey.toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN)
+      .append(" already exists", ComponentBuilder.FormatRetention.NONE)
+      .create();
+  }
+  
   // Format a hotbar removed message
   public static BaseComponent[] formatHotbarRemovedMessage(NamespacedKey key)
   {

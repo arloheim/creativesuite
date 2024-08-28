@@ -42,10 +42,33 @@ public class AliasFormatter
     return new ComponentBuilder()
       .append("The alias ", ComponentBuilder.FormatRetention.NONE)
       .append(key.toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN)
-      .append(" already exists. Use ", ComponentBuilder.FormatRetention.NONE)
-      .append(overwriteCommand, ComponentBuilder.FormatRetention.NONE).underlined(true)
+      .append(" already exists. Click ", ComponentBuilder.FormatRetention.NONE)
+      .append("here", ComponentBuilder.FormatRetention.NONE).underlined(true)
         .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, overwriteCommand))
       .append(" to overwrite the alias", ComponentBuilder.FormatRetention.NONE)
+      .create();
+  }
+  
+  // Format an alias renamed message
+  public static BaseComponent[] formatAliasRenamedMessage(NamespacedKey key, NamespacedKey newKey)
+  {
+    return new ComponentBuilder()
+      .append("The alias ", ComponentBuilder.FormatRetention.NONE)
+      .append(key.toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN)
+      .append(" has been renamed to ", ComponentBuilder.FormatRetention.NONE)
+      .append(newKey.toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN)
+      .create();
+  }
+
+  // Format an alias rename overwrite message
+  public static BaseComponent[] formatAliasRenameOverwriteMessage(NamespacedKey key, NamespacedKey newKey)
+  {
+    return new ComponentBuilder()
+      .append("The alias ", ComponentBuilder.FormatRetention.NONE)
+      .append(key.toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN)
+      .append(" cannot be renamed, because the alias ", ComponentBuilder.FormatRetention.NONE)
+      .append(newKey.toString(), ComponentBuilder.FormatRetention.NONE).color(ChatColor.GREEN)
+      .append(" already exists", ComponentBuilder.FormatRetention.NONE)
       .create();
   }
   

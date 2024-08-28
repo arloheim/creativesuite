@@ -7,6 +7,7 @@ import dev.danae.creativesuite.plugin.commands.admin.AdminReloadCommand;
 import dev.danae.creativesuite.plugin.commands.admin.AdminVersionCommand;
 import dev.danae.creativesuite.plugin.commands.alias.AliasListCommand;
 import dev.danae.creativesuite.plugin.commands.alias.AliasRemoveCommand;
+import dev.danae.creativesuite.plugin.commands.alias.AliasRenameCommand;
 import dev.danae.creativesuite.plugin.commands.alias.AliasRunCommand;
 import dev.danae.creativesuite.plugin.commands.alias.AliasSaveCommand;
 import dev.danae.creativesuite.plugin.commands.charmap.CharmapAddCommand;
@@ -15,6 +16,7 @@ import dev.danae.creativesuite.plugin.commands.charmap.CharmapRemoveCommand;
 import dev.danae.creativesuite.plugin.commands.hotbar.HotbarListCommand;
 import dev.danae.creativesuite.plugin.commands.hotbar.HotbarLoadCommand;
 import dev.danae.creativesuite.plugin.commands.hotbar.HotbarRemoveCommand;
+import dev.danae.creativesuite.plugin.commands.hotbar.HotbarRenameCommand;
 import dev.danae.creativesuite.plugin.commands.hotbar.HotbarSaveCommand;
 import dev.danae.creativesuite.plugin.listeners.SignMaterialListener;
 import dev.danae.creativesuite.plugin.migrations.v1_1_1.ConfigurationSerializableMigration;
@@ -74,8 +76,9 @@ public class CreativeSuitePlugin extends JavaPlugin
       .registerSubcommand("list", new AliasListCommand(this.manager))
       .registerSubcommand("overwrite", new AliasSaveCommand(this.manager, true))
       .registerSubcommand("remove", new AliasRemoveCommand(this.manager))
-      .registerSubcommand("save", new AliasSaveCommand(this.manager, false))
+      .registerSubcommand("rename", new AliasRenameCommand(this.manager))
       .registerSubcommand("run", new AliasRunCommand(this.manager))
+      .registerSubcommand("save", new AliasSaveCommand(this.manager, false))
       .publishCommandHandler(this, this.getCommand("alias"));
       
     new AliasRunCommand(this.manager)
@@ -86,6 +89,7 @@ public class CreativeSuitePlugin extends JavaPlugin
       .registerSubcommand("load", new HotbarLoadCommand(this.manager))
       .registerSubcommand("overwrite", new HotbarSaveCommand(this.manager, true))
       .registerSubcommand("remove", new HotbarRemoveCommand(this.manager))
+      .registerSubcommand("rename", new HotbarRenameCommand(this.manager))
       .registerSubcommand("save", new HotbarSaveCommand(this.manager, false))
       .publishCommandHandler(this, this.getCommand("hotbar"));
 

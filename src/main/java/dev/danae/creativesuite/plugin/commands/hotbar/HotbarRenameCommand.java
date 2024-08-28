@@ -1,6 +1,5 @@
-package dev.danae.creativesuite.plugin.commands.alias;
+package dev.danae.creativesuite.plugin.commands.hotbar;
 
-import dev.danae.creativesuite.model.Alias;
 import dev.danae.creativesuite.model.Manager;
 import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import dev.danae.creativesuite.util.parser.ParserException;
@@ -10,17 +9,12 @@ import dev.danae.creativesuite.util.commands.CommandUsageException;
 import java.util.List;
 
 
-public class AliasSaveCommand extends ManagerCommand
+public class HotbarRenameCommand extends ManagerCommand
 {
-  // Boolean that indicates if aliases automatically get overwritten
-  private final boolean overwriteAliases;
-
   // Constructor
-  public AliasSaveCommand(Manager manager, boolean overwriteAliases)
+  public HotbarRenameCommand(Manager manager)
   {
-    super(manager, "creativesuite.alias.save");
-
-    this.overwriteAliases = overwriteAliases;
+    super(manager, "creativesuite.hotbar.rename");
   }
     
   
@@ -39,22 +33,23 @@ public class AliasSaveCommand extends ManagerCommand
       
       // Parse the arguments
       var key = scanner.nextNamespacedKey();
-      var command = scanner.rest("command");
-      var alias = this.getManager().getAlias(key);
+      var newKey = scanner.nextNamespacedKey();
+      var hotbar = this.getManager().getHotbar(key);
 
-      // Check if we can overwrite and existing alias
-      if (!this.overwriteAliases && alias != null)
+      // Check if the hotbar exists
+      if (hotbar != null)
       {
         // Send a message about the otherwise overwritten alias
-        context.sendMessage(AliasFormatter.formatAliasOverwriteMessage(key, command));
+        context.sendMessage(HotbarFormatter.formatHotbarRenameOverwriteMessage(key, newKey));
       }
       else
       {
-        // Save the alias
-        this.getManager().setAlias(key, new Alias(command));
+        // Save the new hotbar and remove the old hotbar
+        this.getManager().setHotbar(newKey, hotbar);
+        this.getManager().removeHotbar(key);
 
-        // Send a message about the saved alias
-        context.sendMessage(AliasFormatter.formatAliasSavedMessage(key, command, alias != null));
+        // Send a message about the renamed hotbar
+        context.sendMessage(HotbarFormatter.formatHotbarRenamedMessage(key, newKey));
       }
     }
     catch (ParserException ex)
