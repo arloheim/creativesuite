@@ -14,12 +14,17 @@ commands:
 
   alias:
     description: Defines shared aliases.
-    usage: "Usage: /<command> list | overwrite <name> <cmd> | remove <name> | rename <name> <destination> | [run] <name> | save <name> <cmd>"
+    usage: "Usage: /<command> list | overwrite <name> <cmd> | remove <name> | rename <name> <destination> | run <name> | save <name> <cmd>"
+    aliases: [al]
+
+  run:
+    description: Executes shared aliases.
+    usage: "Usage: /<command> <name>"
     aliases: [r]
 
   hotbar:
     description: Defines shared hotbars.
-    usage: "Usage: /<command> list | [load] <name> | overwrite <name> | remove <name> | rename <name> <destination> | save <name>"
+    usage: "Usage: /<command> list | load <name> | overwrite <name> | remove <name> | rename <name> <destination> | save <name>"
     aliases: [hb]
 
   charmap:

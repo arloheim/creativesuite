@@ -94,7 +94,6 @@ public class CreativeSuitePlugin extends JavaPlugin implements MessageManager
       .registerSubcommand("rename", new AliasRenameCommand(this.manager))
       .registerSubcommand("run", new AliasRunCommand(this.manager))
       .registerSubcommand("save", new AliasSaveCommand(this.manager, false))
-      .registerEmptySubcommand("run")
       .publishCommandHandler(this, this.getCommand("alias"));
     
     new CommandGroup()
@@ -104,7 +103,6 @@ public class CreativeSuitePlugin extends JavaPlugin implements MessageManager
       .registerSubcommand("remove", new HotbarRemoveCommand(this.manager))
       .registerSubcommand("rename", new HotbarRenameCommand(this.manager))
       .registerSubcommand("save", new HotbarSaveCommand(this.manager, false))
-      .registerEmptySubcommand("load")
       .publishCommandHandler(this, this.getCommand("hotbar"));
 
     new CommandGroup()
