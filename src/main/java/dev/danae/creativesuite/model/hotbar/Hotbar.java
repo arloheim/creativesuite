@@ -1,4 +1,4 @@
-package dev.danae.creativesuite.model;
+package dev.danae.creativesuite.model.hotbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;

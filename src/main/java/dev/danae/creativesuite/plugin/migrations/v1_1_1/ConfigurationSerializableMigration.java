@@ -1,8 +1,8 @@
 package dev.danae.creativesuite.plugin.migrations.v1_1_1;
 
 import com.google.common.io.Files;
-import dev.danae.creativesuite.model.Alias;
-import dev.danae.creativesuite.model.Hotbar;
+import dev.danae.creativesuite.model.alias.Alias;
+import dev.danae.creativesuite.model.hotbar.Hotbar;
 import dev.danae.creativesuite.plugin.CreativeSuitePlugin;
 import dev.danae.creativesuite.plugin.migrations.Migration;
 import java.io.File;

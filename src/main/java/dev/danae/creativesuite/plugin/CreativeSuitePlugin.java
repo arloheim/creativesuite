@@ -1,8 +1,8 @@
 package dev.danae.creativesuite.plugin;
 
-import dev.danae.creativesuite.model.Alias;
-import dev.danae.creativesuite.model.Hotbar;
 import dev.danae.creativesuite.model.Manager;
+import dev.danae.creativesuite.model.alias.Alias;
+import dev.danae.creativesuite.model.hotbar.Hotbar;
 import dev.danae.creativesuite.plugin.commands.admin.AdminReloadCommand;
 import dev.danae.creativesuite.plugin.commands.admin.AdminVersionCommand;
 import dev.danae.creativesuite.plugin.commands.alias.AliasInspectCommand;

@@ -1,6 +1,7 @@
-package dev.danae.creativesuite.model;
+package dev.danae.creativesuite.model.alias;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -19,6 +20,7 @@ public class Alias implements ConfigurationSerializable
   public Alias(String command)
   {
     this.command = command;
+    this.parameters = Parameter.parse(command);
   }
 
 
@@ -28,11 +30,16 @@ public class Alias implements ConfigurationSerializable
     return this.command;
   }
 
+
   // Dispatch the command
-  public void dispatchCommand(CommandSender sender)
+  public void dispatchCommand(CommandSender sender, Map<String, String> args)
   {
-    if (command != null && !command.isEmpty())
-      Bukkit.dispatchCommand(sender, this.command);
+    // Check if the command is not empty
+    if (this.command == null || this.command.isEmpty())
+      return;
+
+    // Dispatch the command
+    Bukkit.dispatchCommand(sender, this.command);
   }
 
 

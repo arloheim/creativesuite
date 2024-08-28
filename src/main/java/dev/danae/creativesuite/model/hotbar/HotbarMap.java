@@ -1,4 +1,4 @@
-package dev.danae.creativesuite.model;
+package dev.danae.creativesuite.model.hotbar;
 
 import dev.danae.commons.data.DataMap;
 import dev.danae.commons.data.DataMapKeyType;

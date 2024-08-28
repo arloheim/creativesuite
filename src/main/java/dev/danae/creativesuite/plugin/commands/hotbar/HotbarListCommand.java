@@ -1,7 +1,7 @@
 package dev.danae.creativesuite.plugin.commands.hotbar;
 
-import dev.danae.creativesuite.model.Hotbar;
 import dev.danae.creativesuite.model.Manager;
+import dev.danae.creativesuite.model.hotbar.Hotbar;
 import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import dev.danae.commons.commands.CommandContext;
 import dev.danae.commons.commands.CommandException;

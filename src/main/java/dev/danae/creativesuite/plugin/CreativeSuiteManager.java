@@ -1,12 +1,12 @@
 package dev.danae.creativesuite.plugin;
 
 import dev.danae.commons.messages.MessageManager;
-import dev.danae.creativesuite.model.Alias;
-import dev.danae.creativesuite.model.AliasMap;
-import dev.danae.creativesuite.model.Charmap;
-import dev.danae.creativesuite.model.Hotbar;
-import dev.danae.creativesuite.model.HotbarMap;
 import dev.danae.creativesuite.model.Manager;
+import dev.danae.creativesuite.model.alias.Alias;
+import dev.danae.creativesuite.model.alias.AliasMap;
+import dev.danae.creativesuite.model.charmap.Charmap;
+import dev.danae.creativesuite.model.hotbar.Hotbar;
+import dev.danae.creativesuite.model.hotbar.HotbarMap;
 import java.util.Map;
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.NamespacedKey;

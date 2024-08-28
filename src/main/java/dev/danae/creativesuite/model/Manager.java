@@ -1,6 +1,9 @@
 package dev.danae.creativesuite.model;
 
 import dev.danae.commons.messages.MessageManager;
+import dev.danae.creativesuite.model.alias.Alias;
+import dev.danae.creativesuite.model.charmap.Charmap;
+import dev.danae.creativesuite.model.hotbar.Hotbar;
 import java.util.Map;
 import org.bukkit.NamespacedKey;
 
