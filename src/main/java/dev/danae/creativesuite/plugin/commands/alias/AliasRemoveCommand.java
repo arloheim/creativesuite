@@ -7,6 +7,7 @@ import dev.danae.commons.parser.ParserException;
 import dev.danae.creativesuite.model.Manager;
 import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import java.util.List;
+import java.util.Map;
 
 
 public class AliasRemoveCommand extends ManagerCommand
@@ -33,15 +34,16 @@ public class AliasRemoveCommand extends ManagerCommand
       
       // Parse the arguments
       var key = scanner.nextNamespacedKey();
+      
       var alias = this.getManager().getAlias(key);
       if (alias == null)
-        throw new CommandException(String.format("Alias %s does not exist", key.toString()));
+        throw new CommandException(this.formatMessage("alias-not-found", Map.of("key", key)));
 
       // Remove the alias
       this.getManager().removeAlias(key);
 
       // Send a message about the removed alias
-      context.sendMessage(AliasFormatter.formatAliasRemovedMessage(key));
+      context.sendMessage(this.formatMessage("alias-removed", Map.of("key", key)));
     }
     catch (ParserException ex)
     {

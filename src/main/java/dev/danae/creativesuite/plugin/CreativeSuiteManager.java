@@ -1,5 +1,6 @@
 package dev.danae.creativesuite.plugin;
 
+import dev.danae.commons.messages.MessageManager;
 import dev.danae.creativesuite.model.Alias;
 import dev.danae.creativesuite.model.AliasMap;
 import dev.danae.creativesuite.model.Charmap;
@@ -7,11 +8,15 @@ import dev.danae.creativesuite.model.Hotbar;
 import dev.danae.creativesuite.model.HotbarMap;
 import dev.danae.creativesuite.model.Manager;
 import java.util.Map;
+import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.NamespacedKey;
 
 
 public class CreativeSuiteManager extends CreativeSuitePluginComponent implements Manager
 {
+  // The message manager
+  private final MessageManager messageManager;
+
   // The configuration map of the defined aliases
   private final AliasMap aliases;
 
@@ -27,9 +32,23 @@ public class CreativeSuiteManager extends CreativeSuitePluginComponent implement
   {
     super(plugin);
 
+    this.messageManager = plugin;
     this.aliases = new AliasMap(plugin, "aliases.yml");
     this.hotbars = new HotbarMap(plugin, "hotbars.yml");
     this.charmap = new Charmap(plugin, "charmap.yml");
+  }
+
+
+  // Return the message with the specified name
+  public String getMessage(String name)
+  {
+    return this.messageManager.getMessage(name);
+  }
+
+  // Format the message with the specified name and arguments
+  public BaseComponent[] formatMessage(String name, Map<String, Object> args)
+  {
+    return this.messageManager.formatMessage(name, args);
   }
 
 

@@ -21,25 +21,37 @@ import dev.danae.creativesuite.plugin.commands.hotbar.HotbarSaveCommand;
 import dev.danae.creativesuite.plugin.listeners.SignMaterialListener;
 import dev.danae.creativesuite.plugin.migrations.v1_1_1.ConfigurationSerializableMigration;
 import dev.danae.commons.commands.CommandGroup;
+import dev.danae.commons.messages.MessageManager;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
-public class CreativeSuitePlugin extends JavaPlugin
+public class CreativeSuitePlugin extends JavaPlugin implements MessageManager
 {
   // The manager of the plugin
   private CreativeSuiteManager manager;
 
   // The sign material listener of the plugin
   private SignMaterialListener signMaterialListener;
+
+  // The map of the defined messages
+  private Map<String, String> messages;
   
   
   // Return the manager of the plugin
   public Manager getManager()
   {
     return this.manager;
+  }
+
+  // Return the message with the specified name
+  public String getMessage(String name)
+  {
+    return this.messages.get(name);
   }
   
 
@@ -62,6 +74,7 @@ public class CreativeSuitePlugin extends JavaPlugin
     // Create the components
     this.manager = new CreativeSuiteManager(this);
     this.signMaterialListener = new SignMaterialListener(this);
+    this.messages = new HashMap<>();
 
     // Set the listeners
     Bukkit.getPluginManager().registerEvents(this.signMaterialListener, this);
@@ -128,5 +141,18 @@ public class CreativeSuitePlugin extends JavaPlugin
     // Save the default configuration
     this.saveDefaultConfig();
     this.reloadConfig();
+
+    // Load the messages configuration
+    this.messages.clear();
+
+    var messagesConfig = this.getConfig().getConfigurationSection("messages");
+    if (messagesConfig != null)
+    {
+      for (var messageName : messagesConfig.getKeys(false))
+      {
+        var message = messagesConfig.getString(messageName);
+        this.messages.put(messageName, message);
+      }
+    }
   }
 }

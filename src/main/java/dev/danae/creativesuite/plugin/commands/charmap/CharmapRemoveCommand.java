@@ -8,6 +8,8 @@ import dev.danae.creativesuite.model.Charmap;
 import dev.danae.creativesuite.model.Manager;
 import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 public class CharmapRemoveCommand extends ManagerCommand
@@ -39,7 +41,7 @@ public class CharmapRemoveCommand extends ManagerCommand
       this.getManager().removeFromCharmap(codePoints);
 
       // Send a message about the added code points
-      context.sendMessage(CharmapFormatter.formatCharmapRemovedMessage(codePoints));
+      context.sendMessage(this.formatMessage("charmap-removed", Map.of("chars", codePoints.codePoints().boxed().sorted().map(Charmap::codePointToString).collect(Collectors.joining(" ")))));
     }
     catch (ParserException ex)
     {

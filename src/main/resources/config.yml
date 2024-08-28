@@ -1,0 +1,28 @@
+# Messages that the plugin sends to command senders
+messages:
+  # Messages for the /alias command
+  alias-list: "{{count}} aliases are defined:\n{{aliases}}"
+  alias-saved: "The alias §l{{name}}§r has been saved"
+  alias-overwritten: "The alias §l{{name}}§r has been overwritten"
+  alias-renamed: "The alias §l{{name}}§r has been renamed to §l{{destination}}§r"
+  alias-removed: "The alias §l{{name}}§r has been removed"
+  alias-not-found: "§cThe alias §l{{name}}§r does not exist§r"
+  alias-cannot-save: "§cThe alias §l{{name}}§r already exists, click {{overwrite: here}} to overwrite the alias§r"
+  alias-cannot-rename: "§cThe alias §l{{name}}§r cannot be renamed, because the alias §l{{destination}}§r already exists§r"
+
+  # Messages for the /hotbar command
+  hotbar-list: "{{count}} hotbars are defined:\n{{hotbars}}"
+  hotbar-loaded: "The hotbar §l{{name}}§r has been loaded"
+  hotbar-saved: "The hotbar §l{{name}}§r has been saved"
+  hotbar-overwritten: "The hotbar §l{{name}}§r has been overwritten"
+  hotbar-renamed: "The hotbar §l{{name}}§r has been renamed to §l{{destination}}§r"
+  hotbar-removed: "The hotbar §l{{name}}§r has been removed"
+  hotbar-not-found: "§cThe hotbar §l{{name}}§r does not exist§r"
+  hotbar-cannot-save: "§cThe hotbar §l{{name}}§r already exists, click {{overwrite: here}} to overwrite the hotbar§r"
+  hotbar-cannot-rename: "§cThe hotbar §l{{name}}§r cannot be renamed, because the hotbar §l{{destination}}§r already exists§r"
+
+  # Messages for the /charmap command
+  charmap-list: "{{count}} characters are defined:\n§a{{charmap}}§r"
+  charmap-copy-to-clipboard: "Click to copy {{char}} to clipboard"
+  charmap-added: "The characters §a{{chars}}§r have been added to the charmap"
+  charmap-removed: "The characters §a{{chars}}§r have been removed to the charmap"

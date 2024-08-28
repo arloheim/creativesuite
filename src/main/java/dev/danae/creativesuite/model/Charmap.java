@@ -24,6 +24,12 @@ public class Charmap extends Data
   }
 
 
+  // Return the size of the charmap
+  public int size()
+  {
+    return this.codePoints.size();
+  }
+
   // Get the code points in the charmap
   public List<Integer> getCodePoints()
   {

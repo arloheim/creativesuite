@@ -7,6 +7,8 @@ import dev.danae.commons.parser.ParserException;
 import dev.danae.creativesuite.model.Manager;
 import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import java.util.List;
+import java.util.Map;
+import net.md_5.bungee.api.chat.BaseComponent;
 
 
 public class HotbarRemoveCommand extends ManagerCommand
@@ -36,13 +38,13 @@ public class HotbarRemoveCommand extends ManagerCommand
       
       var hotbar = this.getManager().getHotbar(key);
       if (hotbar == null)
-        throw new CommandException(String.format("Hotbar %s does not exist", key.toString()));
+        throw new CommandException(this.formatMessage("hotbar-not-found", Map.of("key", key)));
 
       // Remove the hotbar
       this.getManager().removeHotbar(key);
 
       // Send a message about the removed hotbar
-      context.sendMessage(HotbarFormatter.formatHotbarRemovedMessage(key));
+      context.sendMessage(this.formatMessage("hotbar-removed", Map.of("key", key)));
     }
     catch (ParserException ex)
     {

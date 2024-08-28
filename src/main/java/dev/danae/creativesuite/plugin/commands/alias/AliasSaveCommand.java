@@ -3,11 +3,18 @@ package dev.danae.creativesuite.plugin.commands.alias;
 import dev.danae.commons.commands.CommandContext;
 import dev.danae.commons.commands.CommandException;
 import dev.danae.commons.commands.CommandUsageException;
+import dev.danae.commons.messages.MessageFunction;
 import dev.danae.commons.parser.ParserException;
 import dev.danae.creativesuite.model.Alias;
 import dev.danae.creativesuite.model.Manager;
 import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import java.util.List;
+import java.util.Map;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.hover.content.Text;
+import org.bukkit.NamespacedKey;
 
 
 public class AliasSaveCommand extends ManagerCommand
@@ -47,7 +54,7 @@ public class AliasSaveCommand extends ManagerCommand
       if (!this.overwriteAliases && alias != null)
       {
         // Send a message about the otherwise overwritten alias
-        context.sendMessage(AliasFormatter.formatAliasOverwriteMessage(key, command));
+        context.sendMessage(this.formatMessage("alias-cannot-save", Map.of("key", key, "overwrite", this.getOverwriteComponent(context, key, command))));
       }
       else
       {
@@ -55,7 +62,7 @@ public class AliasSaveCommand extends ManagerCommand
         this.getManager().setAlias(key, new Alias(command));
 
         // Send a message about the saved alias
-        context.sendMessage(AliasFormatter.formatAliasSavedMessage(key, command, alias != null));
+        context.sendMessage(this.formatMessage(alias != null ? "alias-overwritten" : "alias-saved", Map.of("key", key)));
       }
     }
     catch (ParserException ex)
@@ -72,5 +79,20 @@ public class AliasSaveCommand extends ManagerCommand
       return this.handleAliasTabCompletion(context.getArgument(0));
     else
       return List.of();
+  }
+
+
+  // Create an overwrite command chat component
+  private MessageFunction getOverwriteComponent(CommandContext context, NamespacedKey key, String command)
+  {
+    var overwriteCommand = String.format("/%s overwrite %s %s", context.getCommand().getName(), key.toString(), command);
+
+    return (String content) -> {
+      return new ComponentBuilder()
+        .append(content, ComponentBuilder.FormatRetention.NONE).underlined(true)
+          .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(overwriteCommand)))
+          .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, overwriteCommand))
+        .create();
+    };
   }
 }

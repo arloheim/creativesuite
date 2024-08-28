@@ -1,9 +1,11 @@
 package dev.danae.creativesuite.model;
 
+import dev.danae.commons.messages.MessageManager;
 import java.util.Map;
 import org.bukkit.NamespacedKey;
 
-public interface Manager 
+
+public interface Manager extends MessageManager
 {
   // Return the defined aliases
   public Map<NamespacedKey, Alias> getDefinedAliases();

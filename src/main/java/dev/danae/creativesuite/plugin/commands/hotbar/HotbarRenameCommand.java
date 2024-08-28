@@ -7,6 +7,7 @@ import dev.danae.commons.parser.ParserException;
 import dev.danae.creativesuite.model.Manager;
 import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import java.util.List;
+import java.util.Map;
 
 
 public class HotbarRenameCommand extends ManagerCommand
@@ -33,23 +34,28 @@ public class HotbarRenameCommand extends ManagerCommand
       
       // Parse the arguments
       var key = scanner.nextNamespacedKey();
-      var newKey = scanner.nextNamespacedKey();
-      var hotbar = this.getManager().getHotbar(key);
+      var destination = scanner.nextNamespacedKey();
 
-      // Check if the hotbar exists
-      if (hotbar != null)
+      var hotbar = this.getManager().getHotbar(key);
+      if (hotbar == null)
+        throw new CommandException(this.formatMessage("hotbar-not-found", Map.of("key", key)));
+
+      var destinationHotbar = this.getManager().getHotbar(destination);
+
+      // Check if the destination hotbar exists
+      if (destinationHotbar != null)
       {
         // Send a message about the otherwise overwritten alias
-        context.sendMessage(HotbarFormatter.formatHotbarRenameOverwriteMessage(key, newKey));
+        context.sendMessage(this.formatMessage("hotbar-cannt-rename", Map.of("key", key, "destination", destination)));
       }
       else
       {
         // Save the new hotbar and remove the old hotbar
-        this.getManager().setHotbar(newKey, hotbar);
+        this.getManager().setHotbar(destination, hotbar);
         this.getManager().removeHotbar(key);
 
         // Send a message about the renamed hotbar
-        context.sendMessage(HotbarFormatter.formatHotbarRenamedMessage(key, newKey));
+        context.sendMessage(this.formatMessage("hotbar-renamed", Map.of("key", key)));
       }
     }
     catch (ParserException ex)

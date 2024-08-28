@@ -7,6 +7,7 @@ import dev.danae.commons.parser.ParserException;
 import dev.danae.creativesuite.model.Manager;
 import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import java.util.List;
+import java.util.Map;
 import org.bukkit.GameMode;
 
 
@@ -26,9 +27,7 @@ public class HotbarLoadCommand extends ManagerCommand
     try
     {
       // Assert that the command sender is a player and in creative mode
-      var player = context.assertSenderIsPlayer();
-      if (player.getGameMode() != GameMode.CREATIVE)
-        throw new CommandException("This command can only be executed while in creative mode");
+      var player = context.assertSenderIsPlayer(GameMode.CREATIVE);
 
       // Validate the number of arguments
       if (!context.hasArgumentsCount(1))
@@ -39,15 +38,16 @@ public class HotbarLoadCommand extends ManagerCommand
       
       // Parse the arguments
       var key = scanner.nextNamespacedKey();
+      
       var hotbar = this.getManager().getHotbar(key);
       if (hotbar == null)
-        throw new CommandException(String.format("Hotbar %s does not exist", key.toString()));
+        throw new CommandException(this.formatMessage("hotbar-not-found", Map.of("key", key)));
 
       // Load the hotbar
       hotbar.applyTo(player.getInventory());
 
       // Send a message about the loaded hotbar
-      context.sendMessage(HotbarFormatter.formatHotbarLoadedMessage(key));
+      context.sendMessage(this.formatMessage("hotbar-loaded", Map.of("key", key)));
     }
     catch (ParserException ex)
     {

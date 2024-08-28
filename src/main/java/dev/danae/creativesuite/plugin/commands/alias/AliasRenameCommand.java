@@ -7,6 +7,7 @@ import dev.danae.commons.parser.ParserException;
 import dev.danae.creativesuite.model.Manager;
 import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import java.util.List;
+import java.util.Map;
 
 
 public class AliasRenameCommand extends ManagerCommand
@@ -33,23 +34,28 @@ public class AliasRenameCommand extends ManagerCommand
       
       // Parse the arguments
       var key = scanner.nextNamespacedKey();
-      var newKey = scanner.nextNamespacedKey();
-      var alias = this.getManager().getAlias(key);
+      var destination = scanner.nextNamespacedKey();
 
-      // Check if the alias exists
-      if (alias != null)
+      var alias = this.getManager().getAlias(key);
+      if (alias == null)
+        throw new CommandException(this.formatMessage("alias-not-found", Map.of("key", key)));
+
+      var destinationAlias = this.getManager().getAlias(destination);
+
+      // Check if the destination alias exists
+      if (destinationAlias != null)
       {
         // Send a message about the otherwise overwritten alias
-        context.sendMessage(AliasFormatter.formatAliasRenameOverwriteMessage(key, newKey));
+        context.sendMessage(this.formatMessage("alias-cannot-rename", Map.of("key", key, "destination", destination)));
       }
       else
       {
         // Save the new alias and remove the old alias
-        this.getManager().setAlias(newKey, alias);
+        this.getManager().setAlias(destination, alias);
         this.getManager().removeAlias(key);
 
         // Send a message about the renamed alias
-        context.sendMessage(AliasFormatter.formatAliasRenamedMessage(key, newKey));
+        context.sendMessage(this.formatMessage("alias-renamed", Map.of("key", key, "destination", destination)));
       }
     }
     catch (ParserException ex)

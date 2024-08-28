@@ -5,13 +5,12 @@ import dev.danae.commons.commands.CommandUtils;
 import dev.danae.commons.messages.MessageManager;
 import dev.danae.commons.messages.NamespacedKeyFormatter;
 import dev.danae.creativesuite.model.Manager;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.bukkit.NamespacedKey;
+import net.md_5.bungee.api.chat.BaseComponent;
 
 
-public abstract class ManagerCommand extends Command
+public abstract class ManagerCommand extends Command implements MessageManager
 {    
   // The manager of the command
   private final Manager manager;
@@ -37,13 +36,25 @@ public abstract class ManagerCommand extends Command
   {
     return this.manager;
   }
+
+  // Return the message with the specified name
+  public String getMessage(String name)
+  {
+    return this.manager.getMessage(name);
+  }
+
+  // Format the message with the specified name and arguments
+  public BaseComponent[] formatMessage(String name, Map<String, Object> args)
+  {
+    return this.manager.formatMessage(name, args);
+  }
   
 
   // Handle tab completion of an alias argument
   public List<String> handleAliasTabCompletion(String arg)
   {
     return CommandUtils.handleSearchTabCompletion(arg, this.manager.getDefinedAliases().keySet().stream()
-      .sorted(NamespacedKeys.CASE_INSENSITIVE_ORDER)
+      .sorted(NamespacedKeyFormatter.CASE_INSENSITIVE_ORDER)
       .map(key -> key.toString())
       .toList());
   }
