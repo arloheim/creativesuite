@@ -79,6 +79,7 @@ public class CreativeSuitePlugin extends JavaPlugin
       .registerSubcommand("rename", new AliasRenameCommand(this.manager))
       .registerSubcommand("run", new AliasRunCommand(this.manager))
       .registerSubcommand("save", new AliasSaveCommand(this.manager, false))
+      .registerEmptySubcommand("run")
       .publishCommandHandler(this, this.getCommand("alias"));
       
     new AliasRunCommand(this.manager)
@@ -91,6 +92,7 @@ public class CreativeSuitePlugin extends JavaPlugin
       .registerSubcommand("remove", new HotbarRemoveCommand(this.manager))
       .registerSubcommand("rename", new HotbarRenameCommand(this.manager))
       .registerSubcommand("save", new HotbarSaveCommand(this.manager, false))
+      .registerEmptySubcommand("load")
       .publishCommandHandler(this, this.getCommand("hotbar"));
 
     new CommandGroup()
@@ -109,7 +111,6 @@ public class CreativeSuitePlugin extends JavaPlugin
 
     // Load the configuration
     this.loadConfiguration();
-      
   }
 
   // Execute migrations

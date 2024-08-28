@@ -13,13 +13,8 @@ commands:
     usage: "Usage: /<command> reload | version"
 
   alias:
-    aliases: [al]
     description: Defines shared aliases.
     usage: "Usage: /<command> list | overwrite <name> <cmd> | remove <name> | rename <name> <destination> | [run] <name> | save <name> <cmd>"
-
-  run:
-    description: Runs shared aliases for long commands.
-    usage: "Usage: /<command> <name>"
     aliases: [r]
 
   hotbar:
