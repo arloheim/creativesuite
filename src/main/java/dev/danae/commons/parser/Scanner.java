@@ -23,25 +23,25 @@ public class Scanner
   
   
   // Return if the scanner reached the end of the tokens at the next index
-  private boolean isAtEnd()
+  public boolean isAtEnd()
   {
     return this.isAtEnd(1);
   }
   
   // Return if the scanner reached the end of the tokens at the index with the specified lookahead
-  private boolean isAtEnd(int lookahead)
+  public boolean isAtEnd(int lookahead)
   {
     return this.index + lookahead >= this.arguments.length;
   }
 
   // Return the token that has just been scanned
-  private String current()
+  public String current()
   {
     return this.index >= 0  ? this.arguments[this.index] : null;
   }
   
   // Advance the index to the next position
-  private String advance(String expected) throws ParserException
+  public String advance(String expected) throws ParserException
   {
     if (this.isAtEnd())
       throw new ParserException(String.format("Expected %s, but reached end of arguments", expected));
@@ -51,7 +51,7 @@ public class Scanner
   }
   
   // Advance the index the specified amount of positions
-  private String advanceMany(int amount, String expected) throws ParserException
+  public String advanceMany(int amount, String expected) throws ParserException
   {
     var string = "";
     for (var i = 0; i < amount; i ++)      
@@ -60,7 +60,7 @@ public class Scanner
   }
   
   // Take the next token and parse it
-  private <T> T take(ParserFunction<String, T> parser, String expected) throws ParserException
+  public <T> T take(ParserFunction<String, T> parser, String expected) throws ParserException
   {    
     var previousIndex = this.index;
     try
@@ -75,7 +75,7 @@ public class Scanner
   }
 
   // Take an amount of tokens and parse them
-  private <T> T takeMany(ParserFunction<String, T> parser, int amount, String expected) throws ParserException
+  public <T> T takeMany(ParserFunction<String, T> parser, int amount, String expected) throws ParserException
   {    
     var previousIndex = this.index;
     try

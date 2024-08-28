@@ -39,9 +39,6 @@ public class AliasInspectCommand extends ManagerCommand
       if (alias == null)
         throw new CommandException(this.formatMessage("alias-not-found", Map.of("name", key)));
 
-      // Remove the alias
-      this.getManager().removeAlias(key);
-
       // Send a message about the inspected alias
       context.sendMessage(this.formatMessage("alias-inspect", Map.of("name", key, "command", alias.getCommand())));
     }

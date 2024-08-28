@@ -15,6 +15,9 @@ public class Alias implements ConfigurationSerializable
   // The command of the alias
   private final String command;
 
+  // The variables of the alias
+  private final List<Parameter> parameters;
+
 
   // Constructor
   public Alias(String command)
@@ -30,6 +33,12 @@ public class Alias implements ConfigurationSerializable
     return this.command;
   }
 
+  // Return the parameters of the alias
+  public List<Parameter> getParameters()
+  {
+    return this.parameters;
+  }
+
 
   // Dispatch the command
   public void dispatchCommand(CommandSender sender, Map<String, String> args)
@@ -38,8 +47,11 @@ public class Alias implements ConfigurationSerializable
     if (this.command == null || this.command.isEmpty())
       return;
 
+    // Format the command
+    var actualCommand = Parameter.replace(this.command, args);
+
     // Dispatch the command
-    Bukkit.dispatchCommand(sender, this.command);
+    Bukkit.dispatchCommand(sender, actualCommand);
   }
 
 
