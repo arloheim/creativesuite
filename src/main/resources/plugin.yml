@@ -2,7 +2,7 @@ name: CreativeSuite
 description: Extended tools and commands for working in creative worlds in Minecraft.
 version: 2.0.0
 author: danae
-website: https://github.com/danae/creativesuite
+website: https://github.com/arloheim/creativesuite
 main: dev.danae.creativesuite.plugin.CreativeSuitePlugin
 api-version: 1.20
 
