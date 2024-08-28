@@ -48,6 +48,18 @@ public class CommandContext
   {
     return this.arguments;
   }
+
+  // Return the joined arguments of the command that is being executed starting from the specified index
+  public String getJoinedArguments(int startIndex)
+  {
+    return String.join(" ", Arrays.stream(this.arguments).skip(startIndex).toList());
+  }
+
+  // Return the joined arguments of the command that is being executed
+  public String getJoinedArguments()
+  {
+    return this.getJoinedArguments(0);
+  }
   
   // Return a scanner over the arguments of the context
   public Scanner getArgumentsScanner()

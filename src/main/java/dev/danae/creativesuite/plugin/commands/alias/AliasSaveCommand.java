@@ -14,13 +14,16 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.hover.content.Text;
+import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
+import org.bukkit.command.CommandMap;
 
 
 public class AliasSaveCommand extends ManagerCommand
 {
   // Boolean that indicates if aliases automatically get overwritten
   private final boolean overwriteAliases;
+
 
   // Constructor
   public AliasSaveCommand(Manager manager, boolean overwriteAliases)
@@ -75,6 +78,8 @@ public class AliasSaveCommand extends ManagerCommand
   @Override
   public List<String> handleTabCompletion(CommandContext context)
   {
+    if (context.hasAtLeastArgumentsCount(2))
+      return Bukkit.getCommandMap().tabComplete(context.getSender(), context.getJoinedArguments(1));
     if (context.hasArgumentsCount(1))
       return this.handleAliasTabCompletion(context.getArgument(0));
     else

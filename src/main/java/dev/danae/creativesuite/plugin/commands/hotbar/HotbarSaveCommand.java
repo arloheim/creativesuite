@@ -23,6 +23,7 @@ public class HotbarSaveCommand extends ManagerCommand
   // Boolean that indicates if hotbars automatically get overwritten
   private final boolean overwriteHotbars;
 
+  
   // Constructor
   public HotbarSaveCommand(Manager manager, boolean overwriteHotbars)
   {
