@@ -5,6 +5,7 @@ import dev.danae.creativesuite.model.Hotbar;
 import dev.danae.creativesuite.model.Manager;
 import dev.danae.creativesuite.plugin.commands.admin.AdminReloadCommand;
 import dev.danae.creativesuite.plugin.commands.admin.AdminVersionCommand;
+import dev.danae.creativesuite.plugin.commands.alias.AliasInspectCommand;
 import dev.danae.creativesuite.plugin.commands.alias.AliasListCommand;
 import dev.danae.creativesuite.plugin.commands.alias.AliasRemoveCommand;
 import dev.danae.creativesuite.plugin.commands.alias.AliasRenameCommand;
@@ -88,6 +89,7 @@ public class CreativeSuitePlugin extends JavaPlugin implements MessageManager
       .publishCommandHandler(this, this.getCommand("creativesuite"));
 
     new CommandGroup()
+      .registerSubcommand("inspect", new AliasInspectCommand(this.manager))
       .registerSubcommand("list", new AliasListCommand(this.manager))
       .registerSubcommand("overwrite", new AliasSaveCommand(this.manager, true))
       .registerSubcommand("remove", new AliasRemoveCommand(this.manager))

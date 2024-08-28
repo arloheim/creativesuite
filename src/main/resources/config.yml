@@ -2,6 +2,7 @@
 messages:
   # Messages for the /alias command
   alias-list: "{{count}} aliases are defined: {{aliases}}"
+  alias-inspect: "The alias §l{{name}}§r resolves to the command:\n{{command}}"
   alias-saved: "The alias §l{{name}}§r has been saved"
   alias-overwritten: "The alias §l{{name}}§r has been overwritten"
   alias-renamed: "The alias §l{{name}}§r has been renamed to §l{{destination}}§r"

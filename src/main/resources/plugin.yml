@@ -14,7 +14,7 @@ commands:
 
   alias:
     description: Defines shared aliases.
-    usage: "Usage: /<command> list | overwrite <name> <cmd> | remove <name> | rename <name> <destination> | run <name> | save <name> <cmd>"
+    usage: "Usage: /<command> inspect <name> | list | overwrite <name> <cmd> | remove <name> | rename <name> <destination> | run <name> | save <name> <cmd>"
     aliases: [al]
 
   run:
@@ -42,11 +42,16 @@ permissions:
     description: Allows the player to use the /alias command.
     default: true
     children:
+      creativesuite.alias.inspect: true
       creativesuite.alias.list: true
       creativesuite.alias.remove: true
       creativesuite.alias.rename: true
       creativesuite.alias.run: true
       creativesuite.alias.save: true
+
+  creativesuite.alias.inspect:
+    description: Allows the player to use the /alias inspect command.
+    default: true
 
   creativesuite.alias.list:
     description: Allows the player to use the /alias list command.
