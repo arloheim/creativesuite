@@ -1,13 +1,15 @@
-package dev.danae.creativesuite.util.commands;
+package dev.danae.commons.commands;
 
 
 public class CommandUsageException extends Exception
 {
-  // Constructor
+  // Constructor for a cause
   public CommandUsageException(Throwable cause)
   {
     super(cause);
   }
+
+  // Constructor
   public CommandUsageException()
   {
     super();

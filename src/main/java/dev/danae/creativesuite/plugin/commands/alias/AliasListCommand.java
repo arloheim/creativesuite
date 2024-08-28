@@ -1,10 +1,10 @@
 package dev.danae.creativesuite.plugin.commands.alias;
 
+import dev.danae.commons.commands.CommandContext;
+import dev.danae.commons.commands.CommandException;
+import dev.danae.commons.commands.CommandUsageException;
 import dev.danae.creativesuite.model.Manager;
 import dev.danae.creativesuite.plugin.commands.ManagerCommand;
-import dev.danae.creativesuite.util.commands.CommandContext;
-import dev.danae.creativesuite.util.commands.CommandException;
-import dev.danae.creativesuite.util.commands.CommandUsageException;
 import java.util.List;
 
 

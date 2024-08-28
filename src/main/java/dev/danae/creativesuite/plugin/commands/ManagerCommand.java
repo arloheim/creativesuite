@@ -1,11 +1,10 @@
 package dev.danae.creativesuite.plugin.commands;
 
-import dev.danae.creativesuite.model.Alias;
+import dev.danae.commons.commands.Command;
+import dev.danae.commons.commands.CommandUtils;
+import dev.danae.commons.messages.MessageManager;
+import dev.danae.commons.messages.NamespacedKeyFormatter;
 import dev.danae.creativesuite.model.Manager;
-import dev.danae.creativesuite.util.NamespacedKeys;
-import dev.danae.creativesuite.util.commands.Command;
-import dev.danae.creativesuite.util.commands.CommandContext;
-import dev.danae.creativesuite.util.commands.CommandUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

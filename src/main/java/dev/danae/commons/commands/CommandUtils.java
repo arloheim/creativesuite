@@ -1,4 +1,4 @@
-package dev.danae.creativesuite.util.commands;
+package dev.danae.commons.commands;
 
 import java.util.List;
 
@@ -41,25 +41,6 @@ public class CommandUtils
     {
       return new SearchResult(string, string.indexOf(query));
     }
-  }
-
-
-  // Clamp an integer value
-  public static int clamp(int value, int min, int max) 
-  {
-    return Math.max(min, Math.min(max, value));
-  }
-  
-  // Clamp a float value
-  public static float clamp(float value, float min, float max) 
-  {
-    return Math.max(min, Math.min(max, value));
-  }
-  
-  // Clamp a double value
-  public static double clamp(double value, double min, double max) 
-  {
-    return Math.max(min, Math.min(max, value));
   }
 
 

@@ -7,8 +7,6 @@ import dev.danae.creativesuite.model.Hotbar;
 import dev.danae.creativesuite.model.HotbarMap;
 import dev.danae.creativesuite.model.Manager;
 import java.util.Map;
-import java.util.Optional;
-import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 
 

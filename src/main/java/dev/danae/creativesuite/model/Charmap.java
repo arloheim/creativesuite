@@ -1,8 +1,7 @@
 package dev.danae.creativesuite.model;
 
+import dev.danae.commons.data.Data;
 import dev.danae.creativesuite.plugin.CreativeSuitePlugin;
-import dev.danae.creativesuite.util.data.Data;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;

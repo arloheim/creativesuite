@@ -1,11 +1,11 @@
 package dev.danae.creativesuite.plugin.commands.hotbar;
 
+import dev.danae.commons.commands.CommandContext;
+import dev.danae.commons.commands.CommandException;
+import dev.danae.commons.commands.CommandUsageException;
+import dev.danae.commons.parser.ParserException;
 import dev.danae.creativesuite.model.Manager;
 import dev.danae.creativesuite.plugin.commands.ManagerCommand;
-import dev.danae.creativesuite.util.parser.ParserException;
-import dev.danae.creativesuite.util.commands.CommandContext;
-import dev.danae.creativesuite.util.commands.CommandException;
-import dev.danae.creativesuite.util.commands.CommandUsageException;
 import java.util.List;
 
 
@@ -33,6 +33,7 @@ public class HotbarRemoveCommand extends ManagerCommand
       
       // Parse the arguments
       var key = scanner.nextNamespacedKey();
+      
       var hotbar = this.getManager().getHotbar(key);
       if (hotbar == null)
         throw new CommandException(String.format("Hotbar %s does not exist", key.toString()));

@@ -1,10 +1,11 @@
-package dev.danae.creativesuite.util.commands;
+package dev.danae.commons.commands;
 
-import dev.danae.creativesuite.util.parser.Scanner;
+import dev.danae.commons.parser.Scanner;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 import net.md_5.bungee.api.chat.BaseComponent;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.Command;
@@ -147,6 +148,15 @@ public class CommandContext
       return player;
     else
       throw new CommandException("This command must be executed by a player");
+  }
+
+  // Assert if the sender is a player sender in the specified game mode
+  public Player assertSenderIsPlayer(GameMode gameMode) throws CommandException
+  {
+    if (this.sender instanceof Player player && player.getGameMode() == gameMode)
+      return player;
+    else
+      throw new CommandException(String.format("This command must be executed by a player in %s game mode", gameMode.name().toLowerCase()));
   }
   
   // Assert if the sender is a conversable sender

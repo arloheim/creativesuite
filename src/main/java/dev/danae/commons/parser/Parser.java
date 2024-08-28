@@ -1,4 +1,4 @@
-package dev.danae.creativesuite.util.parser;
+package dev.danae.commons.parser;
 
 import java.util.Arrays;
 import java.util.EnumSet;

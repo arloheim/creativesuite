@@ -20,7 +20,7 @@ import dev.danae.creativesuite.plugin.commands.hotbar.HotbarRenameCommand;
 import dev.danae.creativesuite.plugin.commands.hotbar.HotbarSaveCommand;
 import dev.danae.creativesuite.plugin.listeners.SignMaterialListener;
 import dev.danae.creativesuite.plugin.migrations.v1_1_1.ConfigurationSerializableMigration;
-import dev.danae.creativesuite.util.commands.CommandGroup;
+import dev.danae.commons.commands.CommandGroup;
 import java.util.logging.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;

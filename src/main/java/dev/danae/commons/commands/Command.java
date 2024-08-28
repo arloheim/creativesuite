@@ -1,4 +1,4 @@
-package dev.danae.creativesuite.util.commands;
+package dev.danae.commons.commands;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -76,7 +76,7 @@ public abstract class Command implements CommandExecutor, TabCompleter, Listener
     }
     catch (CommandException ex)
     {
-      sender.spigot().sendMessage(new ComponentBuilder(ex.getMessage()).color(ChatColor.RED).create());
+      sender.spigot().sendMessage(ex.getComponentMessage());
       return true;
     }
   }

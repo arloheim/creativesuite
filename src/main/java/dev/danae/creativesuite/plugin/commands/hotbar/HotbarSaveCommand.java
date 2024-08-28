@@ -1,12 +1,12 @@
 package dev.danae.creativesuite.plugin.commands.hotbar;
 
+import dev.danae.commons.commands.CommandContext;
+import dev.danae.commons.commands.CommandException;
+import dev.danae.commons.commands.CommandUsageException;
+import dev.danae.commons.parser.ParserException;
 import dev.danae.creativesuite.model.Hotbar;
 import dev.danae.creativesuite.model.Manager;
 import dev.danae.creativesuite.plugin.commands.ManagerCommand;
-import dev.danae.creativesuite.util.parser.ParserException;
-import dev.danae.creativesuite.util.commands.CommandContext;
-import dev.danae.creativesuite.util.commands.CommandException;
-import dev.danae.creativesuite.util.commands.CommandUsageException;
 import java.util.List;
 import org.bukkit.GameMode;
 
@@ -45,6 +45,7 @@ public class HotbarSaveCommand extends ManagerCommand
       
       // Parse the arguments
       var key = scanner.nextNamespacedKey();
+
       var hotbar = this.getManager().getHotbar(key);
 
       // Check if we can overwrite and existing hotbar

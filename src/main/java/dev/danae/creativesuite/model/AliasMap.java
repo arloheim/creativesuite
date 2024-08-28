@@ -1,8 +1,8 @@
 package dev.danae.creativesuite.model;
 
+import dev.danae.commons.data.DataMap;
+import dev.danae.commons.data.DataMapKeyType;
 import dev.danae.creativesuite.plugin.CreativeSuitePlugin;
-import dev.danae.creativesuite.util.data.DataMap;
-import dev.danae.creativesuite.util.data.DataMapKeyType;
 import org.bukkit.NamespacedKey;
 
 

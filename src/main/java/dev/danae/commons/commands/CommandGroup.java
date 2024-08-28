@@ -1,4 +1,4 @@
-package dev.danae.creativesuite.util.commands;
+package dev.danae.commons.commands;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,6 +44,15 @@ public class CommandGroup extends Command
   {
     this.emptySubcommand = command;
     return this;
+  }
+
+  // Register a subcommand for when no other subcommand has been specified to an existing subcommand
+  public CommandGroup registerEmptySubcommand(String name)
+  {
+    if (!this.subcommands.containsKey(name))
+      throw new IllegalArgumentException(String.format("%s is not an existing subcommand", name));
+
+    return this.registerEmptySubcommand(this.subcommands.get(name));
   }
   
   // Unregister a subcommand for when no other subcommand has been specified

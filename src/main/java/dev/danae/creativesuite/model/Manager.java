@@ -1,8 +1,6 @@
 package dev.danae.creativesuite.model;
 
 import java.util.Map;
-import java.util.Optional;
-import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 
 public interface Manager 

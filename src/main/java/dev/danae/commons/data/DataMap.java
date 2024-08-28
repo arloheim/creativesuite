@@ -1,4 +1,4 @@
-package dev.danae.creativesuite.util.data;
+package dev.danae.commons.data;
 
 import java.io.File;
 import java.util.Collection;
