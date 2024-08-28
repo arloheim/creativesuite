@@ -42,11 +42,11 @@ permissions:
     description: Allows the player to use the /alias command.
     default: true
     children:
-      creativesuite.hotbar.list: true
-      creativesuite.hotbar.remove: true
-      creativesuite.hotbar.rename: true
-      creativesuite.hotbar.run: true
-      creativesuite.hotbar.save: true
+      creativesuite.alias.list: true
+      creativesuite.alias.remove: true
+      creativesuite.alias.rename: true
+      creativesuite.alias.run: true
+      creativesuite.alias.save: true
 
   creativesuite.alias.list:
     description: Allows the player to use the /alias list command.
