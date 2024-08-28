@@ -79,7 +79,7 @@ public class AliasSaveCommand extends ManagerCommand
   public List<String> handleTabCompletion(CommandContext context)
   {
     if (context.hasAtLeastArgumentsCount(2))
-      return Bukkit.getCommandMap().tabComplete(context.getSender(), context.getJoinedArguments(1));
+      return this.handleCommandTabCompletion(context, 1);
     if (context.hasArgumentsCount(1))
       return this.handleAliasTabCompletion(context.getArgument(0));
     else

@@ -73,7 +73,7 @@ public class AliasInspectCommand extends ManagerCommand
   {
     return (String content) -> {
       var formattedCommand = "/" + Parameter.replace(alias.getCommand(), createParameterFormatter(content));
-      var command = "/" + Parameter.replace(alias.getCommand(), Map.of());
+      var command = Parameter.replace(alias.getCommand(), Map.of());
 
       return new ComponentBuilder()
         .append("")

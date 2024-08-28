@@ -1,6 +1,7 @@
 package dev.danae.creativesuite.plugin.commands;
 
 import dev.danae.commons.commands.Command;
+import dev.danae.commons.commands.CommandContext;
 import dev.danae.commons.commands.CommandUtils;
 import dev.danae.commons.messages.MessageManager;
 import dev.danae.commons.messages.NamespacedKeyFormatter;
@@ -11,6 +12,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import net.md_5.bungee.api.chat.BaseComponent;
+import org.bukkit.Bukkit;
 
 
 public abstract class ManagerCommand extends Command implements MessageManager
@@ -88,5 +90,18 @@ public abstract class ManagerCommand extends Command implements MessageManager
       .sorted((a, b) -> a.toString().compareToIgnoreCase(b.toString()))
       .map(key -> key.toString())
       .toList());
+  }
+  
+  // Handle tab completion for a server command
+  public List<String> handleCommandTabCompletion(CommandContext context, int startIndex)
+  {
+    // Arguments of the command, so normal handling
+    if (context.hasAtLeastArgumentsCount(startIndex + 2))
+      return Bukkit.getCommandMap().tabComplete(context.getSender(), context.getJoinedArguments(startIndex));
+    
+    // The command itself, so strip the first slash
+    return Bukkit.getCommandMap().tabComplete(context.getSender(), context.getJoinedArguments(startIndex)).stream()
+      .map(command -> command.startsWith("/") ? command.substring(1) : command)
+      .toList();
   }
 }
