@@ -2,7 +2,8 @@
 messages:
   # Messages for the /alias command
   alias-list: "{{count}} aliases are defined: {{aliases}}"
-  alias-inspect: "The alias §l{{name}}§r resolves to the command:\n{{command}}"
+  alias-inspect: "The alias §l{{name}}§r resolves to the command:\n§o{{command: §a%s§r§o}}§r"
+  alias-copy-to-clipboard: "Click to copy the command to the clipboard"
   alias-saved: "The alias §l{{name}}§r has been saved"
   alias-overwritten: "The alias §l{{name}}§r has been overwritten"
   alias-renamed: "The alias §l{{name}}§r has been renamed to §l{{destination}}§r"
@@ -24,6 +25,6 @@ messages:
 
   # Messages for the /charmap command
   charmap-list: "{{count}} characters are defined: §a{{charmap}}§r"
-  charmap-copy-to-clipboard: "Click to copy {{char}} to clipboard"
+  charmap-copy-to-clipboard: "Click to copy {{char}} to the clipboard"
   charmap-added: "The characters §a{{chars}}§r have been added to the charmap"
   charmap-removed: "The characters §a{{chars}}§r have been removed to the charmap"

@@ -95,9 +95,10 @@ public class HotbarSaveCommand extends ManagerCommand
 
     return (String content) -> {
       return new ComponentBuilder()
-        .append(content, ComponentBuilder.FormatRetention.NONE).underlined(true)
+        .append(content).underlined(true)
           .event(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(overwriteCommand)))
           .event(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, overwriteCommand))
+        .append("").underlined(false)
         .create();
     };
   }

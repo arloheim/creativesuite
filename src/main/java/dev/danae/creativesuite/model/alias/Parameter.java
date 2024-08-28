@@ -51,6 +51,12 @@ public class Parameter
     return String.format("%s%s%s", this.name, SEPARATOR, this.defaultValue);
   }
 
+  // Return the command string representation of the parameter
+  public String toCommandString()
+  {
+    return String.format("<%s>", this.toString());
+  }
+
   
   // Parse a string into a stream of parameters and collect them into a list
   public static List<Parameter> parse(String command)
