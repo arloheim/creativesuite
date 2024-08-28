@@ -37,7 +37,7 @@ public class AliasRunCommand extends ManagerCommand
       
       var alias = this.getManager().getAlias(key);
       if (alias == null)
-        throw new CommandException(this.formatMessage("alias-not-found", Map.of("key", key)));
+        throw new CommandException(this.formatMessage("alias-not-found", Map.of("name", key)));
 
       // Dispatch the command of the alias
       alias.dispatchCommand(context.getSender());

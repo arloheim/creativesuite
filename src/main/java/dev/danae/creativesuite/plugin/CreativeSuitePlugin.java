@@ -75,6 +75,9 @@ public class CreativeSuitePlugin extends JavaPlugin implements MessageManager
     this.manager = new CreativeSuiteManager(this);
     this.signMaterialListener = new SignMaterialListener(this);
 
+    // Load the data
+    this.manager.loadData();
+
     // Set the listeners
     Bukkit.getPluginManager().registerEvents(this.signMaterialListener, this);
 

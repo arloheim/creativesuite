@@ -37,13 +37,13 @@ public class AliasRemoveCommand extends ManagerCommand
       
       var alias = this.getManager().getAlias(key);
       if (alias == null)
-        throw new CommandException(this.formatMessage("alias-not-found", Map.of("key", key)));
+        throw new CommandException(this.formatMessage("alias-not-found", Map.of("name", key)));
 
       // Remove the alias
       this.getManager().removeAlias(key);
 
       // Send a message about the removed alias
-      context.sendMessage(this.formatMessage("alias-removed", Map.of("key", key)));
+      context.sendMessage(this.formatMessage("alias-removed", Map.of("name", key)));
     }
     catch (ParserException ex)
     {

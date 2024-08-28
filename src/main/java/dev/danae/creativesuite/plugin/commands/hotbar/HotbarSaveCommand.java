@@ -53,13 +53,13 @@ public class HotbarSaveCommand extends ManagerCommand
 
       var hotbar = this.getManager().getHotbar(key);
       if (hotbar == null)
-        throw new CommandException(this.formatMessage("hotbar-not-found", Map.of("key", key)));
+        throw new CommandException(this.formatMessage("hotbar-not-found", Map.of("name", key)));
 
       // Check if we can overwrite and existing hotbar
       if (!this.overwriteHotbars && hotbar != null)
       {
         // Send a message about the otherwise overwritten hotbar
-        context.sendMessage(this.formatMessage("hotbar-cannot-save", Map.of("key", key, "overwrite", this.getOverwriteComponent(context, key))));
+        context.sendMessage(this.formatMessage("hotbar-cannot-save", Map.of("name", key, "overwrite", this.getOverwriteComponent(context, key))));
       }
       else
       {
@@ -67,7 +67,7 @@ public class HotbarSaveCommand extends ManagerCommand
         this.getManager().setHotbar(key, new Hotbar(player.getInventory()));
 
         // Send a message about the saved hotbar
-        context.sendMessage(this.formatMessage(hotbar != null ? "hotbar-overwritten" : "hotbar-saved", Map.of("key", key)));
+        context.sendMessage(this.formatMessage(hotbar != null ? "hotbar-overwritten" : "hotbar-saved", Map.of("name", key)));
       }
     }
     catch (ParserException ex)

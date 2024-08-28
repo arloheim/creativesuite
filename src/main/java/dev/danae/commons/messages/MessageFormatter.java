@@ -25,15 +25,21 @@ public class MessageFormatter
     while (matcher.find())
     {
       // Append the message before the matched variable
-      builder.append(TextComponent.fromLegacyText(message.substring(lastIndex, matcher.start())), ComponentBuilder.FormatRetention.NONE);
+      builder.append(TextComponent.fromLegacyText(message.substring(lastIndex, matcher.start())));
       lastIndex = matcher.end();
 
       // Append the variable
       var arg = args.getOrDefault(matcher.group("name"), matcher.group());
       if (arg instanceof MessageFunction func)
-        builder.append(func.apply(matcher.group("content")));
+      {
+        var components = func.apply(matcher.group("content"));
+        if (components.length > 0)
+          builder.append(components);
+      }
       else
+      {
         builder.append(TextComponent.fromLegacyText(arg.toString()));
+      }
     }
 
     // Append the tail and return the built chat components

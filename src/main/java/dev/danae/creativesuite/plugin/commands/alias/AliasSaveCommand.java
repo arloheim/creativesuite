@@ -54,7 +54,7 @@ public class AliasSaveCommand extends ManagerCommand
       if (!this.overwriteAliases && alias != null)
       {
         // Send a message about the otherwise overwritten alias
-        context.sendMessage(this.formatMessage("alias-cannot-save", Map.of("key", key, "overwrite", this.getOverwriteComponent(context, key, command))));
+        context.sendMessage(this.formatMessage("alias-cannot-save", Map.of("name", key, "overwrite", this.getOverwriteComponent(context, key, command))));
       }
       else
       {
@@ -62,7 +62,7 @@ public class AliasSaveCommand extends ManagerCommand
         this.getManager().setAlias(key, new Alias(command));
 
         // Send a message about the saved alias
-        context.sendMessage(this.formatMessage(alias != null ? "alias-overwritten" : "alias-saved", Map.of("key", key)));
+        context.sendMessage(this.formatMessage(alias != null ? "alias-overwritten" : "alias-saved", Map.of("name", key)));
       }
     }
     catch (ParserException ex)

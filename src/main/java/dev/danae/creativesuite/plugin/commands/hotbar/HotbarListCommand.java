@@ -51,7 +51,7 @@ public class HotbarListCommand extends ManagerCommand
   private MessageFunction createListComponent(CommandContext context)
   {
     return (String content) -> {
-      return NamespacedKeyFormatter.formatGroupedKeys(this.getManager().getDefinedAliases().keySet(), 
+      return NamespacedKeyFormatter.formatGroupedKeys(this.getManager().getDefinedHotbars().keySet(), 
         group -> new ComponentBuilder(group).bold(true).create(), 
         key -> {
           var loadCommand = String.format("/%s load %s", context.getCommand().getName(), key.toString());

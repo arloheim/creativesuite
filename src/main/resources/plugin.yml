@@ -82,7 +82,7 @@ permissions:
     default: true
 
   creativesuite.hotbar.rename:
-    description: Allows the player to use the /hotbar remove command.
+    description: Allows the player to use the /hotbar rename command.
     default: true
 
   creativesuite.hotbar.remove:

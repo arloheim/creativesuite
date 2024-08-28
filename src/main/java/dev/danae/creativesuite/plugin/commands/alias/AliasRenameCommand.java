@@ -38,7 +38,7 @@ public class AliasRenameCommand extends ManagerCommand
 
       var alias = this.getManager().getAlias(key);
       if (alias == null)
-        throw new CommandException(this.formatMessage("alias-not-found", Map.of("key", key)));
+        throw new CommandException(this.formatMessage("alias-not-found", Map.of("name", key)));
 
       var destinationAlias = this.getManager().getAlias(destination);
 
@@ -46,7 +46,7 @@ public class AliasRenameCommand extends ManagerCommand
       if (destinationAlias != null)
       {
         // Send a message about the otherwise overwritten alias
-        context.sendMessage(this.formatMessage("alias-cannot-rename", Map.of("key", key, "destination", destination)));
+        context.sendMessage(this.formatMessage("alias-cannot-rename", Map.of("name", key, "destination", destination)));
       }
       else
       {
@@ -55,7 +55,7 @@ public class AliasRenameCommand extends ManagerCommand
         this.getManager().removeAlias(key);
 
         // Send a message about the renamed alias
-        context.sendMessage(this.formatMessage("alias-renamed", Map.of("key", key, "destination", destination)));
+        context.sendMessage(this.formatMessage("alias-renamed", Map.of("name", key, "destination", destination)));
       }
     }
     catch (ParserException ex)

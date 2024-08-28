@@ -38,7 +38,7 @@ public class HotbarRenameCommand extends ManagerCommand
 
       var hotbar = this.getManager().getHotbar(key);
       if (hotbar == null)
-        throw new CommandException(this.formatMessage("hotbar-not-found", Map.of("key", key)));
+        throw new CommandException(this.formatMessage("hotbar-not-found", Map.of("name", key)));
 
       var destinationHotbar = this.getManager().getHotbar(destination);
 
@@ -46,7 +46,7 @@ public class HotbarRenameCommand extends ManagerCommand
       if (destinationHotbar != null)
       {
         // Send a message about the otherwise overwritten alias
-        context.sendMessage(this.formatMessage("hotbar-cannt-rename", Map.of("key", key, "destination", destination)));
+        context.sendMessage(this.formatMessage("hotbar-cannt-rename", Map.of("name", key, "destination", destination)));
       }
       else
       {
@@ -55,7 +55,7 @@ public class HotbarRenameCommand extends ManagerCommand
         this.getManager().removeHotbar(key);
 
         // Send a message about the renamed hotbar
-        context.sendMessage(this.formatMessage("hotbar-renamed", Map.of("key", key)));
+        context.sendMessage(this.formatMessage("hotbar-renamed", Map.of("name", key)));
       }
     }
     catch (ParserException ex)

@@ -39,6 +39,15 @@ public class CreativeSuiteManager extends CreativeSuitePluginComponent implement
   }
 
 
+  // Load the data of the manager
+  public void loadData()
+  {
+    this.aliases.load();
+    this.hotbars.load();
+    this.charmap.load();
+  }
+
+
   // Return the message with the specified name
   public String getMessage(String name)
   {

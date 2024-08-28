@@ -41,13 +41,13 @@ public class HotbarLoadCommand extends ManagerCommand
       
       var hotbar = this.getManager().getHotbar(key);
       if (hotbar == null)
-        throw new CommandException(this.formatMessage("hotbar-not-found", Map.of("key", key)));
+        throw new CommandException(this.formatMessage("hotbar-not-found", Map.of("name", key)));
 
       // Load the hotbar
       hotbar.applyTo(player.getInventory());
 
       // Send a message about the loaded hotbar
-      context.sendMessage(this.formatMessage("hotbar-loaded", Map.of("key", key)));
+      context.sendMessage(this.formatMessage("hotbar-loaded", Map.of("name", key)));
     }
     catch (ParserException ex)
     {
