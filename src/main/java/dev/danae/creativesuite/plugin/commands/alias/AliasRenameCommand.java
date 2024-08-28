@@ -68,6 +68,8 @@ public class AliasRenameCommand extends ManagerCommand
   @Override
   public List<String> handleTabCompletion(CommandContext context)
   {
+    if (context.hasArgumentsCount(2))
+      return this.handleAliasTabCompletion(context.getArgument(1));
     if (context.hasArgumentsCount(1))
       return this.handleAliasTabCompletion(context.getArgument(0));
     else

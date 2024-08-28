@@ -68,8 +68,10 @@ public class HotbarRenameCommand extends ManagerCommand
   @Override
   public List<String> handleTabCompletion(CommandContext context)
   {
-    if (context.hasArgumentsCount(1))
-      return this.handleAliasTabCompletion(context.getArgument(0));
+    if (context.hasArgumentsCount(2))
+      return this.handleHotbarTabCompletion(context.getArgument(1));
+    else if (context.hasArgumentsCount(1))
+      return this.handleHotbarTabCompletion(context.getArgument(0));
     else
       return List.of();
   }
