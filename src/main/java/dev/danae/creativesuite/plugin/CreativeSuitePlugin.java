@@ -39,7 +39,7 @@ public class CreativeSuitePlugin extends JavaPlugin implements MessageManager
   private SignMaterialListener signMaterialListener;
 
   // The map of the defined messages
-  private Map<String, String> messages;
+  private Map<String, String> messages = new HashMap<>();
   
   
   // Return the manager of the plugin
@@ -74,7 +74,6 @@ public class CreativeSuitePlugin extends JavaPlugin implements MessageManager
     // Create the components
     this.manager = new CreativeSuiteManager(this);
     this.signMaterialListener = new SignMaterialListener(this);
-    this.messages = new HashMap<>();
 
     // Set the listeners
     Bukkit.getPluginManager().registerEvents(this.signMaterialListener, this);
@@ -94,9 +93,6 @@ public class CreativeSuitePlugin extends JavaPlugin implements MessageManager
       .registerSubcommand("save", new AliasSaveCommand(this.manager, false))
       .registerEmptySubcommand("run")
       .publishCommandHandler(this, this.getCommand("alias"));
-      
-    new AliasRunCommand(this.manager)
-      .publishCommandHandler(this, this.getCommand("run"));
     
     new CommandGroup()
       .registerSubcommand("list", new HotbarListCommand(this.manager))
