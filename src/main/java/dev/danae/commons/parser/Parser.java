@@ -1,10 +1,14 @@
 package dev.danae.commons.parser;
 
+import dev.danae.commons.Materials;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.regex.Pattern;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 
 
@@ -16,7 +20,7 @@ public class Parser
   private static final Pattern FLOAT_PATTERN = Pattern.compile("-?[0-9]+(\\.[0-9]+)?");
   private static final Pattern IDENTIFIER_PATTERN = Pattern.compile("[a-zA-Z_][a-zA-Z0-9_]*");
   private static final Pattern NAMESPACED_KEY_PATTERN = Pattern.compile("[a-zA-Z0-9_\\-\\/]+:[a-zA-Z0-9_\\-\\/]+(?:\\\\.[a-zA-Z0-9_\\-\\/]+)*");
-  private static final Pattern LOCATION_PATTERN = Pattern.compile("(?<cur>~)|(?<xyz>(?:(?<x>0|-?[1-9][0-9]*)|(?<rx>~(?<dx>-?[1-9][0-9]*)?))\\s+(?:(?<y>0|-?[1-9][0-9]*)|(?<ry>~(?<dy>-?[1-9][0-9]*)?))\\s+(?:(?<z>0|-?[1-9][0-9]*)|(?<rz>~(?<dz>-?[1-9][0-9]*)?)))");
+  private static final Pattern LOCATION_PATTERN = Pattern.compile("(?<cur>~)|(?<xyz>(?:(?<x>0|-?[1-9][0-9]*)|(?<rx>~(?<dx>-?[1-9][0-9]*)?))\\s+(?:(?<y>0|-?[1-9][0-9]*)|(?<ry>~(?<dy>-?[1-9][0-9]*)?))\\s+(?:(?<z>0|-?[1-9][0-9]*)|(?<rz>~(?<dz>-?[1-9][0-9]*)?)))|(?<player>[a-zA-Z0-9_]{2,16})|(?<alias>#(?<name>[a-zA-Z0-9_\\\\-\\\\/]+:[a-zA-Z0-9_\\\\-\\\\/]+(?:\\\\\\\\.[a-zA-Z0-9_\\\\-\\\\/]+)*))");
   
   
   // Parse an integer value from a string
@@ -196,8 +200,25 @@ public class Parser
     return parseEnumSet(strings, cls);
   }
 
-  // Parse a location from a string
-  public static Location parseLocation(String string, Location origin, int radius) throws ParserException
+  // Parse a material from a string
+  public static Material parseMaterial(String string, Materials.Filter filter) throws ParserException
+  {
+    // Match the string against the pattern
+    var m = IDENTIFIER_PATTERN.matcher(string);
+    if (!m.matches())
+      throw new ParserException(String.format("\"%s\" is an invalid material value", string.toLowerCase()));
+    
+    // Parse the value
+    var material = Material.matchMaterial(m.group());
+    if (material == null)
+      throw new ParserException(String.format("\"%s\" is an invalid material value", string.toLowerCase()));
+    if (!Materials.matches(material, filter))
+      throw new ParserException(String.format("\"%s\" is not in range of the valid material values", string.toLowerCase()));
+    return material;
+  }
+
+  // Parse a location from a string using the specified aliases
+  public static Location parseLocation(String string, Location origin, Map<NamespacedKey, Location> aliases) throws ParserException
   {
     // Match the string against the pattern
     var m = LOCATION_PATTERN.matcher(string);
@@ -217,8 +238,39 @@ public class Parser
       
       return new Location(origin.getWorld(), x, y, z);
     }
+
+    // Check for a player location
+    if (m.group("player") != null)
+    {
+      var playerName = m.group("player");
+      var player = Bukkit.getPlayer(playerName);
+      if (player == null)
+        throw new ParserException(String.format("%s is an invalid online player", playerName));
+
+      if (player.getLocation().getWorld() != origin.getWorld())
+        throw new ParserException(String.format("%s is not in the same world as the origin location", player.getName()));
+
+      return player.getLocation();
+    }
+
+    // Check for an alias location
+    if (m.group("alias") != null)
+    {
+      var key = parseNamespacedKey(m.group("name"));
+      var location = aliases.get(key);
+      if (location == null)
+        throw new ParserException(String.format("\"%s\" is an invalid location alias", key));
+      
+      return location;
+    }
     
     // Invalid location format
     throw new ParserException(String.format("\"%s\" is an invalid location value", string));
+  }
+
+  // Parse a location from a string
+  public static Location parseLocation(String string, Location origin) throws ParserException
+  {
+    return parseLocation(string, origin, Map.of());
   }
 }

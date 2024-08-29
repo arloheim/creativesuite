@@ -1,7 +1,10 @@
 package dev.danae.commons.parser;
 
+import dev.danae.commons.Materials;
 import java.util.EnumSet;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 
 
@@ -237,22 +240,34 @@ public class Scanner
     return ParserSupplier.getOrElse(() -> this.nextEnumSet(cls, expected), defaultValue);
   }
   
+  // Return the next element in the scanner as a material
+  public Material nextMaterial(Materials.Filter filter) throws ParserException
+  {
+    return this.take(s -> Parser.parseMaterial(s, filter), "material");
+  }
+  
+  // Return the next element in the scanner as a material, or the default value if no such element exists
+  public Material nextMaterial(Materials.Filter filter, Material defaultValue)
+  {
+    return ParserSupplier.getOrElse(() -> this.nextMaterial(filter), defaultValue);
+  }
+  
   // Return the next element in the scanner as a location
-  public Location nextLocation(Location origin, int radius) throws ParserException
+  public Location nextLocation(Location origin) throws ParserException
   {
     try
     {
-      return this.takeMany(s -> Parser.parseLocation(s, origin, radius), 3, "location");
+      return this.takeMany(s -> Parser.parseLocation(s, origin), 3, "location");
     }
     catch (ParserException ex)
     {
-      return this.take(s -> Parser.parseLocation(s, origin, radius), "location");
+      return this.take(s -> Parser.parseLocation(s, origin), "location");
     }
   }
   
   // Return the next element in the scanner as a location, or the default value if no such element exists
-  public Location nextLocation(Location origin, int radius, Location defaultValue)
+  public Location nextLocation(Location origin, Location defaultValue)
   {
-    return ParserSupplier.getOrElse(() -> this.nextLocation(origin, radius), defaultValue);
+    return ParserSupplier.getOrElse(() -> this.nextLocation(origin), defaultValue);
   }
 }
