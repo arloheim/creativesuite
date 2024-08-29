@@ -39,6 +39,10 @@ public class CreativeSuitePlugin extends JavaPlugin implements MessageManager
   // The sign material listener of the plugin
   private SignMaterialListener signMaterialListener;
 
+
+  // The options of the plugin
+  private final CreativeSuitePluginOptions options = new CreativeSuitePluginOptions();
+
   // The map of the defined messages
   private Map<String, String> messages = new HashMap<>();
   
