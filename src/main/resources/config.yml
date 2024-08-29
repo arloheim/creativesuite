@@ -43,3 +43,10 @@ messages:
   charmap-copy-to-clipboard: "Click to copy {{char}} to the clipboard"
   charmap-added: "The characters §a{{chars}}§r have been added to the charmap"
   charmap-removed: "The characters §a{{chars}}§r have been removed to the charmap"
+
+  # Messages for the /clearfill command
+  clearfill-executed: "The inventory of §l{{player}}§r has been cleared"
+
+  # Messages for the /nightvision command
+  nightvision-turned-on: "Night vision for §l{{player}}§r has been turned on"
+  nightvision-turned-off: "Night vision for §l{{player}}§r has been turned off"

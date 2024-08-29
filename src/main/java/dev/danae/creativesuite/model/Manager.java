@@ -51,7 +51,7 @@ public interface Manager extends MessageManager
   public void clearInventory(Player player);
 
   // Update the night vision effect of a player
-  public void updateNightVision(Player player, Toggle enabled);
+  public boolean updateNightVision(Player player, Toggle enabled);
 
   // Drop a gravity-affected block at a location
   public void drop(Material material, Location location);

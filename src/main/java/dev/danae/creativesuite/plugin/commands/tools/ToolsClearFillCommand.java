@@ -1,6 +1,5 @@
 package dev.danae.creativesuite.plugin.commands.tools;
 
-import dev.danae.commons.Locations;
 import dev.danae.commons.Players;
 import dev.danae.commons.commands.CommandContext;
 import dev.danae.commons.commands.CommandException;
@@ -8,6 +7,7 @@ import dev.danae.commons.commands.CommandUsageException;
 import dev.danae.creativesuite.model.Manager;
 import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import java.util.List;
+import java.util.Map;
 import org.bukkit.GameMode;
 
 
@@ -37,6 +37,9 @@ public class ToolsClearFillCommand extends ManagerCommand
 
     // Clear the inventory of the player and fill it with a hotbar
     this.getManager().clearInventory(targetPlayer);
+
+    // Send a message about the executed command
+    context.sendMessage(this.formatMessage("clearfill-executed", Map.of("player", targetPlayer.getName())));
   }
 
   // Handle tab completion of the command

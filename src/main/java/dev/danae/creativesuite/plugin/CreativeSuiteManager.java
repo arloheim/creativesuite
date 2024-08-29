@@ -184,7 +184,7 @@ public class CreativeSuiteManager extends CreativeSuitePluginComponent implement
 
   // Update the night vision effect of a player
   @Override
-  public void updateNightVision(Player player, Toggle toggle)
+  public boolean updateNightVision(Player player, Toggle toggle)
   {
     // Convert the toggle to a boolean
     var hasNightVision = player.hasPotionEffect(PotionEffectType.NIGHT_VISION);
@@ -200,6 +200,9 @@ public class CreativeSuiteManager extends CreativeSuitePluginComponent implement
       var effect = new PotionEffect(PotionEffectType.NIGHT_VISION, PotionEffect.INFINITE_DURATION, 1, false, false, false);
       player.addPotionEffect(effect);
     }
+
+    // Return the new enabled state
+    return enabled;
   }
 
   // Drop a gravity-affected block at a location

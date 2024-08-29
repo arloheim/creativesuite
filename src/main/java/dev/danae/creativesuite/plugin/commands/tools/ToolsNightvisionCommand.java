@@ -1,17 +1,15 @@
 package dev.danae.creativesuite.plugin.commands.tools;
 
-import dev.danae.commons.Locations;
 import dev.danae.commons.Players;
 import dev.danae.commons.commands.CommandContext;
 import dev.danae.commons.commands.CommandException;
 import dev.danae.commons.commands.CommandUsageException;
-import dev.danae.commons.parser.ParserException;
 import dev.danae.creativesuite.model.Manager;
 import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import dev.danae.creativesuite.util.Toggle;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Stream;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 
 
@@ -42,7 +40,10 @@ public class ToolsNightVisionCommand extends ManagerCommand
       context.assertSenderHasPermissions("creativesuite.tools.nightvision.others");
 
     // Update the night vision effect of the player
-    this.getManager().updateNightVision(targetPlayer, toggle);
+    var enabled = this.getManager().updateNightVision(targetPlayer, toggle);
+
+    // Send a message about the executed command
+    context.sendMessage(this.formatMessage(enabled ? "nightvision-turned-on" : "nightvision-turned-off", Map.of("player", targetPlayer.getName())));
   }
 
   // Handle tab completion of the command
