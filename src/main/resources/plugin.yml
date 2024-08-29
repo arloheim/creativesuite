@@ -40,7 +40,7 @@ permissions:
 
   creativesuite.alias:
     description: Allows the player to use the /alias command.
-    default: true
+    default: op
     children:
       creativesuite.alias.inspect: true
       creativesuite.alias.list: true
@@ -59,11 +59,11 @@ permissions:
 
   creativesuite.alias.remove:
     description: Allows the player to use the /alias remove command.
-    default: true
+    default: op
 
   creativesuite.alias.rename:
     description: Allows the player to use the /alias rename command.
-    default: true
+    default: op
 
   creativesuite.alias.run:
     description: Allows the player to use the /alias run and /run commands.
@@ -71,11 +71,11 @@ permissions:
 
   creativesuite.alias.save:
     description: Allows the player to use the /alias save command.
-    default: true
+    default: op
 
   creativesuite.hotbar:
     description: Allows the player to use the /hotbar command.
-    default: true
+    default: op
     children:
       creativesuite.hotbar.list: true
       creativesuite.hotbar.load: true
@@ -93,19 +93,19 @@ permissions:
 
   creativesuite.hotbar.rename:
     description: Allows the player to use the /hotbar rename command.
-    default: true
+    default: op
 
   creativesuite.hotbar.remove:
     description: Allows the player to use the /hotbar remove command.
-    default: true
+    default: op
 
   creativesuite.hotbar.save:
     description: Allows the player to use the /hotbar save command.
-    default: true
+    default: op
 
   creativesuite.charmap:
     description: Allows the player to use the /charmap command.
-    default: true
+    default: op
     children:
       creativesuite.charmap.list: true
       creativesuite.charmap.add: true
@@ -117,8 +117,8 @@ permissions:
 
   creativesuite.charmap.add:
     description: Allows the player to use the /charmap add command.
-    default: true
+    default: op
 
   creativesuite.charmap.remove:
     description: Allows the player to use the /charmap remove command.
-    default: true
+    default: op
