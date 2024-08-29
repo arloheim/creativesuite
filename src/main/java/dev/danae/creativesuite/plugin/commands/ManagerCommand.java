@@ -16,7 +16,7 @@ import org.bukkit.Bukkit;
 
 
 public abstract class ManagerCommand extends Command implements MessageManager
-{    
+{
   // The manager of the command
   private final Manager manager;
   
@@ -53,10 +53,10 @@ public abstract class ManagerCommand extends Command implements MessageManager
   {
     return this.manager.formatMessage(name, args);
   }
-  
+
 
   // Handle tab completion of an alias argument
-  public List<String> handleAliasTabCompletion(String arg)
+  protected List<String> handleAliasTabCompletion(String arg)
   {
     return CommandUtils.handleSearchTabCompletion(arg, this.manager.getDefinedAliases().keySet().stream()
       .sorted(NamespacedKeyFormatter.CASE_INSENSITIVE_ORDER)
@@ -65,7 +65,7 @@ public abstract class ManagerCommand extends Command implements MessageManager
   }
 
   // Handle tab completion of an alias parameter argument
-  public List<String> handleAliasParameterTabCompletion(String arg, String aliasName)
+  protected List<String> handleAliasParameterTabCompletion(String arg, String aliasName)
   {
     try
     {
@@ -84,7 +84,7 @@ public abstract class ManagerCommand extends Command implements MessageManager
   }
 
   // Handle tab completion of a hotbar argument
-  public List<String> handleHotbarTabCompletion(String arg)
+  protected List<String> handleHotbarTabCompletion(String arg)
   {
     return CommandUtils.handleSearchTabCompletion(arg, this.manager.getDefinedHotbars().keySet().stream()
       .sorted((a, b) -> a.toString().compareToIgnoreCase(b.toString()))
@@ -93,7 +93,7 @@ public abstract class ManagerCommand extends Command implements MessageManager
   }
   
   // Handle tab completion for a server command
-  public List<String> handleCommandTabCompletion(CommandContext context, int startIndex)
+  protected List<String> handleCommandTabCompletion(CommandContext context, int startIndex)
   {
     // Arguments of the command, so normal handling
     if (context.hasAtLeastArgumentsCount(startIndex + 2))
