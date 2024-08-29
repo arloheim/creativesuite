@@ -40,19 +40,19 @@ commands:
   nightvision:
     description: Sets or resets a player's night vision effect.
     usage: "Usage: /<command> [off | on | toggle] [player]"
-    alisases: [nv]
+    aliases: [nv]
 
   drop:
     description: Drops a gravity-affected block at a location.
-    usage: "Usage: /<command> <block_material> [player | location]"
+    usage: "Usage: /<command> <block_material> <player | location>"
 
   anvil:
     description: Drops an anvil at a location.
-    usage: "Usage: /<command> [player | location]"
+    usage: "Usage: /<command> <player | location>"
 
   smite:
     description: Executes a lightning effect at a location.
-    usage: "Usage: /<command> [player | location]"
+    usage: "Usage: /<command> <player | location>"
     
     
 permissions:

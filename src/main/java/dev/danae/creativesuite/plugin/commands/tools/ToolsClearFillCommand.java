@@ -8,8 +8,6 @@ import dev.danae.commons.commands.CommandUsageException;
 import dev.danae.creativesuite.model.Manager;
 import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import java.util.List;
-import java.util.stream.Stream;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 
 
