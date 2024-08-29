@@ -8,7 +8,6 @@ import dev.danae.commons.commands.CommandUsageException;
 import dev.danae.commons.messages.MessageFunction;
 import java.util.List;
 import java.util.Map;
-import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;

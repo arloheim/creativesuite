@@ -1,7 +1,6 @@
 package dev.danae.creativesuite.plugin.commands.hotbar;
 
 import dev.danae.creativesuite.model.Manager;
-import dev.danae.creativesuite.model.hotbar.Hotbar;
 import dev.danae.creativesuite.plugin.commands.ManagerCommand;
 import dev.danae.commons.commands.CommandContext;
 import dev.danae.commons.commands.CommandException;
@@ -10,12 +9,10 @@ import dev.danae.commons.messages.MessageFunction;
 import dev.danae.commons.messages.NamespacedKeyFormatter;
 import java.util.List;
 import java.util.Map;
-import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.hover.content.Text;
-import org.bukkit.NamespacedKey;
 
 
 public class HotbarListCommand extends ManagerCommand
