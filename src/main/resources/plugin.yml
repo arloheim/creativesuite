@@ -31,6 +31,28 @@ commands:
     description: Defines shared Unicode characters for easy copying and pasting.
     usage: "Usage: /<command> [add <characters> | remove <characters>]"
     aliases: [cm]
+
+  clearfill:
+    description: Clears a player's inventory and fill it with a hotbar.
+    usage: "Usage: /<command> [player]"
+    aliases: [cf]
+
+  nightvision:
+    description: Sets or resets a player's night vision effect.
+    usage: "Usage: /<command> [off | on | toggle] [player]"
+    alisases: [nv]
+
+  drop:
+    description: Drops a gravity-affected block at a location.
+    usage: "Usage: /<command> <block_material> [player | location]"
+
+  anvil:
+    description: Drops an anvil at a location.
+    usage: "Usage: /<command> [player | location]"
+
+  smite:
+    description: Executes a lightning effect at a location.
+    usage: "Usage: /<command> [player | location]"
     
     
 permissions:
@@ -122,3 +144,43 @@ permissions:
   creativesuite.charmap.remove:
     description: Allows the player to use the /charmap remove command.
     default: op
+
+  creativesuite.tools:
+    description: Allows the player to use the tools commands.
+    default: true
+    children:
+      creativesuite.tools.clearfill: true
+      creativesuite.tools.nightvision: true
+      creativesuite.tools.drop: true
+      creativesuite.tools.smite: true
+
+  creativesuite.tools.others:
+    description: Allows the player to use the tools commands on other players.
+    default: op
+    children:
+      creativesuite.tools.clearfill.others: true
+      creativesuite.tools.nightvision.others: true
+
+  creativesuite.tools.clearfill:
+    description: Allows the player to use the /clearfill command.
+    default: true
+
+  creativesuite.tools.clearfill.others:
+    description: Allows the player to use the /clearfill command on other players.
+    default: true
+
+  creativesuite.tools.nightvision:
+    description: Allows the player to use the /nnightvision command.
+    default: true
+
+  creativesuite.tools.nightvision.others:
+    description: Allows the player to use the /nnightvision command on other players.
+    default: true
+
+  creativesuite.tools.drop:
+    description: Allows the player to use the /drop and /anvil commands.
+    default: true
+
+  creativesuite.tools.smite:
+    description: Allows the player to use the /smite command.
+    default: true

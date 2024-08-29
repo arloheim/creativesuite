@@ -19,6 +19,9 @@ import dev.danae.creativesuite.plugin.commands.hotbar.HotbarLoadCommand;
 import dev.danae.creativesuite.plugin.commands.hotbar.HotbarRemoveCommand;
 import dev.danae.creativesuite.plugin.commands.hotbar.HotbarRenameCommand;
 import dev.danae.creativesuite.plugin.commands.hotbar.HotbarSaveCommand;
+import dev.danae.creativesuite.plugin.commands.tools.ToolsClearFillCommand;
+import dev.danae.creativesuite.plugin.commands.tools.ToolsDropCommand;
+import dev.danae.creativesuite.plugin.commands.tools.ToolsNightVisionCommand;
 import dev.danae.creativesuite.plugin.listeners.SignMaterialListener;
 import dev.danae.creativesuite.plugin.migrations.v1_1_1.ConfigurationSerializableMigration;
 import dev.danae.commons.commands.CommandGroup;
@@ -27,6 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -77,7 +81,7 @@ public class CreativeSuitePlugin extends JavaPlugin implements MessageManager
   public void onEnable()
   {    
     // Create the components
-    this.manager = new CreativeSuiteManager(this);
+    this.manager = new CreativeSuiteManager(this, this.options);
     this.signMaterialListener = new SignMaterialListener(this);
 
     // Load the data
@@ -119,6 +123,21 @@ public class CreativeSuitePlugin extends JavaPlugin implements MessageManager
 
     new AliasRunCommand(this.manager)
       .publishCommandHandler(this, this.getCommand("run"));
+
+    new ToolsClearFillCommand(this.getManager())
+      .publishCommandHandler(this, this.getCommand("clearfill"));
+
+    new ToolsNightVisionCommand(this.getManager())
+      .publishCommandHandler(this, this.getCommand("nightvision"));
+
+    new ToolsDropCommand(this.getManager())
+      .publishCommandHandler(this, this.getCommand("drop"));
+
+    new ToolsDropCommand(this.getManager(), Material.ANVIL)
+      .publishCommandHandler(this, this.getCommand("anvil"));
+
+    new ToolsNightVisionCommand(this.getManager())
+      .publishCommandHandler(this, this.getCommand("smite"));
   }
 
 
@@ -147,6 +166,21 @@ public class CreativeSuitePlugin extends JavaPlugin implements MessageManager
     // Save the default configuration
     this.saveDefaultConfig();
     this.reloadConfig();
+
+    // Load the clearfill tool configuration
+    var clearfillToolConfig = this.getConfig().getConfigurationSection("clearfill-tool");
+    if (clearfillToolConfig != null)
+    {
+      this.options.setClearfillToolHotbar(clearfillToolConfig.getString("hotbar", null));
+      this.options.setClearfillToolElytraAdded(clearfillToolConfig.getBoolean("elytra-added", true));
+    }
+
+    // Load the drop tool configuration
+    var dropToolConfig = this.getConfig().getConfigurationSection("drop-tool");
+    if (dropToolConfig != null)
+    {
+      this.options.setDropToolRelativeHeight(dropToolConfig.getInt("relative-height", 5));
+    }
 
     // Load the messages configuration
     this.messages.clear();

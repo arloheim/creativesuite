@@ -10,6 +10,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 
 
 public class Parser
@@ -243,10 +244,7 @@ public class Parser
     if (m.group("player") != null)
     {
       var playerName = m.group("player");
-      var player = Bukkit.getPlayer(playerName);
-      if (player == null)
-        throw new ParserException(String.format("%s is an invalid online player", playerName));
-
+      var player = parsePlayer(playerName);
       if (player.getLocation().getWorld() != origin.getWorld())
         throw new ParserException(String.format("%s is not in the same world as the origin location", player.getName()));
 
@@ -272,5 +270,15 @@ public class Parser
   public static Location parseLocation(String string, Location origin) throws ParserException
   {
     return parseLocation(string, origin, Map.of());
+  }
+
+  // parse a player from a string
+  public static Player parsePlayer(String string) throws ParserException
+  {
+    var player = Bukkit.getPlayer(string);
+    if (player == null)
+      throw new ParserException(String.format("%s is an invalid online player", string));
+
+    return player;
   }
 }

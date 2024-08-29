@@ -7,13 +7,24 @@ import dev.danae.creativesuite.model.alias.AliasMap;
 import dev.danae.creativesuite.model.charmap.Charmap;
 import dev.danae.creativesuite.model.hotbar.Hotbar;
 import dev.danae.creativesuite.model.hotbar.HotbarMap;
+import dev.danae.creativesuite.util.Toggle;
 import java.util.Map;
 import net.md_5.bungee.api.chat.BaseComponent;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 
 public class CreativeSuiteManager extends CreativeSuitePluginComponent implements Manager
 {
+  // The options for the manager
+  private final CreativeSuitePluginOptions options;
+
   // The message manager
   private final MessageManager messageManager;
 
@@ -28,9 +39,11 @@ public class CreativeSuiteManager extends CreativeSuitePluginComponent implement
 
 
   // Constructor
-  public CreativeSuiteManager(CreativeSuitePlugin plugin)
+  public CreativeSuiteManager(CreativeSuitePlugin plugin, CreativeSuitePluginOptions options)
   {
     super(plugin);
+
+    this.options = options;
 
     this.messageManager = plugin;
     this.aliases = new AliasMap(plugin, "aliases.yml");
@@ -136,5 +149,77 @@ public class CreativeSuiteManager extends CreativeSuitePluginComponent implement
   public void removeFromCharmap(String codePoints)
   {
     this.charmap.removeCodePoints(codePoints);
+  }
+
+  // Clear the inventory of a player and fill it with a hotbar
+  @Override
+  public void clearInventory(Player player)
+  {
+    // Get the player's inventory
+    var inventory = player.getInventory();
+    
+    // Clear the inventory of the player
+    inventory.clear();
+
+    // Apply the hotbar, if applicable
+    if (this.options.getClearfillToolHotbar() != null)
+    {
+      var key = NamespacedKey.fromString(this.options.getClearfillToolHotbar());
+      if (key != null)
+      {
+        var hotbar = this.getHotbar(key);
+        if (hotbar != null)
+          hotbar.applyTo(inventory);
+      }
+    }
+
+    // Equip the elytra, if applicable
+    if (this.options.isClearfillToolElytraAdded())
+    {
+      var elytra = new ItemStack(Material.ELYTRA, 1);
+      elytra.editMeta(meta -> meta.setUnbreakable(true));
+      inventory.setChestplate(elytra);
+    }
+  }
+
+  // Update the night vision effect of a player
+  @Override
+  public void updateNightVision(Player player, Toggle toggle)
+  {
+    // Convert the toggle to a boolean
+    var hasNightVision = player.hasPotionEffect(PotionEffectType.NIGHT_VISION);
+    var enabled = toggle.toBoolean(hasNightVision);
+
+    // Remove the night vision potion effect
+    player.removePotionEffect(PotionEffectType.NIGHT_VISION);
+
+    // Check if the effect should enable and the player has no effect
+    if (enabled)
+    {
+      // Add a new night vision potion effect
+      var effect = new PotionEffect(PotionEffectType.NIGHT_VISION, PotionEffect.INFINITE_DURATION, 1, false, false, false);
+      player.addPotionEffect(effect);
+    }
+  }
+
+  // Drop a gravity-affected block at a location
+  @Override
+  public void drop(Material material, Location location)
+  {
+    // Get the drop location
+    var dropLocation = location.clone();
+    while (dropLocation.getBlock().getRelative(BlockFace.UP).getType().isAir() && dropLocation.distance(location) <= this.options.getDropToolRelativeHeight())
+      dropLocation = dropLocation.getBlock().getRelative(BlockFace.UP).getLocation();
+    
+    // Spawn a block at the drop location
+    dropLocation.getBlock().setType(material);
+  }
+
+  // Execute a lightning effect at a location
+  @Override
+  public void smite(Location location)
+  {
+    // Strike lightning at the specified location
+    location.getWorld().strikeLightning(location);
   }
 }

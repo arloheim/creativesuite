@@ -1,3 +1,18 @@
+# Clearfill tool configuration
+clearfill-tool:
+  # The hotbar to fill the inventory with when clearing
+  hotbar: cs:clearfill
+
+  # Should elytra be equipped when clearing?
+  elytra-added: true
+
+
+# Drop tool configuration
+drop-tool:
+  # The relative height in blocks from which to drop a block
+  relative-height: 5
+
+
 # Messages that the plugin sends to command senders
 messages:
   # Messages for the /alias command

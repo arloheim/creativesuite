@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 
 
 public class Scanner
@@ -269,5 +270,17 @@ public class Scanner
   public Location nextLocation(Location origin, Location defaultValue)
   {
     return ParserSupplier.getOrElse(() -> this.nextLocation(origin), defaultValue);
+  }
+
+  // Return the next element in the scanner as a player
+  public Player nextPlayer() throws ParserException
+  {
+    return this.take(Parser::parsePlayer, "player");
+  }
+  
+  // Return the next element in the scanner as a player, or the default value if no such element exists
+  public Player nextPlayer(Player defaultValue)
+  {
+    return ParserSupplier.getOrElse(() -> this.nextPlayer(), defaultValue);
   }
 }

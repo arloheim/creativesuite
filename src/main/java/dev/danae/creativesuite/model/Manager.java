@@ -4,8 +4,12 @@ import dev.danae.commons.messages.MessageManager;
 import dev.danae.creativesuite.model.alias.Alias;
 import dev.danae.creativesuite.model.charmap.Charmap;
 import dev.danae.creativesuite.model.hotbar.Hotbar;
+import dev.danae.creativesuite.util.Toggle;
 import java.util.Map;
+import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 
 
 public interface Manager extends MessageManager
@@ -42,4 +46,16 @@ public interface Manager extends MessageManager
 
   // Remove code points from the charmap
   public void removeFromCharmap(String codePoints);
+
+  // Clear the inventory of a player and fill it with a hotbar
+  public void clearInventory(Player player);
+
+  // Update the night vision effect of a player
+  public void updateNightVision(Player player, Toggle enabled);
+
+  // Drop a gravity-affected block at a location
+  public void drop(Material material, Location location);
+
+  // Execute a lightning effect at a location
+  public void smite(Location location);
 }
