@@ -22,6 +22,7 @@ import dev.danae.creativesuite.plugin.commands.hotbar.HotbarSaveCommand;
 import dev.danae.creativesuite.plugin.commands.tools.ToolsClearFillCommand;
 import dev.danae.creativesuite.plugin.commands.tools.ToolsDropCommand;
 import dev.danae.creativesuite.plugin.commands.tools.ToolsNightVisionCommand;
+import dev.danae.creativesuite.plugin.commands.tools.ToolsSmiteCommand;
 import dev.danae.creativesuite.plugin.listeners.SignMaterialListener;
 import dev.danae.creativesuite.plugin.migrations.v1_1_1.ConfigurationSerializableMigration;
 import dev.danae.commons.commands.CommandGroup;
@@ -136,7 +137,7 @@ public class CreativeSuitePlugin extends JavaPlugin implements MessageManager
     new ToolsDropCommand(this.getManager(), Material.ANVIL)
       .publishCommandHandler(this, this.getCommand("anvil"));
 
-    new ToolsNightVisionCommand(this.getManager())
+    new ToolsSmiteCommand(this.getManager())
       .publishCommandHandler(this, this.getCommand("smite"));
   }
 

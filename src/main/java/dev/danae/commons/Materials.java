@@ -41,8 +41,7 @@ public class Materials
   // Return a stream of all material names matching the filter mapped with the specified operator
   public static Stream<String> names(Filter filter, UnaryOperator<String> mapper)
   {
-    return Arrays.stream(Material.values())
-      .filter(material -> matches(material, filter))
+    return values(filter)
       .map(material -> mapper.apply(material.name().toLowerCase()))
       .sorted();
   }

@@ -3,7 +3,6 @@ package dev.danae.commons;
 import dev.danae.commons.commands.CommandContext;
 import java.util.List;
 import java.util.stream.Stream;
-import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
 
 
@@ -17,7 +16,7 @@ public class Locations
 
     var locations = Stream.concat(aliases.map(key -> String.format("#%s", key)), Stream.of("~"));
     if (context.hasArgumentsCount(argumentIndex + 1))
-      locations = Stream.concat(locations, Bukkit.getOnlinePlayers().stream().map(p -> p.getName()));
+      locations = Stream.concat(locations, Players.names());
   
     return locations.sorted().toList();
   }

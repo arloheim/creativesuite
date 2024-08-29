@@ -53,8 +53,6 @@ public class HotbarSaveCommand extends ManagerCommand
       var key = scanner.nextNamespacedKey();
 
       var hotbar = this.getManager().getHotbar(key);
-      if (hotbar == null)
-        throw new CommandException(this.formatMessage("hotbar-not-found", Map.of("name", key)));
 
       // Check if we can overwrite and existing hotbar
       if (!this.overwriteHotbars && hotbar != null)
