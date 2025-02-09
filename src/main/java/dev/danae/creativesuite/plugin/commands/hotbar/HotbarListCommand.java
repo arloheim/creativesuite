@@ -33,7 +33,9 @@ public class HotbarListCommand extends ManagerCommand
       throw new CommandUsageException();
     
     // Send a message listing the hotbars
-    context.sendMessage(this.getManager().formatMessage("hotbar-list", Map.of("count", this.getManager().getDefinedHotbars().size(), "hotbars", this.createListComponent(context))));
+    context.sendMessage(this.getManager().formatMessage("hotbar-list", Map.of(
+      "count", this.getManager().getDefinedHotbars().size(),
+      "hotbars", this.createListComponent(context))));
   }
 
   // Handle tab completion of the command

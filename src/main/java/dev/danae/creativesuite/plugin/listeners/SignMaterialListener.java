@@ -29,6 +29,7 @@ public class SignMaterialListener extends CreativeSuitePluginComponent implement
     Material.DARK_OAK_SIGN,
     Material.MANGROVE_SIGN,
     Material.CHERRY_SIGN,
+    Material.PALE_OAK_SIGN,
     Material.BAMBOO_SIGN,
     Material.CRIMSON_SIGN,
     Material.WARPED_SIGN
@@ -44,6 +45,7 @@ public class SignMaterialListener extends CreativeSuitePluginComponent implement
     Material.DARK_OAK_WALL_SIGN,
     Material.MANGROVE_WALL_SIGN,
     Material.CHERRY_WALL_SIGN,
+    Material.PALE_OAK_WALL_SIGN,
     Material.BAMBOO_WALL_SIGN,
     Material.CRIMSON_WALL_SIGN,
     Material.WARPED_WALL_SIGN
@@ -59,6 +61,7 @@ public class SignMaterialListener extends CreativeSuitePluginComponent implement
     Material.DARK_OAK_HANGING_SIGN,
     Material.MANGROVE_HANGING_SIGN,
     Material.CHERRY_HANGING_SIGN,
+    Material.PALE_OAK_HANGING_SIGN,
     Material.BAMBOO_HANGING_SIGN,
     Material.CRIMSON_HANGING_SIGN,
     Material.WARPED_HANGING_SIGN
@@ -74,6 +77,7 @@ public class SignMaterialListener extends CreativeSuitePluginComponent implement
     Material.DARK_OAK_WALL_HANGING_SIGN,
     Material.MANGROVE_WALL_HANGING_SIGN,
     Material.CHERRY_WALL_HANGING_SIGN,
+    Material.PALE_OAK_WALL_HANGING_SIGN,
     Material.BAMBOO_WALL_HANGING_SIGN,
     Material.CRIMSON_WALL_HANGING_SIGN,
     Material.WARPED_WALL_HANGING_SIGN
