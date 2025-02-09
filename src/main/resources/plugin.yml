@@ -4,7 +4,7 @@ version: 2.1.0
 author: danae
 website: https://github.com/arloheim/creativesuite
 main: dev.danae.creativesuite.plugin.CreativeSuitePlugin
-api-version: 1.20
+api-version: 1.21.4
 
 
 commands:
