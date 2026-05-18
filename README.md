@@ -13,4 +13,4 @@ CreativeSuite is always open for improvement! Should you encounter a bug while u
 
 ## License
 
-GregoRail is licensed under the [GPL 3.0](https://github.com/arloheim/creativesuite/blob/master/LICENSE.txt) license.
+CreativeSuite is licensed under the GNU GPL 3.0 license. See the [license file](LICENSE.txt) for more information.
